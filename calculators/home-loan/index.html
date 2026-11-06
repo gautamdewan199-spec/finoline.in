@@ -1,0 +1,276 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0" />
+  <title>Home Loan Prepayment & Interest Crusher Engine | finoline.in</title>
+  <meta name="description" content="Calculate home loan EMIs, interest savings, and tenure reduction using lump-sum or annual recurring prepayments." />
+  
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:wght@500;600;700&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
+
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: ['Inter', 'sans-serif'],
+            serif: ['Playfair Display', 'serif'],
+            mono: ['JetBrains Mono', 'monospace'],
+          }
+        }
+      }
+    }
+  </script>
+</head>
+<body class="bg-slate-950 text-slate-100 font-sans antialiased min-h-screen flex flex-col selection:bg-amber-400 selection:text-slate-950">
+
+  <!-- Navigation Bar -->
+  <header class="bg-slate-900/90 backdrop-blur-md border-b border-slate-800 sticky top-0 z-50">
+    <div class="max-w-6xl mx-auto px-6 py-4 flex items-center justify-between">
+      <a href="/" class="flex items-center space-x-2 tracking-tight group">
+        <span class="font-serif text-3xl font-semibold text-slate-50 group-hover:text-amber-400 transition">finoline</span>
+        <span class="font-mono text-[11px] font-bold text-amber-400 uppercase tracking-widest bg-amber-400/10 px-2 py-0.5 rounded border border-amber-400/30">.in</span>
+      </a>
+      <div class="flex items-center space-x-6 text-xs font-mono font-bold uppercase tracking-wider">
+        <a href="/calculators/" class="text-slate-400 hover:text-amber-400 transition">← Calculators Hub</a>
+      </div>
+    </div>
+  </header>
+
+  <!-- Calculator Main Interface -->
+  <main class="max-w-4xl mx-auto px-6 py-12 flex-grow w-full space-y-10">
+    
+    <!-- Header -->
+    <div class="space-y-3">
+      <span class="font-mono text-xs font-bold text-amber-400 bg-amber-400/10 border border-amber-400/30 px-3 py-1 rounded uppercase tracking-widest">Liability Optimization</span>
+      <h1 class="font-serif text-3xl md:text-5xl font-normal text-slate-50">Home Loan Interest Crusher</h1>
+      <p class="text-slate-400 text-sm md:text-base font-light">Simulate how extra principal prepayments slash your total interest outgo and shorten loan tenure.</p>
+    </div>
+
+    <!-- Inputs & Outputs Grid -->
+    <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
+      
+      <!-- Controls Panel -->
+      <div class="lg:col-span-6 bg-slate-900 border border-slate-800 p-6 md:p-8 rounded-3xl space-y-6">
+        
+        <!-- Loan Principal -->
+        <div class="space-y-2">
+          <div class="flex justify-between font-mono text-xs">
+            <label class="text-slate-300 font-bold">Home Loan Amount</label>
+            <span id="loan-val" class="text-amber-400 font-bold">₹50,00,000</span>
+          </div>
+          <input type="range" id="loan-input" min="500000" max="30000000" step="500000" value="5000000" oninput="calculateLoan()" class="w-full accent-amber-400 bg-slate-950 h-2 rounded-lg cursor-pointer">
+        </div>
+
+        <!-- Interest Rate -->
+        <div class="space-y-2">
+          <div class="flex justify-between font-mono text-xs">
+            <label class="text-slate-300 font-bold">Interest Rate (p.a.)</label>
+            <span id="rate-val" class="text-amber-400 font-bold">8.5%</span>
+          </div>
+          <input type="range" id="rate-input" min="6.5" max="14.0" step="0.1" value="8.5" oninput="calculateLoan()" class="w-full accent-amber-400 bg-slate-950 h-2 rounded-lg cursor-pointer">
+        </div>
+
+        <!-- Loan Tenure -->
+        <div class="space-y-2">
+          <div class="flex justify-between font-mono text-xs">
+            <label class="text-slate-300 font-bold">Loan Tenure</label>
+            <span id="tenure-val" class="text-amber-400 font-bold">20 Years</span>
+          </div>
+          <input type="range" id="tenure-input" min="5" max="30" step="1" value="20" oninput="calculateLoan()" class="w-full accent-amber-400 bg-slate-950 h-2 rounded-lg cursor-pointer">
+        </div>
+
+        <!-- Extra Annual Prepayment -->
+        <div class="space-y-2">
+          <div class="flex justify-between font-mono text-xs">
+            <label class="text-slate-300 font-bold">Annual Extra Prepayment</label>
+            <span id="prepay-val" class="text-amber-400 font-bold">₹1,00,000</span>
+          </div>
+          <input type="range" id="prepay-input" min="0" max="500000" step="10000" value="100000" oninput="calculateLoan()" class="w-full accent-amber-400 bg-slate-950 h-2 rounded-lg cursor-pointer">
+        </div>
+
+      </div>
+
+      <!-- Results & Chart Panel -->
+      <div class="lg:col-span-6 bg-slate-900 border border-slate-800 p-6 md:p-8 rounded-3xl space-y-6">
+        
+        <div class="grid grid-cols-2 gap-4 border-b border-slate-800 pb-6">
+          <div>
+            <span class="font-mono text-[11px] text-slate-500 uppercase">Monthly EMI</span>
+            <p id="emi-amount" class="font-serif text-xl font-bold text-slate-200 mt-1">₹0</p>
+          </div>
+          <div>
+            <span class="font-mono text-[11px] text-slate-500 uppercase">Original Interest</span>
+            <p id="original-interest" class="font-serif text-xl font-bold text-rose-400/90 mt-1">₹0</p>
+          </div>
+        </div>
+
+        <div class="space-y-4">
+          <div>
+            <span class="font-mono text-[11px] text-amber-400 uppercase">Total Interest Saved</span>
+            <p id="interest-saved" class="font-serif text-3xl md:text-4xl font-bold text-amber-400 mt-1">₹0</p>
+          </div>
+
+          <div class="flex items-center justify-between bg-slate-950 border border-slate-800 p-4 rounded-2xl">
+            <span class="font-mono text-xs text-slate-400">Tenure Shortened By</span>
+            <span id="tenure-reduced" class="font-mono text-sm font-bold text-emerald-400">0 Years</span>
+          </div>
+        </div>
+
+        <!-- Chart Container -->
+        <div class="relative aspect-square max-h-48 mx-auto pt-2">
+          <canvas id="loanChart"></canvas>
+        </div>
+
+      </div>
+
+    </div>
+
+    <!-- Bottom Ecosystem Navigation Grid -->
+    <section class="mt-16 pt-12 border-t border-slate-800 bg-slate-900/60 -mx-6 px-6 py-10 rounded-3xl">
+      <div class="max-w-4xl mx-auto space-y-6">
+        <div class="flex items-center justify-between">
+          <div>
+            <span class="font-mono text-xs font-bold text-amber-400 uppercase tracking-widest">Ecosystem Navigation</span>
+            <h3 class="font-serif text-2xl font-normal text-slate-50 mt-1">Explore Other Calculators</h3>
+          </div>
+          <a href="/calculators/" class="text-xs font-mono font-bold text-amber-400 hover:underline flex items-center space-x-1">
+            <span>View All 14 Tools</span>
+            <span>→</span>
+          </a>
+        </div>
+
+        <!-- Quick Switcher Grid -->
+        <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-3 font-mono text-xs">
+          <a href="/calculators/sip/" class="bg-slate-950 border border-slate-800 hover:border-amber-400 p-3 rounded-xl text-slate-300 hover:text-amber-300 transition text-center font-semibold">
+            📈 SIP Compounder
+          </a>
+          <a href="/calculators/lumpsum/" class="bg-slate-950 border border-slate-800 hover:border-amber-400 p-3 rounded-xl text-slate-300 hover:text-amber-300 transition text-center font-semibold">
+            💰 Lumpsum Calculator
+          </a>
+          <a href="/calculators/swp/" class="bg-slate-950 border border-slate-800 hover:border-amber-400 p-3 rounded-xl text-slate-300 hover:text-amber-300 transition text-center font-semibold">
+            🏖️ Retirement SWP
+          </a>
+          <a href="/calculators/ppf/" class="bg-slate-950 border border-slate-800 hover:border-amber-400 p-3 rounded-xl text-slate-300 hover:text-amber-300 transition text-center font-semibold">
+            🛡️ PPF Tax-Free
+          </a>
+          <a href="/calculators/tax-regime/" class="bg-slate-950 border border-slate-800 hover:border-amber-400 p-3 rounded-xl text-slate-300 hover:text-amber-300 transition text-center font-semibold">
+            ⚖️ Tax Regime 2026
+          </a>
+          <a href="/calculators/nps/" class="bg-slate-950 border border-slate-800 hover:border-amber-400 p-3 rounded-xl text-slate-300 hover:text-amber-300 transition text-center font-semibold">
+            🏛️ NPS Pension Engine
+          </a>
+          <a href="/calculators/car-loan/" class="bg-slate-950 border border-slate-800 hover:border-amber-400 p-3 rounded-xl text-slate-300 hover:text-amber-300 transition text-center font-semibold">
+            🚘 Car Loan EMI
+          </a>
+          <a href="/calculators/business-loan/" class="bg-slate-950 border border-slate-800 hover:border-amber-400 p-3 rounded-xl text-slate-300 hover:text-amber-300 transition text-center font-semibold">
+            🏢 Business Loan CC/OD
+          </a>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <footer class="bg-slate-950 border-t border-slate-800 py-10 px-6 text-center text-xs text-slate-500">
+    <p class="font-serif text-xl font-medium text-slate-200">finoline<span class="font-mono text-xs text-amber-400">.in</span></p>
+    <p class="mt-1">© 2026 finoline.in. Independent financial literacy for self-directed investors.</p>
+  </footer>
+
+  <script>
+    let chartInstance = null;
+
+    function formatINR(val) {
+      return new Intl.NumberFormat('en-IN', { style: 'currency', currency: 'INR', maximumFractionDigits: 0 }).format(Math.max(0, val));
+    }
+
+    function calculateLoan() {
+      const P = parseFloat(document.getElementById('loan-input').value);
+      const annualRate = parseFloat(document.getElementById('rate-input').value);
+      const r = annualRate / 12 / 100;
+      const years = parseInt(document.getElementById('tenure-input').value);
+      const n = years * 12;
+      const annualPrepayment = parseFloat(document.getElementById('prepay-input').value);
+
+      document.getElementById('loan-val').innerText = formatINR(P);
+      document.getElementById('rate-val').innerText = annualRate.toFixed(1) + '%';
+      document.getElementById('tenure-val').innerText = years + ' Years';
+      document.getElementById('prepay-val').innerText = formatINR(annualPrepayment);
+
+      // Standard Monthly EMI Calculation
+      const emi = (P * r * Math.pow(1 + r, n)) / (Math.pow(1 + r, n) - 1);
+      const originalTotalPayable = emi * n;
+      const originalInterest = originalTotalPayable - P;
+
+      document.getElementById('emi-amount').innerText = formatINR(emi);
+      document.getElementById('original-interest').innerText = formatINR(originalInterest);
+
+      // Amortization Schedule with Prepayments
+      let balance = P;
+      let newTotalInterest = 0;
+      let monthsElapsed = 0;
+
+      while (balance > 0 && monthsElapsed < n) {
+        monthsElapsed++;
+        const interestForMonth = balance * r;
+        newTotalInterest += interestForMonth;
+
+        let principalForMonth = emi - interestForMonth;
+        balance -= principalForMonth;
+
+        // Apply Annual Prepayment at month 12, 24, 36...
+        if (monthsElapsed % 12 === 0 && balance > 0 && annualPrepayment > 0) {
+          balance -= annualPrepayment;
+        }
+
+        if (balance < 0) balance = 0;
+      }
+
+      const interestSaved = Math.max(0, originalInterest - newTotalInterest);
+      const monthsSaved = Math.max(0, n - monthsElapsed);
+      const yearsSaved = (monthsSaved / 12).toFixed(1);
+
+      document.getElementById('interest-saved').innerText = formatINR(interestSaved);
+      document.getElementById('tenure-reduced').innerText = `${yearsSaved} Years (${monthsSaved} Mos)`;
+
+      // Render Comparison Chart
+      const ctx = document.getElementById('loanChart').getContext('2d');
+      if (chartInstance) chartInstance.destroy();
+
+      chartInstance = new Chart(ctx, {
+        type: 'bar',
+        data: {
+          labels: ['Without Prepayment', 'With Prepayment'],
+          datasets: [
+            {
+              label: 'Principal',
+              data: [P, P],
+              backgroundColor: '#334155'
+            },
+            {
+              label: 'Total Interest',
+              data: [originalInterest, newTotalInterest],
+              backgroundColor: ['#f87171', '#fbbf24']
+            }
+          ]
+        },
+        options: {
+          responsive: true,
+          maintainAspectRatio: false,
+          plugins: { legend: { display: false } },
+          scales: {
+            x: { stacked: true, grid: { display: false }, ticks: { color: '#64748b', font: { size: 10 } } },
+            y: { stacked: true, grid: { color: '#1e293b' }, ticks: { color: '#64748b', font: { size: 10 } } }
+          }
+        }
+      });
+    }
+
+    document.addEventListener('DOMContentLoaded', calculateLoan);
+  </script>
+</body>
+</html>
