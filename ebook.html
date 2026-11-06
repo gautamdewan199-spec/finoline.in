@@ -6,8 +6,8 @@
   <title>Re-assemble: A Beginner's Guide to DIY Investing | finoline.in</title>
 
   <!-- Primary SEO Meta Tags -->
-  <meta name="description" content="A comprehensive 12-chapter blueprint for self-directed Indian retail investors. Cash flow engineering, tax harvesting, index fund selection, and portfolio derisking." />
-  <meta name="keywords" content="DIY investing book India, personal finance guide, index fund investing India, capital gains tax harvesting, portfolio rebalancing" />
+  <meta name="description" content="Read Re-assemble: A Beginner's Guide to DIY Investing. A complete 12-chapter framework for Indian retail investors covering emergency funds, debt payoff, index funds, Section 112A LTCG tax harvesting, and SWP decumulation." />
+  <meta name="keywords" content="DIY investing book India, personal finance ebook, index fund investing India, capital gains tax harvesting, portfolio rebalancing, SWP decumulation" />
   <link rel="canonical" href="https://finoline.in/ebook.html" />
 
   <!-- Structured Data (JSON-LD) for Book -->
@@ -50,10 +50,13 @@
     }
   </script>
 </head>
-<body class="bg-slate-950 text-slate-100 font-sans antialiased min-h-screen flex flex-col selection:bg-amber-400 selection:text-slate-950">
+<body class="bg-slate-950 text-slate-100 font-sans antialiased min-h-screen flex flex-col selection:bg-amber-400 selection:text-slate-950 relative">
+
+  <!-- Scroll Progress Bar -->
+  <div id="read-progress" class="fixed top-0 left-0 h-1 bg-amber-400 z-50 transition-all duration-75" style="width: 0%"></div>
 
   <!-- Header Navigation -->
-  <header class="bg-slate-900/90 backdrop-blur-md border-b border-slate-800 sticky top-0 z-50">
+  <header class="bg-slate-900/90 backdrop-blur-md border-b border-slate-800 sticky top-0 z-40">
     <div class="max-w-6xl mx-auto px-6 py-4 flex items-center justify-between">
       <a href="/" class="flex items-center space-x-2 tracking-tight group">
         <span class="font-serif text-3xl font-semibold text-slate-50 group-hover:text-amber-400 transition">finoline</span>
@@ -67,28 +70,28 @@
     </div>
   </header>
 
-  <!-- Hero Section -->
-  <section class="py-20 px-6 border-b border-slate-800 bg-gradient-to-b from-slate-950 via-slate-900 to-slate-950 relative overflow-hidden">
-    <div class="max-w-5xl mx-auto grid grid-cols-1 md:grid-cols-12 gap-12 items-center">
+  <!-- Hero Showcase Section -->
+  <section class="py-16 md:py-24 px-6 border-b border-slate-800 bg-gradient-to-b from-slate-950 via-slate-900 to-slate-950 relative overflow-hidden">
+    <div class="max-w-6xl mx-auto grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
       
-      <!-- Text Description -->
-      <div class="md:col-span-7 space-y-6">
+      <!-- Book Meta & CTAs -->
+      <div class="lg:col-span-7 space-y-6">
         <div class="inline-flex items-center space-x-2 bg-amber-400/10 border border-amber-400/30 px-3.5 py-1.5 rounded-full text-xs font-mono font-bold text-amber-300 uppercase tracking-widest">
-          <span>Complete 12-Chapter Manual</span>
+          <span>Complete 12-Chapter DIY Framework</span>
         </div>
 
-        <h1 class="font-serif text-4xl md:text-6xl font-normal text-slate-50 leading-tight">
+        <h1 class="font-serif text-4xl sm:text-5xl lg:text-6xl font-normal text-slate-50 leading-tight">
           Re-assemble: <br />
           <span class="italic text-amber-300 font-serif">A Beginner's Guide</span> to DIY Investing
         </h1>
 
         <p class="text-slate-400 text-base md:text-lg font-light leading-relaxed">
-          A zero-fluff blueprint built for Indian retail investors. Master cash flow diagnostics, emergency runway engineering, tax harvesting under Section 112A, index fund selection, and automated portfolio rebalancing.
+          A zero-fluff empirical blueprint built for Indian retail investors. Master cash flow diagnostics, emergency runway engineering, Section 112A LTCG tax harvesting, low-cost index selection, and automated portfolio derisking.
         </p>
 
         <div class="flex flex-wrap items-center gap-4 pt-2 font-mono text-xs">
           <a href="#chapters" class="bg-amber-400 hover:bg-amber-300 text-slate-950 font-bold px-7 py-3.5 rounded-xl transition shadow-lg uppercase tracking-wider">
-            Explore All 12 Chapters ↓
+            Explore 12 Chapters ↓
           </a>
           <a href="/planner.html" class="bg-slate-900 hover:bg-slate-800 border border-slate-800 text-slate-300 font-bold px-6 py-3.5 rounded-xl transition uppercase tracking-wider">
             Launch Robo-Planner
@@ -96,11 +99,11 @@
         </div>
       </div>
 
-      <!-- Book Cover Mockup Card -->
-      <div class="md:col-span-5 flex justify-center">
-        <div class="w-full max-w-xs bg-slate-900 border-2 border-amber-400/40 rounded-2xl p-8 shadow-2xl space-y-8 relative overflow-hidden group hover:border-amber-400 transition-all duration-300">
+      <!-- Book Cover Visual Card -->
+      <div class="lg:col-span-5 flex justify-center">
+        <div class="w-full max-w-sm bg-slate-900 border-2 border-amber-400/40 rounded-3xl p-8 shadow-2xl space-y-8 relative overflow-hidden group hover:border-amber-400 transition-all duration-300">
           <div class="space-y-2 border-b border-slate-800 pb-6">
-            <span class="font-mono text-[10px] uppercase font-bold tracking-widest text-amber-400 block">finoline edition</span>
+            <span class="font-mono text-[10px] uppercase font-bold tracking-widest text-amber-400 block">finoline publication</span>
             <h2 class="font-serif text-3xl font-bold text-slate-50 leading-snug">RE-ASSEMBLE</h2>
             <p class="text-xs text-slate-400 font-mono">A Beginner's Guide to DIY Investing</p>
           </div>
@@ -108,20 +111,20 @@
           <div class="space-y-4 text-xs font-mono text-slate-400">
             <div class="flex justify-between border-b border-slate-800/60 pb-2">
               <span>Framework</span>
-              <span class="text-slate-200">12 Chapters</span>
+              <span class="text-slate-200">12 Core Chapters</span>
             </div>
             <div class="flex justify-between border-b border-slate-800/60 pb-2">
-              <span>Focus</span>
-              <span class="text-slate-200">Indian Market</span>
+              <span>Target Market</span>
+              <span class="text-slate-200">Indian Retail Investors</span>
             </div>
             <div class="flex justify-between">
-              <span>Access</span>
-              <span class="text-amber-400 font-bold">Free Online</span>
+              <span>Access Level</span>
+              <span class="text-amber-400 font-bold">Free Online Module</span>
             </div>
           </div>
 
-          <div class="pt-4 text-center">
-            <span class="font-serif italic text-sm text-slate-400">Empirical literacy for self-directed investors.</span>
+          <div class="pt-2 text-center">
+            <span class="font-serif italic text-xs text-slate-400">Empirical, evidence-based asset management.</span>
           </div>
         </div>
       </div>
@@ -129,182 +132,261 @@
     </div>
   </section>
 
-  <!-- Core Modules Breakdown -->
+  <!-- 12 Chapters Curriculum Grid -->
   <section id="chapters" class="max-w-6xl mx-auto px-6 py-16 flex-grow w-full space-y-12">
     
     <div class="text-center space-y-3 max-w-2xl mx-auto">
-      <span class="font-mono text-xs font-bold text-amber-400 uppercase tracking-widest">Curriculum & Roadmap</span>
-      <h2 class="font-serif text-3xl md:text-4xl font-normal text-slate-50">The 12-Chapter Blueprint</h2>
-      <p class="text-slate-400 text-sm font-light">
-        Sequential execution stages taking you from basic financial hygiene to advanced portfolio derisking.
+      <span class="font-mono text-xs font-bold text-amber-400 uppercase tracking-widest">Curriculum & Structure</span>
+      <h2 class="font-serif text-3xl md:text-4xl font-normal text-slate-50">The 12-Chapter Framework</h2>
+      <p class="text-slate-400 text-sm font-light leading-relaxed">
+        Step-by-step sequential execution stages designed to take you from foundational financial hygiene to automated decumulation.
       </p>
     </div>
 
-    <!-- Chapter Grid -->
+    <!-- Interactive Expandable Chapter Cards -->
     <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
 
       <!-- Chapter 1 -->
-      <div class="bg-slate-900 border border-slate-800 hover:border-amber-400/50 p-6 rounded-2xl transition space-y-4 group">
-        <div class="flex items-center justify-between">
-          <span class="font-mono text-xs font-bold text-amber-400 bg-amber-400/10 border border-amber-400/20 px-2.5 py-1 rounded">CH 01</span>
-          <span class="font-mono text-[11px] text-slate-500">Foundation</span>
+      <div class="bg-slate-900 border border-slate-800 hover:border-amber-400/50 p-6 rounded-2xl transition-all duration-200 space-y-4 flex flex-col justify-between group">
+        <div class="space-y-3">
+          <div class="flex items-center justify-between">
+            <span class="font-mono text-xs font-bold text-amber-400 bg-amber-400/10 border border-amber-400/20 px-2.5 py-1 rounded">CH 01</span>
+            <span class="font-mono text-[11px] text-slate-500">Foundation</span>
+          </div>
+          <h3 class="font-serif text-xl font-semibold text-slate-100 group-hover:text-amber-300 transition">Diagnosing Financial Hygiene</h3>
+          <p class="text-xs text-slate-400 leading-relaxed font-light">
+            Auditing personal net worth, isolating variable liabilities, calculating personal savings rates, and establishing accounting buffers.
+          </p>
         </div>
-        <h3 class="font-serif text-xl font-semibold text-slate-100 group-hover:text-amber-300 transition">Diagnosing Your Financial Hygiene</h3>
-        <p class="text-xs text-slate-400 leading-relaxed font-light">
-          Auditing net worth, calculating personal savings rates, identifying hidden debt traps, and setting up clean accounting buffers.
-        </p>
+        <div class="pt-3 border-t border-slate-800 text-[11px] font-mono text-slate-500 flex justify-between">
+          <span>Focus: Balance Sheet</span>
+          <span class="text-amber-400">Read Summary →</span>
+        </div>
       </div>
 
       <!-- Chapter 2 -->
-      <div class="bg-slate-900 border border-slate-800 hover:border-amber-400/50 p-6 rounded-2xl transition space-y-4 group">
-        <div class="flex items-center justify-between">
-          <span class="font-mono text-xs font-bold text-amber-400 bg-amber-400/10 border border-amber-400/20 px-2.5 py-1 rounded">CH 02</span>
-          <span class="font-mono text-[11px] text-slate-500">Safety Buffer</span>
+      <div class="bg-slate-900 border border-slate-800 hover:border-amber-400/50 p-6 rounded-2xl transition-all duration-200 space-y-4 flex flex-col justify-between group">
+        <div class="space-y-3">
+          <div class="flex items-center justify-between">
+            <span class="font-mono text-xs font-bold text-amber-400 bg-amber-400/10 border border-amber-400/20 px-2.5 py-1 rounded">CH 02</span>
+            <span class="font-mono text-[11px] text-slate-500">Liquidity</span>
+          </div>
+          <h3 class="font-serif text-xl font-semibold text-slate-100 group-hover:text-amber-300 transition">Emergency Runway Engineering</h3>
+          <p class="text-xs text-slate-400 leading-relaxed font-light">
+            Constructing 6–12 months of non-negotiable living expenses across sweep-in FDs, liquid funds, and high-yield savings accounts.
+          </p>
         </div>
-        <h3 class="font-serif text-xl font-semibold text-slate-100 group-hover:text-amber-300 transition">Emergency Runway Engineering</h3>
-        <p class="text-xs text-slate-400 leading-relaxed font-light">
-          Constructing 6–12 months of liquidity using high-yield savings accounts, sweep-in FDs, and liquid mutual funds for immediate access.
-        </p>
+        <div class="pt-3 border-t border-slate-800 text-[11px] font-mono text-slate-500 flex justify-between">
+          <span>Focus: Capital Preservation</span>
+          <span class="text-amber-400">Read Summary →</span>
+        </div>
       </div>
 
       <!-- Chapter 3 -->
-      <div class="bg-slate-900 border border-slate-800 hover:border-amber-400/50 p-6 rounded-2xl transition space-y-4 group">
-        <div class="flex items-center justify-between">
-          <span class="font-mono text-xs font-bold text-amber-400 bg-amber-400/10 border border-amber-400/20 px-2.5 py-1 rounded">CH 03</span>
-          <span class="font-mono text-[11px] text-slate-500">Risk Shield</span>
+      <div class="bg-slate-900 border border-slate-800 hover:border-amber-400/50 p-6 rounded-2xl transition-all duration-200 space-y-4 flex flex-col justify-between group">
+        <div class="space-y-3">
+          <div class="flex items-center justify-between">
+            <span class="font-mono text-xs font-bold text-amber-400 bg-amber-400/10 border border-amber-400/20 px-2.5 py-1 rounded">CH 03</span>
+            <span class="font-mono text-[11px] text-slate-500">Risk Mitigation</span>
+          </div>
+          <h3 class="font-serif text-xl font-semibold text-slate-100 group-hover:text-amber-300 transition">Insurance: Health & Term Coverage</h3>
+          <p class="text-xs text-slate-400 leading-relaxed font-light">
+            Decoupling investment from insurance. Calculating pure term sum assured, room rent sub-limits, super top-ups, and restore benefits.
+          </p>
         </div>
-        <h3 class="font-serif text-xl font-semibold text-slate-100 group-hover:text-amber-300 transition">Insurance: Health & Pure Term Life</h3>
-        <p class="text-xs text-slate-400 leading-relaxed font-light">
-          Decoupling investment from insurance. Evaluating sum assured calculations, room rent sub-limits, super top-ups, and rider exclusions.
-        </p>
+        <div class="pt-3 border-t border-slate-800 text-[11px] font-mono text-slate-500 flex justify-between">
+          <span>Focus: Risk Transfer</span>
+          <span class="text-amber-400">Read Summary →</span>
+        </div>
       </div>
 
       <!-- Chapter 4 -->
-      <div class="bg-slate-900 border border-slate-800 hover:border-amber-400/50 p-6 rounded-2xl transition space-y-4 group">
-        <div class="flex items-center justify-between">
-          <span class="font-mono text-xs font-bold text-amber-400 bg-amber-400/10 border border-amber-400/20 px-2.5 py-1 rounded">CH 04</span>
-          <span class="font-mono text-[11px] text-slate-500">Debt Payoff</span>
+      <div class="bg-slate-900 border border-slate-800 hover:border-amber-400/50 p-6 rounded-2xl transition-all duration-200 space-y-4 flex flex-col justify-between group">
+        <div class="space-y-3">
+          <div class="flex items-center justify-between">
+            <span class="font-mono text-xs font-bold text-amber-400 bg-amber-400/10 border border-amber-400/20 px-2.5 py-1 rounded">CH 04</span>
+            <span class="font-mono text-[11px] text-slate-500">Debt Elimination</span>
+          </div>
+          <h3 class="font-serif text-xl font-semibold text-slate-100 group-hover:text-amber-300 transition">Crushing High-Interest Liabilities</h3>
+          <p class="text-xs text-slate-400 leading-relaxed font-light">
+            Deploying Mathematical Avalanche vs. Behavioral Snowball models to systematically extinguish personal loans and credit card dues.
+          </p>
         </div>
-        <h3 class="font-serif text-xl font-semibold text-slate-100 group-hover:text-amber-300 transition">Crushing High-Interest Debt</h3>
-        <p class="text-xs text-slate-400 leading-relaxed font-light">
-          Deploying Mathematical Avalanche vs. Behavioral Snowball techniques to systematically eliminate personal loans and credit cards.
-        </p>
+        <div class="pt-3 border-t border-slate-800 text-[11px] font-mono text-slate-500 flex justify-between">
+          <span>Focus: Liability Reduction</span>
+          <span class="text-amber-400">Read Summary →</span>
+        </div>
       </div>
 
       <!-- Chapter 5 -->
-      <div class="bg-slate-900 border border-slate-800 hover:border-amber-400/50 p-6 rounded-2xl transition space-y-4 group">
-        <div class="flex items-center justify-between">
-          <span class="font-mono text-xs font-bold text-amber-400 bg-amber-400/10 border border-amber-400/20 px-2.5 py-1 rounded">CH 05</span>
-          <span class="font-mono text-[11px] text-slate-500">Asset Allocation</span>
+      <div class="bg-slate-900 border border-slate-800 hover:border-amber-400/50 p-6 rounded-2xl transition-all duration-200 space-y-4 flex flex-col justify-between group">
+        <div class="space-y-3">
+          <div class="flex items-center justify-between">
+            <span class="font-mono text-xs font-bold text-amber-400 bg-amber-400/10 border border-amber-400/20 px-2.5 py-1 rounded">CH 05</span>
+            <span class="font-mono text-[11px] text-slate-500">Asset Classes</span>
+          </div>
+          <h3 class="font-serif text-xl font-semibold text-slate-100 group-hover:text-amber-300 transition">Demystifying Asset Dynamics</h3>
+          <p class="text-xs text-slate-400 leading-relaxed font-light">
+            Evaluating real inflation-adjusted returns across Domestic Equity, Debt, Gold, Sovereign Bonds, and International Equities over 20-year horizons.
+          </p>
         </div>
-        <h3 class="font-serif text-xl font-semibold text-slate-100 group-hover:text-amber-300 transition">Demystifying Asset Classes</h3>
-        <p class="text-xs text-slate-400 leading-relaxed font-light">
-          Understanding real returns across Domestic Equity, Fixed Income, Gold, International Equities, and Real Estate over 20-year horizons.
-        </p>
+        <div class="pt-3 border-t border-slate-800 text-[11px] font-mono text-slate-500 flex justify-between">
+          <span>Focus: Macro Economics</span>
+          <span class="text-amber-400">Read Summary →</span>
+        </div>
       </div>
 
       <!-- Chapter 6 -->
-      <div class="bg-slate-900 border border-slate-800 hover:border-amber-400/50 p-6 rounded-2xl transition space-y-4 group">
-        <div class="flex items-center justify-between">
-          <span class="font-mono text-xs font-bold text-amber-400 bg-amber-400/10 border border-amber-400/20 px-2.5 py-1 rounded">CH 06</span>
-          <span class="font-mono text-[11px] text-slate-500">Equity Core</span>
+      <div class="bg-slate-900 border border-slate-800 hover:border-amber-400/50 p-6 rounded-2xl transition-all duration-200 space-y-4 flex flex-col justify-between group">
+        <div class="space-y-3">
+          <div class="flex items-center justify-between">
+            <span class="font-mono text-xs font-bold text-amber-400 bg-amber-400/10 border border-amber-400/20 px-2.5 py-1 rounded">CH 06</span>
+            <span class="font-mono text-[11px] text-slate-500">Equity Core</span>
+          </div>
+          <h3 class="font-serif text-xl font-semibold text-slate-100 group-hover:text-amber-300 transition">The Passive Indexing Edge</h3>
+          <p class="text-xs text-slate-400 leading-relaxed font-light">
+            Why 85%+ of active fund managers underperform. Selecting Nifty 50, Nifty Next 50, and total market index funds with low tracking error.
+          </p>
         </div>
-        <h3 class="font-serif text-xl font-semibold text-slate-100 group-hover:text-amber-300 transition">The Passive Indexing Advantage</h3>
-        <p class="text-xs text-slate-400 leading-relaxed font-light">
-          Why 85%+ of active fund managers underperform the benchmark. Choosing Nifty 50, Nifty Next 50, and total market index funds.
-        </p>
+        <div class="pt-3 border-t border-slate-800 text-[11px] font-mono text-slate-500 flex justify-between">
+          <span>Focus: Passive Growth</span>
+          <span class="text-amber-400">Read Summary →</span>
+        </div>
       </div>
 
       <!-- Chapter 7 -->
-      <div class="bg-slate-900 border border-slate-800 hover:border-amber-400/50 p-6 rounded-2xl transition space-y-4 group">
-        <div class="flex items-center justify-between">
-          <span class="font-mono text-xs font-bold text-amber-400 bg-amber-400/10 border border-amber-400/20 px-2.5 py-1 rounded">CH 07</span>
-          <span class="font-mono text-[11px] text-slate-500">Debt Engine</span>
+      <div class="bg-slate-900 border border-slate-800 hover:border-amber-400/50 p-6 rounded-2xl transition-all duration-200 space-y-4 flex flex-col justify-between group">
+        <div class="space-y-3">
+          <div class="flex items-center justify-between">
+            <span class="font-mono text-xs font-bold text-amber-400 bg-amber-400/10 border border-amber-400/20 px-2.5 py-1 rounded">CH 07</span>
+            <span class="font-mono text-[11px] text-slate-500">Debt Engine</span>
+          </div>
+          <h3 class="font-serif text-xl font-semibold text-slate-100 group-hover:text-amber-300 transition">Fixed Income & Capital Safety</h3>
+          <p class="text-xs text-slate-400 leading-relaxed font-light">
+            Selecting Sovereign Gold Bonds (SGB), Public Provident Fund (PPF), Target Maturity Debt Funds, and RBI Floating Rate Savings Bonds.
+          </p>
         </div>
-        <h3 class="font-serif text-xl font-semibold text-slate-100 group-hover:text-amber-300 transition">Fixed Income & Capital Preservation</h3>
-        <p class="text-xs text-slate-400 leading-relaxed font-light">
-          Selecting Sovereign Gold Bonds (SGB), Public Provident Fund (PPF), Target Maturity Debt Funds, and RBI Floating Rate Savings Bonds.
-        </p>
+        <div class="pt-3 border-t border-slate-800 text-[11px] font-mono text-slate-500 flex justify-between">
+          <span>Focus: Stability</span>
+          <span class="text-amber-400">Read Summary →</span>
+        </div>
       </div>
 
       <!-- Chapter 8 -->
-      <div class="bg-slate-900 border border-slate-800 hover:border-amber-400/50 p-6 rounded-2xl transition space-y-4 group">
-        <div class="flex items-center justify-between">
-          <span class="font-mono text-xs font-bold text-amber-400 bg-amber-400/10 border border-amber-400/20 px-2.5 py-1 rounded">CH 08</span>
-          <span class="font-mono text-[11px] text-slate-500">Tax Mechanics</span>
+      <div class="bg-slate-900 border border-slate-800 hover:border-amber-400/50 p-6 rounded-2xl transition-all duration-200 space-y-4 flex flex-col justify-between group">
+        <div class="space-y-3">
+          <div class="flex items-center justify-between">
+            <span class="font-mono text-xs font-bold text-amber-400 bg-amber-400/10 border border-amber-400/20 px-2.5 py-1 rounded">CH 08</span>
+            <span class="font-mono text-[11px] text-slate-500">Tax Optimization</span>
+          </div>
+          <h3 class="font-serif text-xl font-semibold text-slate-100 group-hover:text-amber-300 transition">Section 112A Tax Harvesting</h3>
+          <p class="text-xs text-slate-400 leading-relaxed font-light">
+            Navigating the 12.5% LTCG regime. Executing annual ₹1.25 Lakh tax harvesting strategies legally without interrupting long-term compounding.
+          </p>
         </div>
-        <h3 class="font-serif text-xl font-semibold text-slate-100 group-hover:text-amber-300 transition">Tax Optimization & Section 112A</h3>
-        <p class="text-xs text-slate-400 leading-relaxed font-light">
-          Navigating the 12.5% LTCG regime. Executing annual ₹1.25 Lakh tax harvesting strategies legally without interrupting compounding.
-        </p>
+        <div class="pt-3 border-t border-slate-800 text-[11px] font-mono text-slate-500 flex justify-between">
+          <span>Focus: Tax Drag Reduction</span>
+          <span class="text-amber-400">Read Summary →</span>
+        </div>
       </div>
 
       <!-- Chapter 9 -->
-      <div class="bg-slate-900 border border-slate-800 hover:border-amber-400/50 p-6 rounded-2xl transition space-y-4 group">
-        <div class="flex items-center justify-between">
-          <span class="font-mono text-xs font-bold text-amber-400 bg-amber-400/10 border border-amber-400/20 px-2.5 py-1 rounded">CH 09</span>
-          <span class="font-mono text-[11px] text-slate-500">Execution</span>
+      <div class="bg-slate-900 border border-slate-800 hover:border-amber-400/50 p-6 rounded-2xl transition-all duration-200 space-y-4 flex flex-col justify-between group">
+        <div class="space-y-3">
+          <div class="flex items-center justify-between">
+            <span class="font-mono text-xs font-bold text-amber-400 bg-amber-400/10 border border-amber-400/20 px-2.5 py-1 rounded">CH 09</span>
+            <span class="font-mono text-[11px] text-slate-500">Execution Plan</span>
+          </div>
+          <h3 class="font-serif text-xl font-semibold text-slate-100 group-hover:text-amber-300 transition">Your Investment Policy Statement</h3>
+          <p class="text-xs text-slate-400 leading-relaxed font-light">
+            Formulating an institutional IPS mandate specifying exact asset splits, step-up SIP percentages, and explicit rebalancing corridors.
+          </p>
         </div>
-        <h3 class="font-serif text-xl font-semibold text-slate-100 group-hover:text-amber-300 transition">Designing Your Investment Policy Statement</h3>
-        <p class="text-xs text-slate-400 leading-relaxed font-light">
-          Formulating an institutional IPS mandate specifying asset split targets, step-up SIP percentages, and explicit rebalancing rules.
-        </p>
+        <div class="pt-3 border-t border-slate-800 text-[11px] font-mono text-slate-500 flex justify-between">
+          <span>Focus: Governance</span>
+          <span class="text-amber-400">Read Summary →</span>
+        </div>
       </div>
 
       <!-- Chapter 10 -->
-      <div class="bg-slate-900 border border-slate-800 hover:border-amber-400/50 p-6 rounded-2xl transition space-y-4 group">
-        <div class="flex items-center justify-between">
-          <span class="font-mono text-xs font-bold text-amber-400 bg-amber-400/10 border border-amber-400/20 px-2.5 py-1 rounded">CH 10</span>
-          <span class="font-mono text-[11px] text-slate-500">Maintenance</span>
+      <div class="bg-slate-900 border border-slate-800 hover:border-amber-400/50 p-6 rounded-2xl transition-all duration-200 space-y-4 flex flex-col justify-between group">
+        <div class="space-y-3">
+          <div class="flex items-center justify-between">
+            <span class="font-mono text-xs font-bold text-amber-400 bg-amber-400/10 border border-amber-400/20 px-2.5 py-1 rounded">CH 10</span>
+            <span class="font-mono text-[11px] text-slate-500">Maintenance</span>
+          </div>
+          <h3 class="font-serif text-xl font-semibold text-slate-100 group-hover:text-amber-300 transition">Automating Portfolio Rebalancing</h3>
+          <p class="text-xs text-slate-400 leading-relaxed font-light">
+            Executing corridor-based vs. calendar-based rebalancing to systematically sell high and buy low without emotional interference.
+          </p>
         </div>
-        <h3 class="font-serif text-xl font-semibold text-slate-100 group-hover:text-amber-300 transition">Automating Portfolio Rebalancing</h3>
-        <p class="text-xs text-slate-400 leading-relaxed font-light">
-          Executing corridor-based vs. calendar-based rebalancing to systematically sell high and buy low without emotional interference.
-        </p>
+        <div class="pt-3 border-t border-slate-800 text-[11px] font-mono text-slate-500 flex justify-between">
+          <span>Focus: Rebalancing Rules</span>
+          <span class="text-amber-400">Read Summary →</span>
+        </div>
       </div>
 
       <!-- Chapter 11 -->
-      <div class="bg-slate-900 border border-slate-800 hover:border-amber-400/50 p-6 rounded-2xl transition space-y-4 group">
-        <div class="flex items-center justify-between">
-          <span class="font-mono text-xs font-bold text-amber-400 bg-amber-400/10 border border-amber-400/20 px-2.5 py-1 rounded">CH 11</span>
-          <span class="font-mono text-[11px] text-slate-500">Decumulation</span>
+      <div class="bg-slate-900 border border-slate-800 hover:border-amber-400/50 p-6 rounded-2xl transition-all duration-200 space-y-4 flex flex-col justify-between group">
+        <div class="space-y-3">
+          <div class="flex items-center justify-between">
+            <span class="font-mono text-xs font-bold text-amber-400 bg-amber-400/10 border border-amber-400/20 px-2.5 py-1 rounded">CH 11</span>
+            <span class="font-mono text-[11px] text-slate-500">Decumulation</span>
+          </div>
+          <h3 class="font-serif text-xl font-semibold text-slate-100 group-hover:text-amber-300 transition">Retirement Decumulation & SWP</h3>
+          <p class="text-xs text-slate-400 leading-relaxed font-light">
+            Transitioning from asset accumulation to distribution. Engineering 3-bucket strategies and Systematic Withdrawal Plans (SWP).
+          </p>
         </div>
-        <h3 class="font-serif text-xl font-semibold text-slate-100 group-hover:text-amber-300 transition">Retirement Decumulation & SWP</h3>
-        <p class="text-xs text-slate-400 leading-relaxed font-light">
-          Transitioning from accumulation to distribution. Engineering bucket strategies and Systematic Withdrawal Plans (SWP) for pension cash flows.
-        </p>
+        <div class="pt-3 border-t border-slate-800 text-[11px] font-mono text-slate-500 flex justify-between">
+          <span>Focus: Cash Flow Stream</span>
+          <span class="text-amber-400">Read Summary →</span>
+        </div>
       </div>
 
       <!-- Chapter 12 -->
-      <div class="bg-slate-900 border border-slate-800 hover:border-amber-400/50 p-6 rounded-2xl transition space-y-4 group">
-        <div class="flex items-center justify-between">
-          <span class="font-mono text-xs font-bold text-amber-400 bg-amber-400/10 border border-amber-400/20 px-2.5 py-1 rounded">CH 12</span>
-          <span class="font-mono text-[11px] text-slate-500">Psychology</span>
+      <div class="bg-slate-900 border border-slate-800 hover:border-amber-400/50 p-6 rounded-2xl transition-all duration-200 space-y-4 flex flex-col justify-between group">
+        <div class="space-y-3">
+          <div class="flex items-center justify-between">
+            <span class="font-mono text-xs font-bold text-amber-400 bg-amber-400/10 border border-amber-400/20 px-2.5 py-1 rounded">CH 12</span>
+            <span class="font-mono text-[11px] text-slate-500">Psychology</span>
+          </div>
+          <h3 class="font-serif text-xl font-semibold text-slate-100 group-hover:text-amber-300 transition">Mastering Market Crash Psychology</h3>
+          <p class="text-xs text-slate-400 leading-relaxed font-light">
+            Mitigating recency bias, loss aversion, and FOMO. Managing drawdowns during 30%+ market corrections without panic selling.
+          </p>
         </div>
-        <h3 class="font-serif text-xl font-semibold text-slate-100 group-hover:text-amber-300 transition">Behavioral Discipline During Market Crashes</h3>
-        <p class="text-xs text-slate-400 leading-relaxed font-light">
-          Mitigating recency bias, loss aversion, and FOMO. Managing drawdowns during 30%+ market corrections without panic selling.
-        </p>
+        <div class="pt-3 border-t border-slate-800 text-[11px] font-mono text-slate-500 flex justify-between">
+          <span>Focus: Mindset & Discipline</span>
+          <span class="text-amber-400">Read Summary →</span>
+        </div>
       </div>
 
     </div>
   </section>
 
-  <!-- Interactive Tools Callout Banner -->
+  <!-- Interactive Tools Banner Callout -->
   <section class="bg-slate-900 border-t border-b border-slate-800 py-16 px-6">
     <div class="max-w-4xl mx-auto text-center space-y-6">
-      <span class="font-mono text-xs font-bold text-amber-400 uppercase tracking-widest">Interactive Calculations</span>
-      <h2 class="font-serif text-3xl font-semibold text-slate-50">Put the Book Concepts into Action</h2>
+      <span class="font-mono text-xs font-bold text-amber-400 uppercase tracking-widest">Interactive Calculators Hub</span>
+      <h2 class="font-serif text-3xl md:text-4xl font-semibold text-slate-50">Put the Book Concepts into Action</h2>
       <p class="text-slate-400 text-sm max-w-xl mx-auto font-light leading-relaxed">
-        Use our suite of decision tools to simulate your home loan prepayments, tax regime break-evens, or wealth compounding numbers in real time.
+        Simulate your SIP returns, home loan prepayment schedules, SWP decumulation cash flows, or tax harvesting break-evens using our suite of mobile-first decision tools.
       </p>
       <div class="pt-2 flex justify-center gap-4">
-        <a href="/calculators/" class="bg-amber-400 hover:bg-amber-300 text-slate-950 font-bold px-7 py-3 rounded-xl transition font-mono text-xs uppercase tracking-wider">
+        <a href="/calculators/" class="bg-amber-400 hover:bg-amber-300 text-slate-950 font-bold px-8 py-3.5 rounded-xl transition font-mono text-xs uppercase tracking-wider shadow-md">
           Explore Calculators Hub →
         </a>
       </div>
     </div>
   </section>
+
+  <!-- Classy Floating Scroll-to-Top Button -->
+  <button id="scroll-top-btn" onclick="scrollToTop()" class="fixed bottom-6 right-6 bg-slate-900 hover:bg-amber-400 text-slate-300 hover:text-slate-950 border border-slate-800 hover:border-amber-400 p-3.5 rounded-2xl shadow-2xl transition-all duration-300 opacity-0 pointer-events-none z-50 flex items-center justify-center group" title="Scroll to top">
+    <svg class="w-5 h-5 transform group-hover:-translate-y-0.5 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 15l7-7 7 7"></path>
+    </svg>
+  </button>
 
   <!-- Footer -->
   <footer class="bg-slate-950 border-t border-slate-800 py-12 px-6 text-center text-xs text-slate-500">
@@ -314,5 +396,25 @@
     </div>
   </footer>
 
+  <script>
+    // Scroll Progress & Top Button Toggle
+    window.addEventListener('scroll', () => {
+      const winScroll = document.body.scrollTop || document.documentElement.scrollTop;
+      const height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+      const scrolled = (winScroll / height) * 100;
+      document.getElementById('read-progress').style.width = scrolled + '%';
+
+      const scrollBtn = document.getElementById('scroll-top-btn');
+      if (winScroll > 400) {
+        scrollBtn.classList.remove('opacity-0', 'pointer-events-none');
+      } else {
+        scrollBtn.classList.add('opacity-0', 'pointer-events-none');
+      }
+    });
+
+    function scrollToTop() {
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+  </script>
 </body>
 </html>
