@@ -1,0 +1,269 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>finoline.in | Empowering DIY Financial Literacy in India</title>
+
+  <!-- Google Fonts: Playfair Display, Inter & JetBrains Mono -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:ital,wght@0,500;0,600;0,700;1,400&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
+
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: ['Inter', 'sans-serif'],
+            serif: ['Playfair Display', 'serif'],
+            mono: ['JetBrains Mono', 'monospace'],
+          }
+        }
+      }
+    }
+  </script>
+
+  <!-- Supabase JS Client CDN -->
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+</head>
+<body class="bg-slate-50 text-slate-900 font-sans antialiased min-h-screen flex flex-col selection:bg-amber-100 selection:text-amber-900">
+
+  <!-- Header Navigation -->
+  <header class="bg-white/90 backdrop-blur-md border-b border-slate-200/80 sticky top-0 z-50">
+    <div class="max-w-6xl mx-auto px-6 py-4 flex items-center justify-between">
+      
+      <!-- Brand Logo -->
+      <a href="/" class="flex items-center space-x-2 tracking-tight group">
+        <span class="font-serif text-3xl font-semibold text-slate-950 group-hover:text-amber-800 transition">finoline</span>
+        <span class="font-mono text-[11px] font-bold text-amber-800 uppercase tracking-widest bg-amber-50 px-2 py-0.5 rounded border border-amber-200/80">.in</span>
+      </a>
+
+      <!-- Navigation Links -->
+      <nav class="hidden md:flex items-center space-x-8 text-sm font-medium text-slate-600">
+        <a href="#posts" class="hover:text-slate-950 transition">Publications</a>
+        <a href="/calculators/" class="text-amber-800 font-semibold hover:text-slate-950 transition flex items-center space-x-1">
+          <span>Calculators</span>
+          <span class="bg-amber-100 text-amber-800 text-[10px] font-mono px-1.5 py-0.5 rounded">HUB</span>
+        </a>
+        <a href="/planner.html" class="hover:text-slate-950 transition">Robo-Planner</a>
+        <a href="#ebook" class="hover:text-slate-950 transition">The E-Book</a>
+      </nav>
+
+      <!-- CTA Button -->
+      <a href="/calculators/" class="hidden sm:inline-flex items-center text-xs font-semibold uppercase tracking-wider bg-slate-950 hover:bg-slate-800 text-amber-400 px-4 py-2.5 rounded-lg transition shadow-sm">
+        Explore Calculators →
+      </a>
+    </div>
+  </header>
+
+  <!-- Hero Banner -->
+  <section class="bg-slate-950 text-slate-100 py-20 px-6 border-b border-slate-800 relative overflow-hidden">
+    <div class="max-w-4xl mx-auto text-center space-y-6 relative z-10">
+      
+      <!-- Feature Badges -->
+      <div class="flex flex-wrap items-center justify-center gap-2">
+        <div class="inline-flex items-center space-x-2 bg-slate-900 border border-slate-800 px-4 py-1.5 rounded-full text-xs font-medium text-amber-400 tracking-widest uppercase">
+          <span class="w-1.5 h-1.5 rounded-full bg-amber-400 animate-pulse"></span>
+          <span>Independent Financial Literacy</span>
+        </div>
+        <a href="/calculators/" class="inline-flex items-center space-x-1.5 bg-amber-400/10 border border-amber-400/30 px-3.5 py-1.5 rounded-full text-xs font-mono font-bold text-amber-300 hover:bg-amber-400/20 transition uppercase tracking-wider">
+          <span>⚡ 6 New Interactive Tools</span>
+        </a>
+      </div>
+
+      <h1 class="font-serif text-4xl md:text-6xl font-normal tracking-tight text-slate-50 leading-tight">
+        Empirical clarity for the <span class="italic text-amber-300">self-directed</span> investor.
+      </h1>
+
+      <p class="text-slate-400 text-lg md:text-xl max-w-2xl mx-auto font-light leading-relaxed">
+        Unfiltered market mechanics, mobile loan interest crushers, tax regime engines, and goal-based portfolio blueprints for India.
+      </p>
+
+      <!-- Dual Action Buttons -->
+      <div class="pt-2 flex flex-col sm:flex-row items-center justify-center gap-4">
+        <a href="/calculators/" class="w-full sm:w-auto bg-amber-400 hover:bg-amber-300 text-slate-950 font-semibold px-7 py-3.5 rounded-xl transition shadow-md text-xs uppercase tracking-wider font-mono">
+          Launch Calculators Hub →
+        </a>
+        <a href="/planner.html" class="w-full sm:w-auto bg-slate-900 hover:bg-slate-800 border border-slate-800 text-slate-300 px-7 py-3.5 rounded-xl transition text-xs uppercase tracking-wider font-mono">
+          Robo-Advisory Architect
+        </a>
+      </div>
+
+    </div>
+
+    <!-- Background Ambient Gradient -->
+    <div class="absolute inset-0 bg-[radial-gradient(ellipse_at_top,_var(--tw-gradient-stops))] from-slate-900 via-slate-950 to-slate-950 opacity-80 pointer-events-none"></div>
+  </section>
+
+  <!-- Featured Tools Showcase Banner -->
+  <section class="bg-white border-b border-slate-200 py-10 px-6">
+    <div class="max-w-6xl mx-auto space-y-6">
+      <div class="flex items-center justify-between">
+        <div>
+          <span class="text-xs font-bold font-mono text-amber-800 uppercase tracking-widest">Interactive Engines</span>
+          <h2 class="font-serif text-2xl font-semibold text-slate-900">Featured Mobile Calculators</h2>
+        </div>
+        <a href="/calculators/" class="text-xs font-mono font-bold text-amber-800 hover:text-slate-950 transition uppercase tracking-wider">
+          View All Tools (6) →
+        </a>
+      </div>
+
+      <!-- Quick Launch Grid -->
+      <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+        <a href="/calculators/home-loan/" class="p-4 rounded-xl border border-slate-200 bg-slate-50 hover:bg-amber-50/50 hover:border-amber-200 transition group space-y-2">
+          <span class="text-xs font-mono font-bold text-amber-800 uppercase block">Home Loan</span>
+          <span class="text-sm font-serif font-semibold text-slate-900 group-hover:text-amber-900 block leading-snug">Interest Crusher & EMI</span>
+          <span class="text-[11px] text-slate-500 block font-light">Cut tenure & save lakhs →</span>
+        </a>
+
+        <a href="/calculators/tax-regime/" class="p-4 rounded-xl border border-slate-200 bg-slate-50 hover:bg-amber-50/50 hover:border-amber-200 transition group space-y-2">
+          <span class="text-xs font-mono font-bold text-amber-800 uppercase block">Income Tax</span>
+          <span class="text-sm font-serif font-semibold text-slate-900 group-hover:text-amber-900 block leading-snug">Old vs New Tax Regime</span>
+          <span class="text-[11px] text-slate-500 block font-light">Find your break-even point →</span>
+        </a>
+
+        <a href="/calculators/business-loan/" class="p-4 rounded-xl border border-slate-200 bg-slate-50 hover:bg-amber-50/50 hover:border-amber-200 transition group space-y-2">
+          <span class="text-xs font-mono font-bold text-teal-800 uppercase block">Commercial</span>
+          <span class="text-sm font-serif font-semibold text-slate-900 group-hover:text-amber-900 block leading-snug">Business Loan, CC & OD</span>
+          <span class="text-[11px] text-slate-500 block font-light">Daily product interest →</span>
+        </a>
+
+        <a href="/calculators/govt-schemes/" class="p-4 rounded-xl border border-slate-200 bg-slate-50 hover:bg-amber-50/50 hover:border-amber-200 transition group space-y-2">
+          <span class="text-xs font-mono font-bold text-emerald-800 uppercase block">Govt Subsidy</span>
+          <span class="text-sm font-serif font-semibold text-slate-900 group-hover:text-amber-900 block leading-snug">PMEGP & MUDRA Loans</span>
+          <span class="text-[11px] text-slate-500 block font-light">15%–35% Grant calculator →</span>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Main Feed Section -->
+  <main id="posts" class="max-w-6xl mx-auto px-6 py-16 flex-grow w-full">
+    <div class="flex items-end justify-between border-b border-slate-200 pb-5 mb-10">
+      <div>
+        <span class="text-xs font-bold font-mono text-amber-700 uppercase tracking-widest">Articles & Analysis</span>
+        <h2 class="font-serif text-3xl font-semibold text-slate-900 mt-1">Latest Publications</h2>
+      </div>
+      <span class="text-xs text-slate-400 font-mono hidden sm:block">Updated Weekly</span>
+    </div>
+
+    <!-- Dynamic Posts Container -->
+    <div id="posts-container" class="grid gap-8 md:grid-cols-2 lg:grid-cols-3">
+      
+      <!-- Skeleton Loading State -->
+      <div class="bg-white p-7 rounded-2xl border border-slate-200/80 shadow-sm space-y-4 animate-pulse">
+        <div class="h-3 bg-slate-200 rounded w-1/3"></div>
+        <div class="h-6 bg-slate-300 rounded w-5/6"></div>
+        <div class="h-16 bg-slate-100 rounded w-full"></div>
+      </div>
+      <div class="bg-white p-7 rounded-2xl border border-slate-200/80 shadow-sm space-y-4 animate-pulse">
+        <div class="h-3 bg-slate-200 rounded w-1/3"></div>
+        <div class="h-6 bg-slate-300 rounded w-5/6"></div>
+        <div class="h-16 bg-slate-100 rounded w-full"></div>
+      </div>
+      <div class="bg-white p-7 rounded-2xl border border-slate-200/80 shadow-sm space-y-4 animate-pulse">
+        <div class="h-3 bg-slate-200 rounded w-1/3"></div>
+        <div class="h-6 bg-slate-300 rounded w-5/6"></div>
+        <div class="h-16 bg-slate-100 rounded w-full"></div>
+      </div>
+
+    </div>
+  </main>
+
+  <!-- Featured E-Book Section -->
+  <section id="ebook" class="bg-slate-900 text-white py-16 px-6 border-t border-b border-slate-800">
+    <div class="max-w-5xl mx-auto flex flex-col md:flex-row items-center justify-between gap-10">
+      <div class="space-y-4 max-w-2xl">
+        <div class="inline-block bg-amber-400/10 border border-amber-400/30 px-3 py-1 rounded-md">
+          <span class="font-mono text-xs font-bold text-amber-300 uppercase tracking-widest">Complete 12-Chapter Guide</span>
+        </div>
+        <h3 class="font-serif text-3xl md:text-4xl font-normal text-slate-50 leading-snug">
+          Re-assemble: A Beginner's Guide to DIY Investing
+        </h3>
+        <p class="text-slate-400 text-sm md:text-base leading-relaxed font-light">
+          A zero-fluff blueprint taking you through cash flow engineering, tax optimization, index mutual fund selection, portfolio rebalancing, and glidepath derisking.
+        </p>
+      </div>
+
+      <a href="/ebook.html" class="inline-flex items-center justify-center bg-amber-400 hover:bg-amber-300 text-slate-950 font-semibold px-7 py-4 rounded-xl transition shadow-md whitespace-nowrap text-sm tracking-wide">
+        Explore Chapters →
+      </a>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="bg-white border-t border-slate-200 py-12 px-6 text-center text-xs text-slate-500">
+    <div class="max-w-6xl mx-auto space-y-4">
+      <a href="/" class="inline-block font-serif text-2xl font-semibold text-slate-950">finoline<span class="text-amber-800 font-mono text-sm">.in</span></a>
+      <div class="flex justify-center space-x-6 text-slate-600 font-mono text-xs">
+        <a href="/calculators/" class="hover:text-amber-800">Calculators Hub</a>
+        <a href="/planner.html" class="hover:text-amber-800">Robo-Planner</a>
+        <a href="#ebook" class="hover:text-amber-800">Re-assemble Book</a>
+      </div>
+      <p class="text-slate-600">© 2026 finoline.in. Independent financial education resources for Indian investors.</p>
+      <p class="max-w-xl mx-auto text-slate-400 leading-relaxed">
+        Disclaimer: All content published on finoline.in is provided strictly for educational purposes and does not constitute registered financial, legal, or investment advice under SEBI regulations.
+      </p>
+    </div>
+  </footer>
+
+  <!-- Supabase Data Integration Script -->
+  <script>
+    const SUPABASE_URL = 'YOUR_SUPABASE_URL_HERE';
+    const SUPABASE_ANON_KEY = 'YOUR_SUPABASE_ANON_KEY_HERE';
+    const supabase = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+
+    async function fetchPosts() {
+      const container = document.getElementById('posts-container');
+      
+      try {
+        const { data: posts, error } = await supabase
+          .from('posts')
+          .select('id, title, slug, excerpt, created_at, category')
+          .eq('published', true)
+          .order('created_at', { ascending: false });
+
+        if (error) throw error;
+
+        if (!posts || posts.length === 0) {
+          container.innerHTML = `
+            <div class="col-span-full text-center py-16 bg-white rounded-2xl border border-slate-200/80">
+              <p class="text-slate-500 text-sm">No published articles available yet. Check back soon!</p>
+            </div>`;
+          return;
+        }
+
+        container.innerHTML = posts.map(post => `
+          <article class="bg-white p-7 rounded-2xl border border-slate-200/80 shadow-sm hover:shadow-md transition flex flex-col justify-between group">
+            <div>
+              <div class="flex items-center justify-between text-xs text-slate-400 mb-4">
+                <span class="font-mono font-bold text-amber-800 bg-amber-50 px-2.5 py-1 rounded border border-amber-200/60 uppercase tracking-wider">${post.category || 'Insights'}</span>
+                <time font-mono>${new Date(post.created_at).toLocaleDateString('en-IN', { month: 'short', day: 'numeric', year: 'numeric' })}</time>
+              </div>
+              <h3 class="font-serif text-xl font-semibold text-slate-900 mb-3 leading-snug group-hover:text-amber-800 transition">
+                <a href="/post.html?slug=${post.slug}">${post.title}</a>
+              </h3>
+              <p class="text-slate-600 text-sm leading-relaxed mb-6 font-light line-clamp-3">${post.excerpt}</p>
+            </div>
+            <a href="/post.html?slug=${post.slug}" class="inline-flex items-center text-xs font-bold uppercase tracking-wider text-slate-950 group-hover:text-amber-800 transition">
+              Read publication <span class="ml-1">→</span>
+            </a>
+          </article>
+        `).join('');
+
+      } catch (err) {
+        console.error('Error fetching posts:', err);
+        container.innerHTML = `
+          <div class="col-span-full text-center py-12 text-red-600 bg-red-50 rounded-2xl border border-red-100 text-sm">
+            Unable to fetch publications. Verify your Supabase credentials in the script configuration.
+          </div>`;
+      }
+    }
+
+    document.addEventListener('DOMContentLoaded', fetchPosts);
+  </script>
+</body>
+</html>
