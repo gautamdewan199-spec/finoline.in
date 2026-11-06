@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0" />
+  <title id="page-title">Publication | finoline.in</title>
+
+  <!-- Google Fonts: Playfair Display, Inter & JetBrains Mono -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400&family=Playfair+Display:ital,wght@0,500;0,600;0,700;1,400&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
+
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/typography@0.5.10/dist/typography.min.js"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: ['Inter', 'sans-serif'],
+            serif: ['Playfair Display', 'serif'],
+            mono: ['JetBrains Mono', 'monospace'],
+          }
+        }
+      }
+    }
+  </script>
+
+  <!-- Supabase JS Client & Marked HTML Parser -->
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+</head>
+<body class="bg-slate-50 text-slate-900 font-sans antialiased min-h-screen flex flex-col selection:bg-amber-100 selection:text-amber-900">
+
+  <!-- Scroll Progress Indicator -->
+  <div id="read-progress" class="fixed top-0 left-0 h-1 bg-amber-700 z-50 transition-all duration-75" style="width: 0%"></div>
+
+  <!-- Header Navigation -->
+  <header class="bg-white/90 backdrop-blur-md border-b border-slate-200/80 sticky top-0 z-40">
+    <div class="max-w-4xl mx-auto px-6 py-4 flex items-center justify-between">
+      <a href="/" class="flex items-center space-x-1.5 tracking-tight group">
+        <span class="font-serif text-3xl font-semibold text-slate-950 group-hover:text-amber-800 transition">finoline</span>
+        <span class="font-mono text-[11px] font-bold text-amber-800 uppercase tracking-widest bg-amber-50 px-2 py-0.5 rounded border border-amber-200/80">.in</span>
+      </a>
+
+      <div class="flex items-center space-x-6 text-xs font-mono font-bold uppercase tracking-wider">
+        <a href="/calculators/" class="hidden sm:block text-slate-600 hover:text-amber-800 transition">Calculators Hub</a>
+        <a href="/#posts" class="text-slate-900 hover:text-amber-800 transition">← All Articles</a>
+      </div>
+    </div>
+  </header>
+
+  <!-- Main Article Container -->
+  <main class="max-w-3xl mx-auto px-6 py-12 flex-grow w-full">
+    
+    <!-- Loading State -->
+    <div id="loader" class="space-y-6 animate-pulse py-12">
+      <div class="h-4 bg-slate-200 rounded w-1/4"></div>
+      <div class="h-10 bg-slate-300 rounded w-5/6"></div>
+      <div class="h-6 bg-slate-200 rounded w-1/3"></div>
+      <div class="h-64 bg-slate-100 rounded-2xl w-full"></div>
+    </div>
+
+    <!-- Rendered Article Content -->
+    <article id="article-content" class="hidden space-y-8">
+      
+      <!-- Header Meta -->
+      <header class="space-y-4 border-b border-slate-200 pb-8">
+        <div class="flex items-center justify-between text-xs font-mono">
+          <span id="post-category" class="font-bold text-amber-800 bg-amber-50 px-3 py-1 rounded border border-amber-200/60 uppercase tracking-widest"></span>
+          <time id="post-date" class="text-slate-400"></time>
+        </div>
+
+        <h1 id="post-title" class="font-serif text-3xl md:text-5xl font-normal text-slate-950 leading-tight tracking-tight"></h1>
+        <p id="post-excerpt" class="text-slate-600 text-lg md:text-xl font-light leading-relaxed italic border-l-2 border-amber-600 pl-4 py-1"></p>
+      </header>
+
+      <!-- Embedded YouTube Video Player Container (Dynamic) -->
+      <div id="youtube-container" class="hidden space-y-3 bg-slate-950 p-4 rounded-3xl shadow-xl border border-slate-800">
+        <div class="flex items-center justify-between px-2">
+          <span class="font-mono text-xs font-bold text-amber-400 uppercase tracking-widest flex items-center space-x-1.5">
+            <span>▶ In-Depth Video Summary</span>
+          </span>
+          <a id="youtube-channel-link" href="https://www.youtube.com/@YourChannelName?sub_confirmation=1" target="_blank" rel="noopener noreferrer" class="text-[11px] font-mono font-bold bg-red-600 hover:bg-red-500 text-white px-3 py-1 rounded-full transition shadow-sm flex items-center space-x-1">
+            <span>Subscribe on YouTube</span>
+          </a>
+        </div>
+        
+        <!-- 16:9 Responsive Video Wrapper -->
+        <div class="relative w-full aspect-video rounded-2xl overflow-hidden bg-slate-900">
+          <iframe id="youtube-iframe" class="absolute top-0 left-0 w-full h-full border-0" src="" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+        </div>
+      </div>
+
+      <!-- Markdown Body Output -->
+      <div id="post-body" class="prose prose-slate lg:prose-lg max-w-none prose-headings:font-serif prose-headings:font-normal prose-a:text-amber-800 prose-blockquote:border-amber-600 prose-blockquote:font-serif prose-blockquote:text-slate-700"></div>
+
+    </article>
+
+    <!-- Bottom Book Promotion Footer -->
+    <div class="mt-16 pt-10 border-t border-slate-200 bg-slate-900 text-white rounded-3xl p-8 space-y-4">
+      <span class="font-mono text-xs font-bold text-amber-400 uppercase tracking-widest">Continue Your DIY Journey</span>
+      <h3 class="font-serif text-2xl font-normal text-slate-50">Master the Full 12-Chapter Framework</h3>
+      <p class="text-slate-400 text-sm font-light leading-relaxed">
+        Read our standalone book <em>Re-assemble: A Beginner's Guide to DIY Investing</em> for structured asset allocation blueprints and glidepath execution schedules.
+      </p>
+      <a href="/#ebook" class="inline-block bg-amber-400 hover:bg-amber-300 text-slate-950 font-bold px-6 py-3 rounded-xl text-xs uppercase tracking-wider transition font-mono">
+        Access the E-Book →
+      </a>
+    </div>
+
+  </main>
+
+  <!-- Footer -->
+  <footer class="bg-white border-t border-slate-200 py-10 px-6 text-center text-xs text-slate-500">
+    <div class="max-w-4xl mx-auto space-y-2">
+      <p class="font-serif text-xl font-medium text-slate-950">finoline<span class="font-mono text-xs text-amber-800">.in</span></p>
+      <p>© 2026 finoline.in. Independent financial literacy for self-directed investors.</p>
+    </div>
+  </footer>
+
+  <!-- Script Engine -->
+  <script>
+    const SUPABASE_URL = 'YOUR_SUPABASE_URL_HERE';
+    const SUPABASE_ANON_KEY = 'YOUR_SUPABASE_ANON_KEY_HERE';
+    const supabase = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+
+    // Reading Progress Listener
+    window.addEventListener('scroll', () => {
+      const winScroll = document.body.scrollTop || document.documentElement.scrollTop;
+      const height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+      const scrolled = (winScroll / height) * 100;
+      document.getElementById('read-progress').style.width = scrolled + '%';
+    });
+
+    async function loadPost() {
+      const urlParams = new URLSearchParams(window.location.search);
+      const slug = urlParams.get('slug');
+
+      if (!slug) {
+        window.location.href = '/';
+        return;
+      }
+
+      try {
+        const { data: post, error } = await supabase
+          .from('posts')
+          .select('*')
+          .eq('slug', slug)
+          .eq('published', true)
+          .single();
+
+        if (error || !post) throw error;
+
+        // Render Head & Meta Info
+        document.title = `${post.title} | finoline.in`;
+        document.getElementById('post-category').innerText = post.category || 'Portfolio Strategy';
+        document.getElementById('post-date').innerText = new Date(post.created_at).toLocaleDateString('en-IN', { month: 'long', day: 'numeric', year: 'numeric' });
+        document.getElementById('post-title').innerText = post.title;
+        document.getElementById('post-excerpt').innerText = post.excerpt;
+
+        // Handle Dynamic YouTube Video Player Rendering
+        if (post.youtube_video_id) {
+          document.getElementById('youtube-iframe').src = `https://www.youtube-nocookie.com/embed/${post.youtube_video_id}?rel=0`;
+          document.getElementById('youtube-container').classList.remove('hidden');
+        }
+
+        // Render Markdown Body using Marked
+        document.getElementById('post-body').innerHTML = marked.parse(post.content);
+
+        // Toggle Visibility
+        document.getElementById('loader').classList.add('hidden');
+        document.getElementById('article-content').classList.remove('hidden');
+
+      } catch (err) {
+        console.error('Error fetching post:', err);
+        document.getElementById('loader').innerHTML = `
+          <div class="text-center py-16 text-red-600 bg-red-50 rounded-2xl border border-red-100 text-sm">
+            Publication not found or failed to load. <a href="/" class="underline font-bold">Return to home</a>
+          </div>`;
+      }
+    }
+
+    document.addEventListener('DOMContentLoaded', loadPost);
+  </script>
+</body>
+</html>
