@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0" />
+  <title>SIP & Step-Up SIP Wealth Calculator | finoline.in</title>
+  <meta name="description" content="Calculate mutual fund SIP growth with annual step-up percentage, inflation adjustment, and wealth compounding schedules." />
+  
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:wght@500;600;700&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
+
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: ['Inter', 'sans-serif'],
+            serif: ['Playfair Display', 'serif'],
+            mono: ['JetBrains Mono', 'monospace'],
+          }
+        }
+      }
+    }
+  </script>
+</head>
+<body class="bg-slate-950 text-slate-100 font-sans antialiased min-h-screen flex flex-col selection:bg-amber-400 selection:text-slate-950">
+
+  <!-- Navigation Bar -->
+  <header class="bg-slate-900/90 backdrop-blur-md border-b border-slate-800 sticky top-0 z-50">
+    <div class="max-w-6xl mx-auto px-6 py-4 flex items-center justify-between">
+      <a href="/" class="flex items-center space-x-2 tracking-tight group">
+        <span class="font-serif text-3xl font-semibold text-slate-50 group-hover:text-amber-400 transition">finoline</span>
+        <span class="font-mono text-[11px] font-bold text-amber-400 uppercase tracking-widest bg-amber-400/10 px-2 py-0.5 rounded border border-amber-400/30">.in</span>
+      </a>
+      <div class="flex items-center space-x-6 text-xs font-mono font-bold uppercase tracking-wider">
+        <a href="/calculators/" class="text-slate-400 hover:text-amber-400 transition">← Calculators Hub</a>
+      </div>
+    </div>
+  </header>
+
+  <!-- Calculator Main Interface -->
+  <main class="max-w-4xl mx-auto px-6 py-12 flex-grow w-full space-y-10">
+    
+    <!-- Header -->
+    <div class="space-y-3">
+      <span class="font-mono text-xs font-bold text-amber-400 bg-amber-400/10 border border-amber-400/30 px-3 py-1 rounded uppercase tracking-widest">Equity Compounding</span>
+      <h1 class="font-serif text-3xl md:text-5xl font-normal text-slate-50">SIP & Step-Up Calculator</h1>
+      <p class="text-slate-400 text-sm md:text-base font-light">Simulate monthly wealth accumulation with automatic annual investment step-ups.</p>
+    </div>
+
+    <!-- Inputs & Outputs Grid -->
+    <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
+      
+      <!-- Controls Panel -->
+      <div class="lg:col-span-6 bg-slate-900 border border-slate-800 p-6 md:p-8 rounded-3xl space-y-6">
+        
+        <!-- Monthly Investment -->
+        <div class="space-y-2">
+          <div class="flex justify-between font-mono text-xs">
+            <label class="text-slate-300 font-bold">Monthly SIP Amount</label>
+            <span id="sip-val" class="text-amber-400 font-bold">₹25,000</span>
+          </div>
+          <input type="range" id="sip-input" min="1000" max="200000" step="1000" value="25000" oninput="calculateSIP()" class="w-full accent-amber-400 bg-slate-950 h-2 rounded-lg cursor-pointer">
+        </div>
+
+        <!-- Annual Return Rate -->
+        <div class="space-y-2">
+          <div class="flex justify-between font-mono text-xs">
+            <label class="text-slate-300 font-bold">Expected Annual Return (CAGR)</label>
+            <span id="rate-val" class="text-amber-400 font-bold">12.0%</span>
+          </div>
+          <input type="range" id="rate-input" min="5" max="25" step="0.5" value="12" oninput="calculateSIP()" class="w-full accent-amber-400 bg-slate-950 h-2 rounded-lg cursor-pointer">
+        </div>
+
+        <!-- Duration Years -->
+        <div class="space-y-2">
+          <div class="flex justify-between font-mono text-xs">
+            <label class="text-slate-300 font-bold">Time Horizon (Years)</label>
+            <span id="years-val" class="text-amber-400 font-bold">15 Years</span>
+          </div>
+          <input type="range" id="years-input" min="1" max="40" step="1" value="15" oninput="calculateSIP()" class="w-full accent-amber-400 bg-slate-950 h-2 rounded-lg cursor-pointer">
+        </div>
+
+        <!-- Annual Step-Up -->
+        <div class="space-y-2">
+          <div class="flex justify-between font-mono text-xs">
+            <label class="text-slate-300 font-bold">Annual Step-Up (% Increase)</label>
+            <span id="step-val" class="text-amber-400 font-bold">10%</span>
+          </div>
+          <input type="range" id="step-input" min="0" max="25" step="1" value="10" oninput="calculateSIP()" class="w-full accent-amber-400 bg-slate-950 h-2 rounded-lg cursor-pointer">
+        </div>
+
+      </div>
+
+      <!-- Results & Chart Panel -->
+      <div class="lg:col-span-6 bg-slate-900 border border-slate-800 p-6 md:p-8 rounded-3xl space-y-6">
+        
+        <div class="grid grid-cols-2 gap-4 border-b border-slate-800 pb-6">
+          <div>
+            <span class="font-mono text-[11px] text-slate-500 uppercase">Total Invested</span>
+            <p id="total-invested" class="font-serif text-xl font-bold text-slate-200 mt-1">₹0</p>
+          </div>
+          <div>
+            <span class="font-mono text-[11px] text-amber-400 uppercase">Estimated Gains</span>
+            <p id="total-gains" class="font-serif text-xl font-bold text-amber-400 mt-1">₹0</p>
+          </div>
+        </div>
+
+        <div>
+          <span class="font-mono text-[11px] text-slate-500 uppercase">Final Projected Value</span>
+          <p id="final-corpus" class="font-serif text-3xl md:text-4xl font-bold text-slate-50 mt-1">₹0</p>
+        </div>
+
+        <!-- Chart Container -->
+        <div class="relative aspect-square max-h-48 mx-auto">
+          <canvas id="sipChart"></canvas>
+        </div>
+
+      </div>
+
+    </div>
+
+    <!-- Bottom Ecosystem Navigation -->
+    <section class="mt-16 pt-12 border-t border-slate-800 bg-slate-900/60 -mx-6 px-6 py-10 rounded-3xl">
+      <div class="max-w-4xl mx-auto space-y-6">
+        <div class="flex items-center justify-between">
+          <div>
+            <span class="font-mono text-xs font-bold text-amber-400 uppercase tracking-widest">Ecosystem Navigation</span>
+            <h3 class="font-serif text-2xl font-normal text-slate-50 mt-1">Explore Other Calculators</h3>
+          </div>
+          <a href="/calculators/" class="text-xs font-mono font-bold text-amber-400 hover:underline flex items-center space-x-1">
+            <span>View All 14 Tools</span>
+            <span>→</span>
+          </a>
+        </div>
+
+        <!-- Quick Switcher Grid -->
+        <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-3 font-mono text-xs">
+          <a href="/calculators/lumpsum/" class="bg-slate-950 border border-slate-800 hover:border-amber-400 p-3 rounded-xl text-slate-300 hover:text-amber-300 transition text-center font-semibold">
+            💰 Lumpsum Calculator
+          </a>
+          <a href="/calculators/swp/" class="bg-slate-950 border border-slate-800 hover:border-amber-400 p-3 rounded-xl text-slate-300 hover:text-amber-300 transition text-center font-semibold">
+            🏖️ Retirement SWP
+          </a>
+          <a href="/calculators/ppf/" class="bg-slate-950 border border-slate-800 hover:border-amber-400 p-3 rounded-xl text-slate-300 hover:text-amber-300 transition text-center font-semibold">
+            🛡️ PPF Tax-Free
+          </a>
+          <a href="/calculators/home-loan/" class="bg-slate-950 border border-slate-800 hover:border-amber-400 p-3 rounded-xl text-slate-300 hover:text-amber-300 transition text-center font-semibold">
+            🏡 Home Loan Prepay
+          </a>
+          <a href="/calculators/tax-regime/" class="bg-slate-950 border border-slate-800 hover:border-amber-400 p-3 rounded-xl text-slate-300 hover:text-amber-300 transition text-center font-semibold">
+            ⚖️ Tax Regime 2026
+          </a>
+          <a href="/calculators/nps/" class="bg-slate-950 border border-slate-800 hover:border-amber-400 p-3 rounded-xl text-slate-300 hover:text-amber-300 transition text-center font-semibold">
+            🏛️ NPS Pension Engine
+          </a>
+          <a href="/calculators/car-loan/" class="bg-slate-950 border border-slate-800 hover:border-amber-400 p-3 rounded-xl text-slate-300 hover:text-amber-300 transition text-center font-semibold">
+            🚘 Car Loan EMI
+          </a>
+          <a href="/calculators/business-loan/" class="bg-slate-950 border border-slate-800 hover:border-amber-400 p-3 rounded-xl text-slate-300 hover:text-amber-300 transition text-center font-semibold">
+            🏢 Business Loan CC/OD
+          </a>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <footer class="bg-slate-950 border-t border-slate-800 py-10 px-6 text-center text-xs text-slate-500">
+    <p class="font-serif text-xl font-medium text-slate-200">finoline<span class="font-mono text-xs text-amber-400">.in</span></p>
+    <p class="mt-1">© 2026 finoline.in. Independent financial literacy for self-directed investors.</p>
+  </footer>
+
+  <script>
+    let chartInstance = null;
+
+    function formatINR(val) {
+      return new Intl.NumberFormat('en-IN', { style: 'currency', currency: 'INR', maximumFractionDigits: 0 }).format(val);
+    }
+
+    function calculateSIP() {
+      const monthlySIP = parseFloat(document.getElementById('sip-input').value);
+      const cagr = parseFloat(document.getElementById('rate-input').value) / 100;
+      const years = parseInt(document.getElementById('years-input').value);
+      const stepUp = parseFloat(document.getElementById('step-input').value) / 100;
+
+      document.getElementById('sip-val').innerText = formatINR(monthlySIP);
+      document.getElementById('rate-val').innerText = cagr * 100 + '%';
+      document.getElementById('years-val').innerText = years + ' Years';
+      document.getElementById('step-val').innerText = stepUp * 100 + '%';
+
+      const monthlyRate = cagr / 12;
+      let totalInvested = 0;
+      let corpus = 0;
+      let currentMonthlySIP = monthlySIP;
+
+      for (let y = 1; y <= years; y++) {
+        for (let m = 1; m <= 12; m++) {
+          corpus = (corpus + currentMonthlySIP) * (1 + monthlyRate);
+          totalInvested += currentMonthlySIP;
+        }
+        currentMonthlySIP *= (1 + stepUp);
+      }
+
+      const totalGains = corpus - totalInvested;
+
+      document.getElementById('total-invested').innerText = formatINR(totalInvested);
+      document.getElementById('total-gains').innerText = formatINR(totalGains);
+      document.getElementById('final-corpus').innerText = formatINR(corpus);
+
+      // Render Chart
+      const ctx = document.getElementById('sipChart').getContext('2d');
+      if (chartInstance) chartInstance.destroy();
+
+      chartInstance = new Chart(ctx, {
+        type: 'doughnut',
+        data: {
+          labels: ['Total Invested', 'Estimated Gains'],
+          datasets: [{
+            data: [totalInvested, totalGains],
+            backgroundColor: ['#334155', '#fbbf24'],
+            borderWidth: 0
+          }]
+        },
+        options: {
+          responsive: true,
+          maintainAspectRatio: false,
+          plugins: { legend: { display: false } }
+        }
+      });
+    }
+
+    document.addEventListener('DOMContentLoaded', calculateSIP);
+  </script>
+</body>
+</html>
