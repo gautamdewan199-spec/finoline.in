@@ -1,345 +1,43 @@
-<!DOCTYPE html>
-<html lang="en" class="scroll-smooth">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0" />
-  <title>Financial Calculators & Decision Tools | finoline.in</title>
-
-  <!-- Primary SEO Meta Tags -->
-  <meta name="description" content="Explore free, mobile-optimized financial calculators for Home Loans, Car Loans, Personal Debt, Business Cash Credit, Government MSME Schemes, and Income Tax Regimes in India." />
-  <meta name="keywords" content="Financial calculators India, Loan EMI calculator hub, Home loan prepayment calculator, Business CC OD calculator, Old vs New tax regime calculator, PMEGP Mudra calculator" />
-  <link rel="canonical" href="https://finoline.in/calculators/" />
-
-  <!-- Structured Data (JSON-LD) for Collection & Search Rich Snippets -->
-  <script type="application/ld+json">
-  {
-    "@context": "https://schema.org",
-    "@type": "CollectionPage",
-    "name": "Finoline Financial Calculators Hub",
-    "url": "https://finoline.in/calculators/",
-    "description": "Comprehensive suite of mobile-first financial decision engines for loan optimization, tax planning, and wealth management in India.",
-    "mainEntity": {
-      "@type": "ItemList",
-      "itemListElement": [
-        {
-          "@type": "ListItem",
-          "position": 1,
-          "name": "Home Loan EMI & Interest Crusher",
-          "url": "https://finoline.in/calculators/home-loan/"
-        },
-        {
-          "@type": "ListItem",
-          "position": 2,
-          "name": "Car Loan & Down Payment Calculator",
-          "url": "https://finoline.in/calculators/car-loan/"
-        },
-        {
-          "@type": "ListItem",
-          "position": 3,
-          "name": "Personal Loan & RBI Prepayment Penalty Suite",
-          "url": "https://finoline.in/calculators/personal-loan/"
-        },
-        {
-          "@type": "ListItem",
-          "position": 4,
-          "name": "Business Loan, Cash Credit & Overdraft Engine",
-          "url": "https://finoline.in/calculators/business-loan/"
-        },
-        {
-          "@type": "ListItem",
-          "position": 5,
-          "name": "PMEGP Subsidy & MUDRA Loan Engine",
-          "url": "https://finoline.in/calculators/govt-schemes/"
-        },
-        {
-          "@type": "ListItem",
-          "position": 6,
-          "name": "Old vs. New Tax Regime Comparator",
-          "url": "https://finoline.in/calculators/tax-regime/"
-        }
-      ]
-    }
-  }
-  </script>
-
-  <!-- Google Fonts: Playfair Display, Inter & JetBrains Mono -->
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Playfair+Display:wght@600;700&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
-
-  <!-- Tailwind CSS CDN -->
-  <script src="https://cdn.tailwindcss.com"></script>
-  <script>
-    tailwind.config = {
-      theme: {
-        extend: {
-          fontFamily: {
-            sans: ['Inter', 'sans-serif'],
-            serif: ['Playfair Display', 'serif'],
-            mono: ['JetBrains Mono', 'monospace'],
-          }
-        }
-      }
-    }
-  </script>
-</head>
-<body class="bg-slate-950 text-slate-100 font-sans antialiased min-h-screen flex flex-col selection:bg-amber-400 selection:text-slate-950">
-
-  <!-- Compact Mobile & Desktop Header -->
-  <header class="bg-slate-900/95 backdrop-blur-md border-b border-slate-800 sticky top-0 z-40">
-    <div class="max-w-6xl mx-auto px-4 py-3.5 flex items-center justify-between">
-      <a href="/" class="flex items-center space-x-1.5 tracking-tight group">
-        <span class="font-serif text-2xl font-bold text-slate-50 group-hover:text-amber-400 transition">finoline</span>
-        <span class="font-mono text-[10px] font-bold text-amber-400 uppercase tracking-widest bg-amber-400/10 px-1.5 py-0.5 rounded border border-amber-400/30">.in</span>
+<!-- Classy Bottom Navigation Grid for Related Calculators -->
+<section class="mt-16 pt-12 border-t border-slate-800 bg-slate-900/60 -mx-6 px-6 py-10 rounded-3xl">
+  <div class="max-w-4xl mx-auto space-y-6">
+    <div class="flex items-center justify-between">
+      <div>
+        <span class="font-mono text-xs font-bold text-amber-400 uppercase tracking-widest">Ecosystem Navigation</span>
+        <h3 class="font-serif text-2xl font-normal text-slate-50 mt-1">Explore Other Calculators</h3>
+      </div>
+      <a href="/calculators/" class="text-xs font-mono font-bold text-amber-400 hover:underline flex items-center space-x-1">
+        <span>View All 14 Tools</span>
+        <span>→</span>
       </a>
-      
-      <div class="flex items-center space-x-4">
-        <a href="/planner.html" class="hidden sm:inline-block font-mono text-xs font-semibold text-slate-400 hover:text-amber-400 transition">
-          Robo-Architect
-        </a>
-        <a href="/" class="text-xs font-mono font-semibold text-slate-400 hover:text-amber-400 transition">
-          ← Main Hub
-        </a>
-      </div>
     </div>
-  </header>
 
-  <!-- Hero Banner -->
-  <section class="py-10 px-4 border-b border-slate-800 bg-slate-950 text-center space-y-3">
-    <span class="font-mono text-[10px] font-bold text-amber-400 uppercase tracking-widest bg-amber-400/10 px-2.5 py-0.5 rounded-full border border-amber-400/20">
-      Algorithmic Suite Directory
-    </span>
-    <h1 class="font-serif text-3xl md:text-5xl font-semibold text-slate-50">
-      Financial Calculators & <span class="text-amber-300">Decision Tools</span>
-    </h1>
-    <p class="text-xs md:text-sm text-slate-400 max-w-xl mx-auto font-light leading-relaxed">
-      Empirical, mobile-first decision engines built for debt elimination, capital allocation, and tax optimization in India.
-    </p>
-
-    <!-- Interactive Search Bar -->
-    <div class="max-w-md mx-auto pt-2">
-      <div class="relative">
-        <input type="text" id="tool-search" onkeyup="filterTools()" placeholder="Search tools (e.g. Home Loan, Tax, Mudra)..." 
-          class="w-full bg-slate-900 border border-slate-800 rounded-xl px-4 py-2.5 text-xs text-slate-200 placeholder-slate-500 focus:outline-none focus:border-amber-400 transition font-sans">
-        <span class="absolute right-3 top-2.5 text-slate-500 text-xs font-mono">🔍</span>
-      </div>
-    </div>
-  </section>
-
-  <!-- Visual Accent Banner -->
-  <div class="max-w-6xl mx-auto px-4 pt-6">
-    <div class="bg-slate-900 border border-slate-800 rounded-2xl p-4 flex items-center justify-between">
-      <Image src="image_agent_tag_13984351888778379291" alt="Financial planning calculator icons dashboard dark theme" caption="Financial Decision Suite" />
+    <!-- Quick Switcher Grid -->
+    <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-3 font-mono text-xs">
+      <a href="/calculators/sip/" class="bg-slate-950 border border-slate-800 hover:border-amber-400 p-3 rounded-xl text-slate-300 hover:text-amber-300 transition text-center font-semibold">
+        📈 SIP Compounder
+      </a>
+      <a href="/calculators/lumpsum/" class="bg-slate-950 border border-slate-800 hover:border-amber-400 p-3 rounded-xl text-slate-300 hover:text-amber-300 transition text-center font-semibold">
+        💰 Lumpsum Calculator
+      </a>
+      <a href="/calculators/swp/" class="bg-slate-950 border border-slate-800 hover:border-amber-400 p-3 rounded-xl text-slate-300 hover:text-amber-300 transition text-center font-semibold">
+        🏖️ Retirement SWP
+      </a>
+      <a href="/calculators/ppf/" class="bg-slate-950 border border-slate-800 hover:border-amber-400 p-3 rounded-xl text-slate-300 hover:text-amber-300 transition text-center font-semibold">
+        🛡️ PPF Tax-Free
+      </a>
+      <a href="/calculators/home-loan/" class="bg-slate-950 border border-slate-800 hover:border-amber-400 p-3 rounded-xl text-slate-300 hover:text-amber-300 transition text-center font-semibold">
+        🏡 Home Loan Prepay
+      </a>
+      <a href="/calculators/tax-regime/" class="bg-slate-950 border border-slate-800 hover:border-amber-400 p-3 rounded-xl text-slate-300 hover:text-amber-300 transition text-center font-semibold">
+        ⚖️ Tax Regime 2026
+      </a>
+      <a href="/calculators/nps/" class="bg-slate-950 border border-slate-800 hover:border-amber-400 p-3 rounded-xl text-slate-300 hover:text-amber-300 transition text-center font-semibold">
+        🏛️ NPS Pension Engine
+      </a>
+      <a href="/calculators/car-loan/" class="bg-slate-950 border border-slate-800 hover:border-amber-400 p-3 rounded-xl text-slate-300 hover:text-amber-300 transition text-center font-semibold">
+        🚘 Car Loan EMI
+      </a>
     </div>
   </div>
-
-  <!-- Filter Category Tabs -->
-  <div class="max-w-6xl mx-auto px-4 pt-6 flex items-center space-x-2 overflow-x-auto pb-2 scrollbar-none">
-    <button onclick="filterCategory('all')" id="tab-all" class="px-3.5 py-1.5 rounded-full text-xs font-mono font-bold whitespace-nowrap bg-amber-400 text-slate-950 border border-amber-400 transition">
-      All Tools (6)
-    </button>
-    <button onclick="filterCategory('retail')" id="tab-retail" class="px-3.5 py-1.5 rounded-full text-xs font-mono font-bold whitespace-nowrap bg-slate-900 text-slate-400 border border-slate-800 hover:border-slate-700 transition">
-      Retail Loans
-    </button>
-    <button onclick="filterCategory('commercial')" id="tab-commercial" class="px-3.5 py-1.5 rounded-full text-xs font-mono font-bold whitespace-nowrap bg-slate-900 text-slate-400 border border-slate-800 hover:border-slate-700 transition">
-      Business & Govt
-    </button>
-    <button onclick="filterCategory('tax')" id="tab-tax" class="px-3.5 py-1.5 rounded-full text-xs font-mono font-bold whitespace-nowrap bg-slate-900 text-slate-400 border border-slate-800 hover:border-slate-700 transition">
-      Tax & Wealth
-    </button>
-  </div>
-
-  <!-- Main Tools Grid -->
-  <main class="max-w-6xl mx-auto px-4 py-6 flex-grow w-full">
-    <div id="tools-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
-      
-      <!-- Card 1: Home Loan -->
-      <a href="/calculators/home-loan/" data-category="retail" data-keywords="home loan emi interest crusher sbi hdfc prepayment tenure"
-        class="tool-card bg-slate-900 border border-slate-800 hover:border-amber-400/50 p-5 rounded-2xl transition-all duration-200 group flex flex-col justify-between space-y-4">
-        <div class="space-y-2">
-          <div class="flex items-center justify-between">
-            <span class="font-mono text-[10px] font-bold text-amber-400 bg-amber-400/10 border border-amber-400/20 px-2 py-0.5 rounded uppercase">
-              Retail Loans
-            </span>
-            <span class="font-mono text-xs text-slate-500">/home-loan/</span>
-          </div>
-          <h2 class="font-serif text-lg font-semibold text-slate-100 group-hover:text-amber-300 transition">
-            Home Loan EMI & Interest Crusher
-          </h2>
-          <p class="text-xs text-slate-400 font-light leading-relaxed">
-            Calculate monthly EMIs and discover how small extra prepayments shave off lakhs in bank interest and cut down tenure.
-          </p>
-        </div>
-        <div class="pt-3 border-t border-slate-800/80 flex items-center justify-between text-xs font-mono text-amber-400">
-          <span>Launch Tool</span>
-          <span class="group-hover:translate-x-1 transition-transform">→</span>
-        </div>
-      </a>
-
-      <!-- Card 2: Car Loan -->
-      <a href="/calculators/car-loan/" data-category="retail" data-keywords="car loan emi auto down payment on road price financing"
-        class="tool-card bg-slate-900 border border-slate-800 hover:border-amber-400/50 p-5 rounded-2xl transition-all duration-200 group flex flex-col justify-between space-y-4">
-        <div class="space-y-2">
-          <div class="flex items-center justify-between">
-            <span class="font-mono text-[10px] font-bold text-amber-400 bg-amber-400/10 border border-amber-400/20 px-2 py-0.5 rounded uppercase">
-              Retail Loans
-            </span>
-            <span class="font-mono text-xs text-slate-500">/car-loan/</span>
-          </div>
-          <h2 class="font-serif text-lg font-semibold text-slate-100 group-hover:text-amber-300 transition">
-            Car Loan & Down Payment Calculator
-          </h2>
-          <p class="text-xs text-slate-400 font-light leading-relaxed">
-            Model on-road car prices, initial down payment impact, interest burden, and monthly bank EMIs.
-          </p>
-        </div>
-        <div class="pt-3 border-t border-slate-800/80 flex items-center justify-between text-xs font-mono text-amber-400">
-          <span>Launch Tool</span>
-          <span class="group-hover:translate-x-1 transition-transform">→</span>
-        </div>
-      </a>
-
-      <!-- Card 3: Personal Loan -->
-      <a href="/calculators/personal-loan/" data-category="retail" data-keywords="personal loan emi rbi prepayment penalty foreclosure GST fixed floating"
-        class="tool-card bg-slate-900 border border-slate-800 hover:border-amber-400/50 p-5 rounded-2xl transition-all duration-200 group flex flex-col justify-between space-y-4">
-        <div class="space-y-2">
-          <div class="flex items-center justify-between">
-            <span class="font-mono text-[10px] font-bold text-rose-400 bg-rose-400/10 border border-rose-400/20 px-2 py-0.5 rounded uppercase">
-              High-Interest Debt
-            </span>
-            <span class="font-mono text-xs text-slate-500">/personal-loan/</span>
-          </div>
-          <h2 class="font-serif text-lg font-semibold text-slate-100 group-hover:text-amber-300 transition">
-            Personal Loan & RBI Prepayment Penalty
-          </h2>
-          <p class="text-xs text-slate-400 font-light leading-relaxed">
-            Calculate unsecured loan EMIs, evaluate 18% GST foreclosure fees under RBI rules, and project net interest savings.
-          </p>
-        </div>
-        <div class="pt-3 border-t border-slate-800/80 flex items-center justify-between text-xs font-mono text-amber-400">
-          <span>Launch Tool</span>
-          <span class="group-hover:translate-x-1 transition-transform">→</span>
-        </div>
-      </a>
-
-      <!-- Card 4: Business Loan -->
-      <a href="/calculators/business-loan/" data-category="commercial" data-keywords="business loan emi cash credit CC overdraft OD working capital sme term"
-        class="tool-card bg-slate-900 border border-slate-800 hover:border-amber-400/50 p-5 rounded-2xl transition-all duration-200 group flex flex-col justify-between space-y-4">
-        <div class="space-y-2">
-          <div class="flex items-center justify-between">
-            <span class="font-mono text-[10px] font-bold text-teal-400 bg-teal-400/10 border border-teal-400/20 px-2 py-0.5 rounded uppercase">
-              Commercial
-            </span>
-            <span class="font-mono text-xs text-slate-500">/business-loan/</span>
-          </div>
-          <h2 class="font-serif text-lg font-semibold text-slate-100 group-hover:text-amber-300 transition">
-            Business Loan, Cash Credit & Overdraft
-          </h2>
-          <p class="text-xs text-slate-400 font-light leading-relaxed">
-            Model commercial term loan EMIs alongside daily product interest on Cash Credit (CC) and Overdraft (OD) working capital limits.
-          </p>
-        </div>
-        <div class="pt-3 border-t border-slate-800/80 flex items-center justify-between text-xs font-mono text-amber-400">
-          <span>Launch Tool</span>
-          <span class="group-hover:translate-x-1 transition-transform">→</span>
-        </div>
-      </a>
-
-      <!-- Card 5: Govt Schemes -->
-      <a href="/calculators/govt-schemes/" data-category="commercial" data-keywords="pmegp subsidy mudra loan kvic margin money shishu kishore tarun msme"
-        class="tool-card bg-slate-900 border border-slate-800 hover:border-amber-400/50 p-5 rounded-2xl transition-all duration-200 group flex flex-col justify-between space-y-4">
-        <div class="space-y-2">
-          <div class="flex items-center justify-between">
-            <span class="font-mono text-[10px] font-bold text-emerald-400 bg-emerald-400/10 border border-emerald-400/20 px-2 py-0.5 rounded uppercase">
-              Govt Grants
-            </span>
-            <span class="font-mono text-xs text-slate-500">/govt-schemes/</span>
-          </div>
-          <h2 class="font-serif text-lg font-semibold text-slate-100 group-hover:text-amber-300 transition">
-            PMEGP Subsidy & MUDRA Loan Engine
-          </h2>
-          <p class="text-xs text-slate-400 font-light leading-relaxed">
-            Calculate PMEGP 15%–35% capital Margin Money grants or model PMMY collateral-free business loan EMIs.
-          </p>
-        </div>
-        <div class="pt-3 border-t border-slate-800/80 flex items-center justify-between text-xs font-mono text-amber-400">
-          <span>Launch Tool</span>
-          <span class="group-hover:translate-x-1 transition-transform">→</span>
-        </div>
-      </a>
-
-      <!-- Card 6: Tax Regime -->
-      <a href="/calculators/tax-regime/" data-category="tax" data-keywords="old vs new tax regime 80c 80d hra section 87a rebate income tax slab salaried"
-        class="tool-card bg-slate-900 border border-slate-800 hover:border-amber-400/50 p-5 rounded-2xl transition-all duration-200 group flex flex-col justify-between space-y-4">
-        <div class="space-y-2">
-          <div class="flex items-center justify-between">
-            <span class="font-mono text-[10px] font-bold text-amber-400 bg-amber-400/10 border border-amber-400/20 px-2 py-0.5 rounded uppercase">
-              Tax Optimization
-            </span>
-            <span class="font-mono text-xs text-slate-500">/tax-regime/</span>
-          </div>
-          <h2 class="font-serif text-lg font-semibold text-slate-100 group-hover:text-amber-300 transition">
-            Old vs. New Tax Regime Comparator
-          </h2>
-          <p class="text-xs text-slate-400 font-light leading-relaxed">
-            Compare tax liabilities under Indian tax slabs, model 80C/80D/HRA exemptions, and discover your break-even point.
-          </p>
-        </div>
-        <div class="pt-3 border-t border-slate-800/80 flex items-center justify-between text-xs font-mono text-amber-400">
-          <span>Launch Tool</span>
-          <span class="group-hover:translate-x-1 transition-transform">→</span>
-        </div>
-      </a>
-
-    </div>
-  </main>
-
-  <!-- Footer -->
-  <footer class="bg-slate-950 border-t border-slate-800 py-8 px-4 text-center text-xs text-slate-500">
-    <div class="max-w-6xl mx-auto space-y-2">
-      <p class="font-serif text-base font-medium text-slate-400">finoline<span class="font-mono text-xs text-amber-400">.in</span></p>
-      <p>© 2026 finoline.in. Independent financial literacy & decision tools for Indian investors.</p>
-    </div>
-  </footer>
-
-  <!-- Search & Filter Logic -->
-  <script>
-    let activeCategory = 'all';
-
-    function filterTools() {
-      const query = document.getElementById('tool-search').value.toLowerCase();
-      const cards = document.querySelectorAll('.tool-card');
-
-      cards.forEach(card => {
-        const keywords = card.getAttribute('data-keywords').toLowerCase();
-        const category = card.getAttribute('data-category');
-
-        const matchesQuery = keywords.includes(query);
-        const matchesCategory = activeCategory === 'all' || category === activeCategory;
-
-        if (matchesQuery && matchesCategory) {
-          card.classList.remove('hidden');
-        } else {
-          card.classList.add('hidden');
-        }
-      });
-    }
-
-    function filterCategory(cat) {
-      activeCategory = cat;
-
-      const tabs = ['all', 'retail', 'commercial', 'tax'];
-      tabs.forEach(t => {
-        const btn = document.getElementById(`tab-${t}`);
-        if (t === cat) {
-          btn.className = 'px-3.5 py-1.5 rounded-full text-xs font-mono font-bold whitespace-nowrap bg-amber-400 text-slate-950 border border-amber-400 transition';
-        } else {
-          btn.className = 'px-3.5 py-1.5 rounded-full text-xs font-mono font-bold whitespace-nowrap bg-slate-900 text-slate-400 border border-slate-800 hover:border-slate-700 transition';
-        }
-      });
-
-      filterTools();
-    }
-  </script>
-</body>
-</html>
+</section>
