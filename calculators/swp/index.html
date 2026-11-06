@@ -1,0 +1,281 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0" />
+  <title>Retirement SWP Calculator: Decumulation Engine | finoline.in</title>
+  <meta name="description" content="Calculate monthly systematic withdrawal plans (SWP), inflation-adjusted retirement income, and portfolio survival timelines." />
+  
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:wght@500;600;700&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
+
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: ['Inter', 'sans-serif'],
+            serif: ['Playfair Display', 'serif'],
+            mono: ['JetBrains Mono', 'monospace'],
+          }
+        }
+      }
+    }
+  </script>
+</head>
+<body class="bg-slate-950 text-slate-100 font-sans antialiased min-h-screen flex flex-col selection:bg-amber-400 selection:text-slate-950">
+
+  <!-- Navigation Bar -->
+  <header class="bg-slate-900/90 backdrop-blur-md border-b border-slate-800 sticky top-0 z-50">
+    <div class="max-w-6xl mx-auto px-6 py-4 flex items-center justify-between">
+      <a href="/" class="flex items-center space-x-2 tracking-tight group">
+        <span class="font-serif text-3xl font-semibold text-slate-50 group-hover:text-amber-400 transition">finoline</span>
+        <span class="font-mono text-[11px] font-bold text-amber-400 uppercase tracking-widest bg-amber-400/10 px-2 py-0.5 rounded border border-amber-400/30">.in</span>
+      </a>
+      <div class="flex items-center space-x-6 text-xs font-mono font-bold uppercase tracking-wider">
+        <a href="/calculators/" class="text-slate-400 hover:text-amber-400 transition">← Calculators Hub</a>
+      </div>
+    </div>
+  </header>
+
+  <!-- Calculator Main Interface -->
+  <main class="max-w-4xl mx-auto px-6 py-12 flex-grow w-full space-y-10">
+    
+    <!-- Header -->
+    <div class="space-y-3">
+      <span class="font-mono text-xs font-bold text-amber-400 bg-amber-400/10 border border-amber-400/30 px-3 py-1 rounded uppercase tracking-widest">Retirement Decumulation</span>
+      <h1 class="font-serif text-3xl md:text-5xl font-normal text-slate-50">SWP Cash Flow Engine</h1>
+      <p class="text-slate-400 text-sm md:text-base font-light">Simulate monthly systematic withdrawals, inflation adjustments, and corpus longevity.</p>
+    </div>
+
+    <!-- Inputs & Outputs Grid -->
+    <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
+      
+      <!-- Controls Panel -->
+      <div class="lg:col-span-6 bg-slate-900 border border-slate-800 p-6 md:p-8 rounded-3xl space-y-6">
+        
+        <!-- Total Corpus -->
+        <div class="space-y-2">
+          <div class="flex justify-between font-mono text-xs">
+            <label class="text-slate-300 font-bold">Total Retirement Corpus</label>
+            <span id="corpus-val" class="text-amber-400 font-bold">₹1,00,00,000</span>
+          </div>
+          <input type="range" id="corpus-input" min="1000000" max="100000000" step="500000" value="10000000" oninput="calculateSWP()" class="w-full accent-amber-400 bg-slate-950 h-2 rounded-lg cursor-pointer">
+        </div>
+
+        <!-- Monthly Withdrawal -->
+        <div class="space-y-2">
+          <div class="flex justify-between font-mono text-xs">
+            <label class="text-slate-300 font-bold">Monthly Withdrawal (SWP)</label>
+            <span id="withdrawal-val" class="text-amber-400 font-bold">₹50,000</span>
+          </div>
+          <input type="range" id="withdrawal-input" min="5000" max="500000" step="5000" value="50000" oninput="calculateSWP()" class="w-full accent-amber-400 bg-slate-950 h-2 rounded-lg cursor-pointer">
+        </div>
+
+        <!-- Expected Portfolio Return -->
+        <div class="space-y-2">
+          <div class="flex justify-between font-mono text-xs">
+            <label class="text-slate-300 font-bold">Expected Portfolio Return (p.a.)</label>
+            <span id="return-val" class="text-amber-400 font-bold">8.5%</span>
+          </div>
+          <input type="range" id="return-input" min="4" max="18" step="0.5" value="8.5" oninput="calculateSWP()" class="w-full accent-amber-400 bg-slate-950 h-2 rounded-lg cursor-pointer">
+        </div>
+
+        <!-- Duration Years -->
+        <div class="space-y-2">
+          <div class="flex justify-between font-mono text-xs">
+            <label class="text-slate-300 font-bold">Time Horizon (Years)</label>
+            <span id="years-val" class="text-amber-400 font-bold">25 Years</span>
+          </div>
+          <input type="range" id="years-input" min="5" max="40" step="1" value="25" oninput="calculateSWP()" class="w-full accent-amber-400 bg-slate-950 h-2 rounded-lg cursor-pointer">
+        </div>
+
+        <!-- Annual Withdrawal Increment -->
+        <div class="space-y-2">
+          <div class="flex justify-between font-mono text-xs">
+            <label class="text-slate-300 font-bold">Annual Inflation Increment</label>
+            <span id="step-val" class="text-amber-400 font-bold">5%</span>
+          </div>
+          <input type="range" id="step-input" min="0" max="12" step="1" value="5" oninput="calculateSWP()" class="w-full accent-amber-400 bg-slate-950 h-2 rounded-lg cursor-pointer">
+        </div>
+
+      </div>
+
+      <!-- Results & Chart Panel -->
+      <div class="lg:col-span-6 bg-slate-900 border border-slate-800 p-6 md:p-8 rounded-3xl space-y-6">
+        
+        <div class="grid grid-cols-2 gap-4 border-b border-slate-800 pb-6">
+          <div>
+            <span class="font-mono text-[11px] text-slate-500 uppercase">Total Withdrawals</span>
+            <p id="total-withdrawn" class="font-serif text-xl font-bold text-amber-400 mt-1">₹0</p>
+          </div>
+          <div>
+            <span class="font-mono text-[11px] text-slate-500 uppercase">Initial Withdrawal Rate</span>
+            <p id="swp-rate" class="font-serif text-xl font-bold text-slate-200 mt-1">0.0%</p>
+          </div>
+        </div>
+
+        <div>
+          <span class="font-mono text-[11px] text-slate-500 uppercase">Final Remaining Corpus</span>
+          <p id="final-corpus" class="font-serif text-3xl md:text-4xl font-bold text-slate-50 mt-1">₹0</p>
+          <span id="status-badge" class="inline-block mt-2 font-mono text-xs font-bold px-2.5 py-1 rounded bg-emerald-400/10 text-emerald-400 border border-emerald-400/30">Corpus Sustainable</span>
+        </div>
+
+        <!-- Chart Container -->
+        <div class="relative aspect-square max-h-48 mx-auto">
+          <canvas id="swpChart"></canvas>
+        </div>
+
+      </div>
+
+    </div>
+
+    <!-- Bottom Ecosystem Navigation -->
+    <section class="mt-16 pt-12 border-t border-slate-800 bg-slate-900/60 -mx-6 px-6 py-10 rounded-3xl">
+      <div class="max-w-4xl mx-auto space-y-6">
+        <div class="flex items-center justify-between">
+          <div>
+            <span class="font-mono text-xs font-bold text-amber-400 uppercase tracking-widest">Ecosystem Navigation</span>
+            <h3 class="font-serif text-2xl font-normal text-slate-50 mt-1">Explore Other Calculators</h3>
+          </div>
+          <a href="/calculators/" class="text-xs font-mono font-bold text-amber-400 hover:underline flex items-center space-x-1">
+            <span>View All 14 Tools</span>
+            <span>→</span>
+          </a>
+        </div>
+
+        <!-- Quick Switcher Grid -->
+        <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-3 font-mono text-xs">
+          <a href="/calculators/sip/" class="bg-slate-950 border border-slate-800 hover:border-amber-400 p-3 rounded-xl text-slate-300 hover:text-amber-300 transition text-center font-semibold">
+            📈 SIP Compounder
+          </a>
+          <a href="/calculators/lumpsum/" class="bg-slate-950 border border-slate-800 hover:border-amber-400 p-3 rounded-xl text-slate-300 hover:text-amber-300 transition text-center font-semibold">
+            💰 Lumpsum Calculator
+          </a>
+          <a href="/calculators/ppf/" class="bg-slate-950 border border-slate-800 hover:border-amber-400 p-3 rounded-xl text-slate-300 hover:text-amber-300 transition text-center font-semibold">
+            🛡️ PPF Tax-Free
+          </a>
+          <a href="/calculators/home-loan/" class="bg-slate-950 border border-slate-800 hover:border-amber-400 p-3 rounded-xl text-slate-300 hover:text-amber-300 transition text-center font-semibold">
+            🏡 Home Loan Prepay
+          </a>
+          <a href="/calculators/tax-regime/" class="bg-slate-950 border border-slate-800 hover:border-amber-400 p-3 rounded-xl text-slate-300 hover:text-amber-300 transition text-center font-semibold">
+            ⚖️ Tax Regime 2026
+          </a>
+          <a href="/calculators/nps/" class="bg-slate-950 border border-slate-800 hover:border-amber-400 p-3 rounded-xl text-slate-300 hover:text-amber-300 transition text-center font-semibold">
+            🏛️ NPS Pension Engine
+          </a>
+          <a href="/calculators/car-loan/" class="bg-slate-950 border border-slate-800 hover:border-amber-400 p-3 rounded-xl text-slate-300 hover:text-amber-300 transition text-center font-semibold">
+            🚘 Car Loan EMI
+          </a>
+          <a href="/calculators/business-loan/" class="bg-slate-950 border border-slate-800 hover:border-amber-400 p-3 rounded-xl text-slate-300 hover:text-amber-300 transition text-center font-semibold">
+            🏢 Business Loan CC/OD
+          </a>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <footer class="bg-slate-950 border-t border-slate-800 py-10 px-6 text-center text-xs text-slate-500">
+    <p class="font-serif text-xl font-medium text-slate-200">finoline<span class="font-mono text-xs text-amber-400">.in</span></p>
+    <p class="mt-1">© 2026 finoline.in. Independent financial literacy for self-directed investors.</p>
+  </footer>
+
+  <script>
+    let chartInstance = null;
+
+    function formatINR(val) {
+      return new Intl.NumberFormat('en-IN', { style: 'currency', currency: 'INR', maximumFractionDigits: 0 }).format(Math.max(0, val));
+    }
+
+    function calculateSWP() {
+      const initialCorpus = parseFloat(document.getElementById('corpus-input').value);
+      const initialWithdrawal = parseFloat(document.getElementById('withdrawal-input').value);
+      const annualReturn = parseFloat(document.getElementById('return-input').value) / 100;
+      const years = parseInt(document.getElementById('years-input').value);
+      const stepUp = parseFloat(document.getElementById('step-input').value) / 100;
+
+      document.getElementById('corpus-val').innerText = formatINR(initialCorpus);
+      document.getElementById('withdrawal-val').innerText = formatINR(initialWithdrawal);
+      document.getElementById('return-val').innerText = (annualReturn * 100).toFixed(1) + '%';
+      document.getElementById('years-val').innerText = years + ' Years';
+      document.getElementById('step-val').innerText = (stepUp * 100) + '%';
+
+      const initialSwpRate = ((initialWithdrawal * 12) / initialCorpus) * 100;
+      document.getElementById('swp-rate').innerText = initialSwpRate.toFixed(2) + '%';
+
+      const monthlyReturn = annualReturn / 12;
+      let remainingCorpus = initialCorpus;
+      let totalWithdrawn = 0;
+      let currentMonthlyWithdrawal = initialWithdrawal;
+      let depletedMonth = null;
+
+      const corpusHistory = [initialCorpus];
+      const labels = ['Year 0'];
+
+      for (let y = 1; y <= years; y++) {
+        for (let m = 1; m <= 12; m++) {
+          if (remainingCorpus > 0) {
+            remainingCorpus = (remainingCorpus - currentMonthlyWithdrawal) * (1 + monthlyReturn);
+            totalWithdrawn += currentMonthlyWithdrawal;
+            if (remainingCorpus <= 0 && !depletedMonth) {
+              remainingCorpus = 0;
+              depletedMonth = (y - 1) * 12 + m;
+            }
+          }
+        }
+        currentMonthlyWithdrawal *= (1 + stepUp);
+        corpusHistory.push(Math.max(0, remainingCorpus));
+        labels.push('Yr ' + y);
+      }
+
+      document.getElementById('total-withdrawn').innerText = formatINR(totalWithdrawn);
+      document.getElementById('final-corpus').innerText = formatINR(remainingCorpus);
+
+      const statusBadge = document.getElementById('status-badge');
+      if (remainingCorpus > 0) {
+        statusBadge.innerText = "Corpus Sustainable";
+        statusBadge.className = "inline-block mt-2 font-mono text-xs font-bold px-2.5 py-1 rounded bg-emerald-400/10 text-emerald-400 border border-emerald-400/30";
+      } else {
+        const depletedYears = (depletedMonth / 12).toFixed(1);
+        statusBadge.innerText = `Corpus Depleted in ${depletedYears} Years`;
+        statusBadge.className = "inline-block mt-2 font-mono text-xs font-bold px-2.5 py-1 rounded bg-rose-400/10 text-rose-400 border border-rose-400/30";
+      }
+
+      // Render Chart
+      const ctx = document.getElementById('swpChart').getContext('2d');
+      if (chartInstance) chartInstance.destroy();
+
+      chartInstance = new Chart(ctx, {
+        type: 'line',
+        data: {
+          labels: labels,
+          datasets: [{
+            label: 'Corpus Balance',
+            data: corpusHistory,
+            borderColor: '#fbbf24',
+            backgroundColor: 'rgba(251, 191, 36, 0.1)',
+            fill: true,
+            tension: 0.3,
+            borderWidth: 2
+          }]
+        },
+        options: {
+          responsive: true,
+          maintainAspectRatio: false,
+          plugins: { legend: { display: false } },
+          scales: {
+            x: { grid: { display: false }, ticks: { color: '#64748b', font: { size: 10 } } },
+            y: { grid: { color: '#1e293b' }, ticks: { color: '#64748b', font: { size: 10 } } }
+          }
+        }
+      });
+    }
+
+    document.addEventListener('DOMContentLoaded', calculateSWP);
+  </script>
+</body>
+</html>
