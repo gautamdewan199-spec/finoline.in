@@ -1,0 +1,421 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0" />
+  <title>PMEGP Subsidy & MUDRA Loan Calculator | finoline.in</title>
+
+  <!-- Primary SEO Meta Tags -->
+  <meta name="description" content="Calculate PMEGP Government Loan Subsidy (15% to 35% Margin Money) and PMMY Mudra Loan EMIs (Shishu, Kishore, Tarun, Tarun Plus) under MSME guidelines." />
+  <meta name="keywords" content="PMEGP subsidy calculator 2026, Mudra loan EMI calculator, PMMY loan categories, Government business loan subsidy India, KVIC PMEGP margin money calculator" />
+  <link rel="canonical" href="https://finoline.in/calculators/govt-schemes/" />
+
+  <!-- Structured Data (JSON-LD) for Google Rich Snippets -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "WebApplication",
+    "name": "Finoline PMEGP Subsidy & Mudra Loan Calculator",
+    "url": "https://finoline.in/calculators/govt-schemes/",
+    "applicationCategory": "FinanceApplication",
+    "operatingSystem": "All",
+    "offers": {
+      "@type": "Offer",
+      "price": "0",
+      "priceCurrency": "INR"
+    }
+  }
+  </script>
+
+  <!-- Google Fonts: Playfair Display, Inter & JetBrains Mono -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Playfair+Display:wght@600;700&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
+
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: ['Inter', 'sans-serif'],
+            serif: ['Playfair Display', 'serif'],
+            mono: ['JetBrains Mono', 'monospace'],
+          }
+        }
+      }
+    }
+  </script>
+</head>
+<body class="bg-slate-950 text-slate-100 font-sans antialiased min-h-screen flex flex-col pb-24 lg:pb-0 selection:bg-amber-400 selection:text-slate-950">
+
+  <!-- Compact Mobile & Desktop Header -->
+  <header class="bg-slate-900/95 backdrop-blur-md border-b border-slate-800 sticky top-0 z-40">
+    <div class="max-w-6xl mx-auto px-4 py-3.5 flex items-center justify-between">
+      <a href="/" class="flex items-center space-x-1.5 tracking-tight">
+        <span class="font-serif text-2xl font-bold text-slate-50">finoline</span>
+        <span class="font-mono text-[10px] font-bold text-amber-400 uppercase tracking-widest bg-amber-400/10 px-1.5 py-0.5 rounded border border-amber-400/30">.in</span>
+      </a>
+      <a href="/" class="text-xs font-mono font-semibold text-slate-400 hover:text-amber-400 transition">
+        ← Exit Hub
+      </a>
+    </div>
+  </header>
+
+  <!-- Hero Header -->
+  <section class="py-6 px-4 border-b border-slate-800 bg-slate-950 text-center space-y-2">
+    <span class="font-mono text-[10px] font-bold text-amber-400 uppercase tracking-widest bg-amber-400/10 px-2.5 py-0.5 rounded-full border border-amber-400/20">
+      Government MSME Credit Suite
+    </span>
+    <h1 class="font-serif text-2xl md:text-4xl font-semibold text-slate-50">
+      PMEGP Subsidy & <span class="text-amber-300">MUDRA Loan</span> Engine
+    </h1>
+    <p class="text-xs md:text-sm text-slate-400 max-w-xl mx-auto font-light leading-relaxed">
+      Model capital margin money grants for PMEGP micro-enterprises or calculate PMMY collateral-free business loan EMIs.
+    </p>
+  </section>
+
+  <!-- Main Calculator Grid -->
+  <main class="max-w-6xl mx-auto px-4 py-6 flex-grow w-full grid grid-cols-1 lg:grid-cols-12 gap-6">
+
+    <!-- Touch-Friendly Controls Panel -->
+    <section class="lg:col-span-6 bg-slate-900 border border-slate-800 rounded-2xl p-5 space-y-5 shadow-xl">
+      <h2 class="font-serif text-lg font-semibold text-slate-100 border-b border-slate-800 pb-3">Scheme Parameters</h2>
+
+      <!-- Scheme Selector -->
+      <div class="space-y-2">
+        <label class="block text-xs font-semibold text-slate-200">Select Government Credit Scheme</label>
+        <div class="grid grid-cols-2 gap-3">
+          <button type="button" id="btn-pmegp" onclick="setScheme('pmegp')" 
+            class="py-2.5 px-3 rounded-xl border text-xs font-mono font-bold transition text-center bg-amber-400/20 border-amber-400 text-amber-300">
+            PMEGP (With Subsidy)
+          </button>
+          <button type="button" id="btn-mudra" onclick="setScheme('mudra')" 
+            class="py-2.5 px-3 rounded-xl border text-xs font-mono font-bold transition text-center bg-slate-800 border-slate-700 text-slate-400">
+            MUDRA (No Direct Subsidy)
+          </button>
+        </div>
+      </div>
+
+      <!-- PMEGP Specific Inputs -->
+      <div id="pmegp-controls" class="space-y-4">
+        <!-- Business Sector -->
+        <div class="space-y-2">
+          <label class="block text-xs font-semibold text-slate-200">Activity Sector</label>
+          <div class="grid grid-cols-2 gap-2">
+            <button type="button" id="btn-mfg" onclick="setSector('mfg')" class="py-2 px-2 rounded-xl border text-[11px] font-mono font-bold transition text-center bg-amber-400/20 border-amber-400 text-amber-300">
+              Manufacturing (Max ₹50L)
+            </button>
+            <button type="button" id="btn-service" onclick="setSector('service')" class="py-2 px-2 rounded-xl border text-[11px] font-mono font-bold transition text-center bg-slate-800 border-slate-700 text-slate-400">
+              Service / Business (Max ₹20L)
+            </button>
+          </div>
+        </div>
+
+        <!-- Social Category -->
+        <div class="space-y-2">
+          <label class="block text-xs font-semibold text-slate-200">Beneficiary Category</label>
+          <div class="grid grid-cols-2 gap-2">
+            <button type="button" id="btn-cat-gen" onclick="setCategory('general')" class="py-2 px-2 rounded-xl border text-[11px] font-mono font-bold transition text-center bg-slate-800 border-slate-700 text-slate-400">
+              General Male (10% Own)
+            </button>
+            <button type="button" id="btn-cat-spl" onclick="setCategory('special')" class="py-2 px-2 rounded-xl border text-[11px] font-mono font-bold transition text-center bg-amber-400/20 border-amber-400 text-amber-300">
+              Special (Women/SC/ST/OBC/NER) (5% Own)
+            </button>
+          </div>
+        </div>
+
+        <!-- Location -->
+        <div class="space-y-2">
+          <label class="block text-xs font-semibold text-slate-200">Proposed Project Location</label>
+          <div class="grid grid-cols-2 gap-2">
+            <button type="button" id="btn-loc-rural" onclick="setLocation('rural')" class="py-2 px-2 rounded-xl border text-[11px] font-mono font-bold transition text-center bg-amber-400/20 border-amber-400 text-amber-300">
+              Rural Area (Higher Subsidy)
+            </button>
+            <button type="button" id="btn-loc-urban" onclick="setLocation('urban')" class="py-2 px-2 rounded-xl border text-[11px] font-mono font-bold transition text-center bg-slate-800 border-slate-700 text-slate-400">
+              Urban Area
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Dynamic Project / Loan Amount -->
+      <div class="space-y-2 pt-2 border-t border-slate-800">
+        <div class="flex justify-between items-center text-xs">
+          <label id="lbl-amount" class="font-medium text-slate-300">Total Eligible Project Cost</label>
+          <span id="disp-amount" class="font-mono text-sm text-amber-400 font-bold">₹ 10,00,000</span>
+        </div>
+        <input type="range" id="input-amount" min="50000" max="5000000" step="25000" value="1000000" 
+          class="w-full h-3 bg-slate-800 rounded-lg appearance-none cursor-pointer accent-amber-400 touch-pan-x">
+      </div>
+
+      <!-- Dynamic Interest Rate -->
+      <div class="space-y-2">
+        <div class="flex justify-between items-center text-xs">
+          <label class="font-medium text-slate-300">Bank Interest Rate (% p.a.)</label>
+          <span id="disp-rate" class="font-mono text-sm text-amber-400 font-bold">9.5 %</span>
+        </div>
+        <input type="range" id="input-rate" min="7.5" max="16.0" step="0.25" value="9.5" 
+          class="w-full h-3 bg-slate-800 rounded-lg appearance-none cursor-pointer accent-amber-400 touch-pan-x">
+      </div>
+
+      <!-- Dynamic Tenure -->
+      <div class="space-y-2">
+        <div class="flex justify-between items-center text-xs">
+          <label class="font-medium text-slate-300">Repayment Tenure (Years)</label>
+          <span id="disp-tenure" class="font-mono text-sm text-amber-400 font-bold">5 Years</span>
+        </div>
+        <input type="range" id="input-tenure" min="1" max="7" step="1" value="5" 
+          class="w-full h-3 bg-slate-800 rounded-lg appearance-none cursor-pointer accent-amber-400 touch-pan-x">
+      </div>
+    </section>
+
+    <!-- Analytics & Output Panel -->
+    <section class="lg:col-span-6 space-y-4">
+      
+      <!-- Primary Key Metrics Grid -->
+      <div class="grid grid-cols-2 sm:grid-cols-3 gap-3">
+        <div class="bg-slate-900 border border-slate-800 p-4 rounded-xl">
+          <span id="card-metric-1-label" class="font-mono text-[10px] text-emerald-400 uppercase tracking-wider block">Govt Margin Subsidy</span>
+          <span id="res-subsidy" class="font-mono text-lg font-bold text-emerald-400 block">₹ 0</span>
+        </div>
+
+        <div class="bg-slate-900 border border-slate-800 p-4 rounded-xl">
+          <span id="card-metric-2-label" class="font-mono text-[10px] text-amber-400 uppercase tracking-wider block">Promoter Share</span>
+          <span id="res-own-contrib" class="font-mono text-lg font-bold text-amber-400 block">₹ 0</span>
+        </div>
+
+        <div class="col-span-2 sm:col-span-1 bg-slate-900 border border-slate-800 p-4 rounded-xl">
+          <span id="card-metric-3-label" class="font-mono text-[10px] text-slate-400 uppercase tracking-wider block">Monthly Bank EMI</span>
+          <span id="res-emi" class="font-mono text-lg font-bold text-slate-50 block">₹ 0</span>
+        </div>
+      </div>
+
+      <!-- Dynamic Impact Summary Box -->
+      <div class="bg-slate-900 border border-slate-800 rounded-2xl p-5 space-y-3">
+        <div class="flex items-center justify-between border-b border-slate-800 pb-2">
+          <h3 class="font-serif text-base font-semibold text-slate-100">Capital Structure & Subsidy Breakdown</h3>
+          <span id="badge-tier" class="font-mono text-[10px] uppercase font-bold text-emerald-400 bg-emerald-400/10 border border-emerald-400/30 px-2 py-0.5 rounded">
+            PMEGP 35% Grant
+          </span>
+        </div>
+        <p id="res-summary" class="text-xs text-slate-300 leading-relaxed font-light"></p>
+      </div>
+
+      <!-- Contextual SEO Educational Content -->
+      <article class="bg-slate-900 border border-slate-800 rounded-2xl p-5 text-xs text-slate-400 space-y-3 leading-relaxed">
+        <h2 class="text-sm font-semibold text-slate-200">Key Differences: PMEGP vs. MUDRA Yojana</h2>
+        <p>
+          <strong>PMEGP (KVIC):</strong> A credit-linked capital subsidy scheme meant exclusively for <strong>new greenfield micro-enterprises</strong>. The Ministry of MSME provides a non-repayable Margin Money grant of 15% to 35%, locked in a 3-year term deposit before adjusting against your bank loan principal. Mandatory EDP training is required.
+        </p>
+        <p>
+          <strong>PMMY Mudra Loans:</strong> Offers collateral-free institutional credit up to ₹20 Lakhs across 4 categories: <em>Shishu</em> (Up to ₹50k), <em>Kishore</em> (₹50k to ₹5L), <em>Tarun</em> (₹5L to ₹10L), and <em>Tarun Plus</em> (₹10L to ₹20L for proven track records). Mudra provides direct working capital and term loans without a government capital subsidy.
+        </p>
+      </article>
+
+    </section>
+
+  </main>
+
+  <!-- Sticky Mobile Summary Bar -->
+  <div class="lg:hidden fixed bottom-0 left-0 right-0 bg-slate-900/95 backdrop-blur-md border-t border-slate-800 px-4 py-3 z-50 flex items-center justify-between">
+    <div>
+      <span id="mobile-card-1-label" class="text-[10px] font-mono text-emerald-400 uppercase block">Grant Subsidy</span>
+      <span id="mobile-res-subsidy" class="font-mono text-base font-bold text-emerald-400">₹ 0</span>
+    </div>
+    <div class="text-right">
+      <span id="mobile-card-2-label" class="text-[10px] font-mono text-slate-400 uppercase block">Monthly EMI</span>
+      <span id="mobile-res-emi" class="font-mono text-base font-bold text-slate-50">₹ 0</span>
+    </div>
+  </div>
+
+  <!-- Footer -->
+  <footer class="bg-slate-950 border-t border-slate-800 py-6 px-4 text-center text-xs text-slate-500">
+    <p>© 2026 finoline.in. Independent financial literacy & MSME loan tools.</p>
+  </footer>
+
+  <!-- Calculator Logic Script -->
+  <script>
+    function formatINR(val) {
+      return new Intl.NumberFormat('en-IN', { style: 'currency', currency: 'INR', maximumFractionDigits: 0 }).format(Math.round(val));
+    }
+
+    const amtIn = document.getElementById('input-amount');
+    const rateIn = document.getElementById('input-rate');
+    const tenureIn = document.getElementById('input-tenure');
+
+    let currentScheme = 'pmegp'; // 'pmegp' | 'mudra'
+    let currentSector = 'mfg'; // 'mfg' | 'service'
+    let currentCategory = 'special'; // 'general' | 'special'
+    let currentLoc = 'rural'; // 'rural' | 'urban'
+
+    function setScheme(scheme) {
+      currentScheme = scheme;
+      const btnPmegp = document.getElementById('btn-pmegp');
+      const btnMudra = document.getElementById('btn-mudra');
+      const pmegpControls = document.getElementById('pmegp-controls');
+
+      if (scheme === 'pmegp') {
+        btnPmegp.className = 'py-2.5 px-3 rounded-xl border text-xs font-mono font-bold transition text-center bg-amber-400/20 border-amber-400 text-amber-300';
+        btnMudra.className = 'py-2.5 px-3 rounded-xl border text-xs font-mono font-bold transition text-center bg-slate-800 border-slate-700 text-slate-400';
+        pmegpControls.classList.remove('hidden');
+        amtIn.max = currentSector === 'mfg' ? 5000000 : 2000000;
+        document.getElementById('lbl-amount').innerText = 'Total Eligible Project Cost';
+      } else {
+        btnMudra.className = 'py-2.5 px-3 rounded-xl border text-xs font-mono font-bold transition text-center bg-amber-400/20 border-amber-400 text-amber-300';
+        btnPmegp.className = 'py-2.5 px-3 rounded-xl border text-xs font-mono font-bold transition text-center bg-slate-800 border-slate-700 text-slate-400';
+        pmegpControls.classList.add('hidden');
+        amtIn.max = 2000000; // Tarun Plus max cap
+        document.getElementById('lbl-amount').innerText = 'Sanctioned Mudra Loan Amount';
+      }
+      calculateScheme();
+    }
+
+    function setSector(sector) {
+      currentSector = sector;
+      const btnMfg = document.getElementById('btn-mfg');
+      const btnService = document.getElementById('btn-service');
+      if (sector === 'mfg') {
+        btnMfg.className = 'py-2 px-2 rounded-xl border text-[11px] font-mono font-bold transition text-center bg-amber-400/20 border-amber-400 text-amber-300';
+        btnService.className = 'py-2 px-2 rounded-xl border text-[11px] font-mono font-bold transition text-center bg-slate-800 border-slate-700 text-slate-400';
+        amtIn.max = 5000000;
+      } else {
+        btnService.className = 'py-2 px-2 rounded-xl border text-[11px] font-mono font-bold transition text-center bg-amber-400/20 border-amber-400 text-amber-300';
+        btnMfg.className = 'py-2 px-2 rounded-xl border text-[11px] font-mono font-bold transition text-center bg-slate-800 border-slate-700 text-slate-400';
+        amtIn.max = 2000000;
+        if (parseFloat(amtIn.value) > 2000000) amtIn.value = 2000000;
+      }
+      calculateScheme();
+    }
+
+    function setCategory(cat) {
+      currentCategory = cat;
+      const btnGen = document.getElementById('btn-cat-gen');
+      const btnSpl = document.getElementById('btn-cat-spl');
+      if (cat === 'general') {
+        btnGen.className = 'py-2 px-2 rounded-xl border text-[11px] font-mono font-bold transition text-center bg-amber-400/20 border-amber-400 text-amber-300';
+        btnSpl.className = 'py-2 px-2 rounded-xl border text-[11px] font-mono font-bold transition text-center bg-slate-800 border-slate-700 text-slate-400';
+      } else {
+        btnSpl.className = 'py-2 px-2 rounded-xl border text-[11px] font-mono font-bold transition text-center bg-amber-400/20 border-amber-400 text-amber-300';
+        btnGen.className = 'py-2 px-2 rounded-xl border text-[11px] font-mono font-bold transition text-center bg-slate-800 border-slate-700 text-slate-400';
+      }
+      calculateScheme();
+    }
+
+    function setLocation(loc) {
+      currentLoc = loc;
+      const btnRural = document.getElementById('btn-loc-rural');
+      const btnUrban = document.getElementById('btn-loc-urban');
+      if (loc === 'rural') {
+        btnRural.className = 'py-2 px-2 rounded-xl border text-[11px] font-mono font-bold transition text-center bg-amber-400/20 border-amber-400 text-amber-300';
+        btnUrban.className = 'py-2 px-2 rounded-xl border text-[11px] font-mono font-bold transition text-center bg-slate-800 border-slate-700 text-slate-400';
+      } else {
+        btnUrban.className = 'py-2 px-2 rounded-xl border text-[11px] font-mono font-bold transition text-center bg-amber-400/20 border-amber-400 text-amber-300';
+        btnRural.className = 'py-2 px-2 rounded-xl border text-[11px] font-mono font-bold transition text-center bg-slate-800 border-slate-700 text-slate-400';
+      }
+      calculateScheme();
+    }
+
+    function calculateScheme() {
+      const projectCost = parseFloat(amtIn.value);
+      const annualRate = parseFloat(rateIn.value);
+      const tenureYears = parseInt(tenureIn.value);
+
+      document.getElementById('disp-amount').innerText = formatINR(projectCost);
+      document.getElementById('disp-rate').innerText = `${annualRate} %`;
+      document.getElementById('disp-tenure').innerText = `${tenureYears} Years`;
+
+      const card1Label = document.getElementById('card-metric-1-label');
+      const card2Label = document.getElementById('card-metric-2-label');
+      const card3Label = document.getElementById('card-metric-3-label');
+      const mobile1Label = document.getElementById('mobile-card-1-label');
+      const mobile2Label = document.getElementById('mobile-card-2-label');
+      const badgeTier = document.getElementById('badge-tier');
+
+      if (currentScheme === 'pmegp') {
+        card1Label.innerText = 'Govt Margin Subsidy';
+        card2Label.innerText = 'Promoter Share';
+        card3Label.innerText = 'Monthly Bank EMI';
+        mobile1Label.innerText = 'Grant Subsidy';
+        mobile2Label.innerText = 'Monthly EMI';
+
+        // PMEGP Rules Matrix
+        let subsidyPct = 15;
+        let ownPct = 10;
+
+        if (currentCategory === 'general') {
+          ownPct = 10;
+          subsidyPct = currentLoc === 'rural' ? 25 : 15;
+        } else {
+          ownPct = 5;
+          subsidyPct = currentLoc === 'rural' ? 35 : 25;
+        }
+
+        const ownContrib = projectCost * (ownPct / 100);
+        const subsidyAmt = projectCost * (subsidyPct / 100);
+        const bankLoanPrincipal = projectCost - ownContrib; // Bank initially finances 90% or 95%
+
+        // Bank EMI calculated on the gross bank loan
+        const r = annualRate / 12 / 100;
+        const n = tenureYears * 12;
+        const emi = (bankLoanPrincipal * r * Math.pow(1 + r, n)) / (Math.pow(1 + r, n) - 1);
+        const effectiveLoanAfterLockin = bankLoanPrincipal - subsidyAmt;
+
+        badgeTier.innerText = `PMEGP ${subsidyPct}% Subsidy`;
+        badgeTier.className = 'font-mono text-[10px] uppercase font-bold text-emerald-400 bg-emerald-400/10 border border-emerald-400/30 px-2 py-0.5 rounded';
+
+        document.getElementById('res-subsidy').innerText = formatINR(subsidyAmt);
+        document.getElementById('res-own-contrib').innerText = formatINR(ownContrib);
+        document.getElementById('res-emi').innerText = formatINR(emi);
+
+        document.getElementById('mobile-res-subsidy').innerText = formatINR(subsidyAmt);
+        document.getElementById('mobile-res-emi').innerText = formatINR(emi);
+
+        document.getElementById('res-summary').innerHTML = `
+          For a <strong>${formatINR(projectCost)}</strong> ${currentSector === 'mfg' ? 'manufacturing' : 'service'} project in a <strong>${currentLoc}</strong> area, your required promoter contribution (${ownPct}%) is <strong>${formatINR(ownContrib)}</strong>. The government provides a <strong class="text-emerald-400">${subsidyPct}% Margin Money subsidy (${formatINR(subsidyAmt)})</strong> held in bank lock-in for 3 years. Initial bank loan of <strong>${formatINR(bankLoanPrincipal)}</strong> carries a monthly EMI of <strong class="text-slate-100">${formatINR(emi)}</strong> over ${tenureYears} years. Effective principal net of subsidy reduces to <strong class="text-emerald-400">${formatINR(effectiveLoanAfterLockin)}</strong>.
+        `;
+      } else {
+        // MUDRA Scheme Logic
+        card1Label.innerText = 'Collateral Status';
+        card2Label.innerText = 'MUDRA Tier';
+        card3Label.innerText = 'Monthly Bank EMI';
+        mobile1Label.innerText = 'Tier';
+        mobile2Label.innerText = 'Monthly EMI';
+
+        let tierName = 'Shishu';
+        if (projectCost <= 50000) {
+          tierName = 'Shishu Tier (Up to ₹50k)';
+        } else if (projectCost <= 500000) {
+          tierName = 'Kishore Tier (₹50k to ₹5L)';
+        } else if (projectCost <= 1000000) {
+          tierName = 'Tarun Tier (₹5L to ₹10L)';
+        } else {
+          tierName = 'Tarun Plus (₹10L to ₹20L)';
+        }
+
+        const r = annualRate / 12 / 100;
+        const n = tenureYears * 12;
+        const emi = (projectCost * r * Math.pow(1 + r, n)) / (Math.pow(1 + r, n) - 1);
+
+        badgeTier.innerText = tierName.split(' ')[0] + ' Category';
+        badgeTier.className = 'font-mono text-[10px] uppercase font-bold text-amber-400 bg-amber-400/10 border border-amber-400/30 px-2 py-0.5 rounded';
+
+        document.getElementById('res-subsidy').innerText = 'Collateral Free';
+        document.getElementById('res-own-contrib').innerText = tierName.split(' ')[0];
+        document.getElementById('res-emi').innerText = formatINR(emi);
+
+        document.getElementById('mobile-res-subsidy').innerText = tierName.split(' ')[0];
+        document.getElementById('mobile-res-emi').innerText = formatINR(emi);
+
+        document.getElementById('res-summary').innerHTML = `
+          Under the <strong>PMMY ${tierName}</strong>, a loan of <strong>${formatINR(projectCost)}</strong> at <strong>${annualRate}% p.a.</strong> requires a monthly EMI of <strong class="text-slate-100">${formatINR(emi)}</strong> over ${tenureYears} years. Mudra loans are <strong>100% collateral-free</strong> under CGTMSE/CGFMU guarantee cover. Note: PMMY provides business credit line access without a direct capital cash subsidy.
+        `;
+      }
+    }
+
+    [amtIn, rateIn, tenureIn].forEach(el => el.addEventListener('input', calculateScheme));
+    document.addEventListener('DOMContentLoaded', calculateScheme);
+  </script>
+</body>
+</html>
