@@ -1,0 +1,265 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0" />
+  <title>National Pension System (NPS) Calculator & Pension Engine | finoline.in</title>
+  <meta name="description" content="Calculate NPS Tier-1 accumulation, lump-sum tax-free withdrawal, mandatory annuity allocation, and estimated monthly pension." />
+  
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:wght@500;600;700&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
+
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: ['Inter', 'sans-serif'],
+            serif: ['Playfair Display', 'serif'],
+            mono: ['JetBrains Mono', 'monospace'],
+          }
+        }
+      }
+    }
+  </script>
+</head>
+<body class="bg-slate-950 text-slate-100 font-sans antialiased min-h-screen flex flex-col selection:bg-amber-400 selection:text-slate-950">
+
+  <!-- Navigation Bar -->
+  <header class="bg-slate-900/90 backdrop-blur-md border-b border-slate-800 sticky top-0 z-50">
+    <div class="max-w-6xl mx-auto px-6 py-4 flex items-center justify-between">
+      <a href="/" class="flex items-center space-x-2 tracking-tight group">
+        <span class="font-serif text-3xl font-semibold text-slate-50 group-hover:text-amber-400 transition">finoline</span>
+        <span class="font-mono text-[11px] font-bold text-amber-400 uppercase tracking-widest bg-amber-400/10 px-2 py-0.5 rounded border border-amber-400/30">.in</span>
+      </a>
+      <div class="flex items-center space-x-6 text-xs font-mono font-bold uppercase tracking-wider">
+        <a href="/calculators/" class="text-slate-400 hover:text-amber-400 transition">← Calculators Hub</a>
+      </div>
+    </div>
+  </header>
+
+  <!-- Calculator Main Interface -->
+  <main class="max-w-4xl mx-auto px-6 py-12 flex-grow w-full space-y-10">
+    
+    <!-- Header -->
+    <div class="space-y-3">
+      <span class="font-mono text-xs font-bold text-amber-400 bg-amber-400/10 border border-amber-400/30 px-3 py-1 rounded uppercase tracking-widest">Pension Suite & Sec 80CCD(1B)</span>
+      <h1 class="font-serif text-3xl md:text-5xl font-normal text-slate-50">NPS Pension Engine</h1>
+      <p class="text-slate-400 text-sm md:text-base font-light">Calculate retirement corpus accumulation, tax-free lump-sum payout, and monthly annuity pension income.</p>
+    </div>
+
+    <!-- Inputs & Outputs Grid -->
+    <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
+      
+      <!-- Controls Panel -->
+      <div class="lg:col-span-6 bg-slate-900 border border-slate-800 p-6 md:p-8 rounded-3xl space-y-6">
+        
+        <!-- Monthly Contribution -->
+        <div class="space-y-2">
+          <div class="flex justify-between font-mono text-xs">
+            <label class="text-slate-300 font-bold">Monthly NPS Contribution</label>
+            <span id="monthly-val" class="text-amber-400 font-bold">₹10,000</span>
+          </div>
+          <input type="range" id="monthly-input" min="1000" max="150000" step="1000" value="10000" oninput="calculateNPS()" class="w-full accent-amber-400 bg-slate-950 h-2 rounded-lg cursor-pointer">
+        </div>
+
+        <!-- Current Age -->
+        <div class="space-y-2">
+          <div class="flex justify-between font-mono text-xs">
+            <label class="text-slate-300 font-bold">Current Age</label>
+            <span id="age-val" class="text-amber-400 font-bold">30 Years</span>
+          </div>
+          <input type="range" id="age-input" min="18" max="55" step="1" value="30" oninput="calculateNPS()" class="w-full accent-amber-400 bg-slate-950 h-2 rounded-lg cursor-pointer">
+        </div>
+
+        <!-- Expected CAGR Rate during Accumulation -->
+        <div class="space-y-2">
+          <div class="flex justify-between font-mono text-xs">
+            <label class="text-slate-300 font-bold">Expected Portfolio Return (CAGR)</label>
+            <span id="rate-val" class="text-amber-400 font-bold">10.0%</span>
+          </div>
+          <input type="range" id="rate-input" min="6.0" max="16.0" step="0.5" value="10.0" oninput="calculateNPS()" class="w-full accent-amber-400 bg-slate-950 h-2 rounded-lg cursor-pointer">
+        </div>
+
+        <!-- Annuity Purchase Percentage (Min 40%) -->
+        <div class="space-y-2">
+          <div class="flex justify-between font-mono text-xs">
+            <label class="text-slate-300 font-bold">Annuity Allocation (Min 40%)</label>
+            <span id="annuity-pct-val" class="text-amber-400 font-bold">40%</span>
+          </div>
+          <input type="range" id="annuity-pct-input" min="40" max="100" step="5" value="40" oninput="calculateNPS()" class="w-full accent-amber-400 bg-slate-950 h-2 rounded-lg cursor-pointer">
+        </div>
+
+        <!-- Expected Annuity Interest Rate -->
+        <div class="space-y-2">
+          <div class="flex justify-between font-mono text-xs">
+            <label class="text-slate-300 font-bold">Expected Annuity Return (p.a.)</label>
+            <span id="annuity-rate-val" class="text-amber-400 font-bold">6.5%</span>
+          </div>
+          <input type="range" id="annuity-rate-input" min="5.0" max="9.0" step="0.25" value="6.5" oninput="calculateNPS()" class="w-full accent-amber-400 bg-slate-950 h-2 rounded-lg cursor-pointer">
+        </div>
+
+      </div>
+
+      <!-- Results & Chart Panel -->
+      <div class="lg:col-span-6 bg-slate-900 border border-slate-800 p-6 md:p-8 rounded-3xl space-y-6">
+        
+        <div class="grid grid-cols-2 gap-4 border-b border-slate-800 pb-6">
+          <div>
+            <span class="font-mono text-[11px] text-slate-500 uppercase">Total Out-of-Pocket</span>
+            <p id="total-invested" class="font-serif text-xl font-bold text-slate-200 mt-1">₹0</p>
+          </div>
+          <div>
+            <span class="font-mono text-[11px] text-slate-500 uppercase">Accumulated Corpus</span>
+            <p id="total-corpus" class="font-serif text-xl font-bold text-slate-50 mt-1">₹0</p>
+          </div>
+        </div>
+
+        <div class="grid grid-cols-2 gap-4 border-b border-slate-800 pb-6">
+          <div>
+            <span class="font-mono text-[11px] text-emerald-400 uppercase">Lump-Sum (Tax-Free Payout)</span>
+            <p id="lump-sum-amount" class="font-serif text-xl font-bold text-emerald-400 mt-1">₹0</p>
+          </div>
+          <div>
+            <span class="font-mono text-[11px] text-amber-400 uppercase">Annuity Corpus Pool</span>
+            <p id="annuity-corpus-amount" class="font-serif text-xl font-bold text-amber-400 mt-1">₹0</p>
+          </div>
+        </div>
+
+        <div class="bg-slate-950 border border-slate-800 p-4 rounded-2xl">
+          <span class="font-mono text-[11px] text-amber-400 uppercase">Estimated Monthly Pension</span>
+          <p id="monthly-pension" class="font-serif text-3xl font-bold text-amber-400 mt-1">₹0</p>
+          <span class="inline-block mt-2 font-mono text-[10px] text-slate-400">*Based on retirement at age 60 under standard annuity rules</span>
+        </div>
+
+        <!-- Chart Container -->
+        <div class="relative aspect-square max-h-44 mx-auto pt-2">
+          <canvas id="npsChart"></canvas>
+        </div>
+
+      </div>
+
+    </div>
+
+    <!-- Bottom Ecosystem Navigation Grid -->
+    <section class="mt-16 pt-12 border-t border-slate-800 bg-slate-900/60 -mx-6 px-6 py-10 rounded-3xl">
+      <div class="max-w-4xl mx-auto space-y-6">
+        <div class="flex items-center justify-between">
+          <div>
+            <span class="font-mono text-xs font-bold text-amber-400 uppercase tracking-widest">Ecosystem Navigation</span>
+            <h3 class="font-serif text-2xl font-normal text-slate-50 mt-1">Explore Other Calculators</h3>
+          </div>
+          <a href="/calculators/" class="text-xs font-mono font-bold text-amber-400 hover:underline flex items-center space-x-1">
+            <span>View All 14 Tools</span>
+            <span>→</span>
+          </a>
+        </div>
+
+        <!-- Quick Switcher Grid -->
+        <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-3 font-mono text-xs">
+          <a href="/calculators/sip/" class="bg-slate-950 border border-slate-800 hover:border-amber-400 p-3 rounded-xl text-slate-300 hover:text-amber-300 transition text-center font-semibold">
+            📈 SIP Compounder
+          </a>
+          <a href="/calculators/lumpsum/" class="bg-slate-950 border border-slate-800 hover:border-amber-400 p-3 rounded-xl text-slate-300 hover:text-amber-300 transition text-center font-semibold">
+            💰 Lumpsum Calculator
+          </a>
+          <a href="/calculators/swp/" class="bg-slate-950 border border-slate-800 hover:border-amber-400 p-3 rounded-xl text-slate-300 hover:text-amber-300 transition text-center font-semibold">
+            🏖️ Retirement SWP
+          </a>
+          <a href="/calculators/ppf/" class="bg-slate-950 border border-slate-800 hover:border-amber-400 p-3 rounded-xl text-slate-300 hover:text-amber-300 transition text-center font-semibold">
+            🛡️ PPF Tax-Free
+          </a>
+          <a href="/calculators/home-loan/" class="bg-slate-950 border border-slate-800 hover:border-amber-400 p-3 rounded-xl text-slate-300 hover:text-amber-300 transition text-center font-semibold">
+            🏡 Home Loan Prepay
+          </a>
+          <a href="/calculators/tax-regime/" class="bg-slate-950 border border-slate-800 hover:border-amber-400 p-3 rounded-xl text-slate-300 hover:text-amber-300 transition text-center font-semibold">
+            ⚖️ Tax Regime 2026
+          </a>
+          <a href="/calculators/car-loan/" class="bg-slate-950 border border-slate-800 hover:border-amber-400 p-3 rounded-xl text-slate-300 hover:text-amber-300 transition text-center font-semibold">
+            🚘 Car Loan EMI
+          </a>
+          <a href="/calculators/business-loan/" class="bg-slate-950 border border-slate-800 hover:border-amber-400 p-3 rounded-xl text-slate-300 hover:text-amber-300 transition text-center font-semibold">
+            🏢 Business Loan CC/OD
+          </a>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <footer class="bg-slate-950 border-t border-slate-800 py-10 px-6 text-center text-xs text-slate-500">
+    <p class="font-serif text-xl font-medium text-slate-200">finoline<span class="font-mono text-xs text-amber-400">.in</span></p>
+    <p class="mt-1">© 2026 finoline.in. Independent financial literacy for self-directed investors.</p>
+  </footer>
+
+  <script>
+    let chartInstance = null;
+
+    function formatINR(val) {
+      return new Intl.NumberFormat('en-IN', { style: 'currency', currency: 'INR', maximumFractionDigits: 0 }).format(Math.max(0, val));
+    }
+
+    function calculateNPS() {
+      const monthlyContribution = parseFloat(document.getElementById('monthly-input').value);
+      const currentAge = parseInt(document.getElementById('age-input').value);
+      const cagr = parseFloat(document.getElementById('rate-input').value) / 100;
+      const annuityPct = parseFloat(document.getElementById('annuity-pct-input').value) / 100;
+      const annuityRate = parseFloat(document.getElementById('annuity-rate-input').value) / 100;
+
+      const retirementAge = 60;
+      const years = Math.max(1, retirementAge - currentAge);
+      const months = years * 12;
+      const monthlyRate = cagr / 12;
+
+      document.getElementById('monthly-val').innerText = formatINR(monthlyContribution);
+      document.getElementById('age-val').innerText = currentAge + ' Years (' + years + ' Yrs to 60)';
+      document.getElementById('rate-val').innerText = (cagr * 100).toFixed(1) + '%';
+      document.getElementById('annuity-pct-val').innerText = (annuityPct * 100) + '%';
+      document.getElementById('annuity-rate-val').innerText = (annuityRate * 100).toFixed(2) + '%';
+
+      // Future Value of Monthly SIP formula: FV = P * [((1+r)^n - 1)/r] * (1+r)
+      const totalCorpus = monthlyContribution * (((Math.pow(1 + monthlyRate, months) - 1) / monthlyRate)) * (1 + monthlyRate);
+      const totalInvested = monthlyContribution * months;
+
+      const annuityCorpus = totalCorpus * annuityPct;
+      const lumpSumCorpus = totalCorpus * (1 - annuityPct);
+
+      // Monthly pension from annuity pool
+      const annualAnnuityIncome = annuityCorpus * annuityRate;
+      const monthlyPension = annualAnnuityIncome / 12;
+
+      document.getElementById('total-invested').innerText = formatINR(totalInvested);
+      document.getElementById('total-corpus').innerText = formatINR(totalCorpus);
+      document.getElementById('lump-sum-amount').innerText = formatINR(lumpSumCorpus);
+      document.getElementById('annuity-corpus-amount').innerText = formatINR(annuityCorpus);
+      document.getElementById('monthly-pension').innerText = formatINR(monthlyPension);
+
+      // Render Chart
+      const ctx = document.getElementById('npsChart').getContext('2d');
+      if (chartInstance) chartInstance.destroy();
+
+      chartInstance = new Chart(ctx, {
+        type: 'doughnut',
+        data: {
+          labels: ['Tax-Free Lump-Sum (Cash)', 'Annuity Corpus (Pension Pool)'],
+          datasets: [{
+            data: [lumpSumCorpus, annuityCorpus],
+            backgroundColor: ['#10b981', '#fbbf24'],
+            borderWidth: 0
+          }]
+        },
+        options: {
+          responsive: true,
+          maintainAspectRatio: false,
+          plugins: { legend: { display: false } }
+        }
+      });
+    }
+
+    document.addEventListener('DOMContentLoaded', calculateNPS);
+  </script>
+</body>
+</html>
