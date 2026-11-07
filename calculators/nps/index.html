@@ -3,13 +3,17 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0" />
-  <title>National Pension System (NPS) Calculator & Pension Engine | finoline.in</title>
-  <meta name="description" content="Calculate NPS Tier-1 accumulation, lump-sum tax-free withdrawal, mandatory annuity allocation, and estimated monthly pension." />
-  
+  <title>NPS Calculator: Tier-1 Pension & Sec 80CCD(1B) Engine | finoline.in</title>
+  <meta name="description" content="Calculate NPS Tier-1 accumulation, tax-free lump-sum payouts, mandatory annuity allocation, and monthly pension income with dual slider and numerical inputs." />
+  <meta name="keywords" content="nps calculator India, national pension system calculator, nps monthly pension calculator, section 80ccd 1b tax savings, tier 1 nps annuity calculator" />
+  <link rel="canonical" href="https://finoline.in/calculators/nps/" />
+
+  <!-- Google Fonts: Playfair Display, Inter & JetBrains Mono -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:wght@500;600;700&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400&family=Playfair+Display:ital,wght@0,500;0,600;0,700;1,400&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
 
+  <!-- Tailwind CSS & Chart.js -->
   <script src="https://cdn.tailwindcss.com"></script>
   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
   <script>
@@ -42,13 +46,13 @@
   </header>
 
   <!-- Calculator Main Interface -->
-  <main class="max-w-4xl mx-auto px-6 py-12 flex-grow w-full space-y-10">
+  <main class="max-w-4xl mx-auto px-6 py-12 flex-grow w-full space-y-12">
     
     <!-- Header -->
     <div class="space-y-3">
       <span class="font-mono text-xs font-bold text-amber-400 bg-amber-400/10 border border-amber-400/30 px-3 py-1 rounded uppercase tracking-widest">Pension Suite & Sec 80CCD(1B)</span>
       <h1 class="font-serif text-3xl md:text-5xl font-normal text-slate-50">NPS Pension Engine</h1>
-      <p class="text-slate-400 text-sm md:text-base font-light">Calculate retirement corpus accumulation, tax-free lump-sum payout, and monthly annuity pension income.</p>
+      <p class="text-slate-400 text-sm md:text-base font-light">Type your exact numbers or drag sliders to project retirement accumulation, tax-free lump sums, and monthly pensions.</p>
     </div>
 
     <!-- Inputs & Outputs Grid -->
@@ -59,47 +63,47 @@
         
         <!-- Monthly Contribution -->
         <div class="space-y-2">
-          <div class="flex justify-between font-mono text-xs">
-            <label class="text-slate-300 font-bold">Monthly NPS Contribution</label>
-            <span id="monthly-val" class="text-amber-400 font-bold">₹10,000</span>
+          <div class="flex justify-between items-center font-mono text-xs">
+            <label class="text-slate-300 font-bold">Monthly Contribution (₹)</label>
+            <input type="number" id="monthly-num" min="500" max="150000" step="1000" value="10000" oninput="syncFromNum('monthly')" class="bg-slate-950 border border-slate-700 focus:border-amber-400 text-amber-400 font-bold text-right px-3 py-1 rounded-lg w-32 outline-none transition">
           </div>
-          <input type="range" id="monthly-input" min="1000" max="150000" step="1000" value="10000" oninput="calculateNPS()" class="w-full accent-amber-400 bg-slate-950 h-2 rounded-lg cursor-pointer">
+          <input type="range" id="monthly-range" min="1000" max="150000" step="1000" value="10000" oninput="syncFromRange('monthly')" class="w-full accent-amber-400 bg-slate-950 h-2 rounded-lg cursor-pointer">
         </div>
 
         <!-- Current Age -->
         <div class="space-y-2">
-          <div class="flex justify-between font-mono text-xs">
-            <label class="text-slate-300 font-bold">Current Age</label>
-            <span id="age-val" class="text-amber-400 font-bold">30 Years</span>
+          <div class="flex justify-between items-center font-mono text-xs">
+            <label class="text-slate-300 font-bold">Current Age (Years)</label>
+            <input type="number" id="age-num" min="18" max="59" step="1" value="30" oninput="syncFromNum('age')" class="bg-slate-950 border border-slate-700 focus:border-amber-400 text-amber-400 font-bold text-right px-3 py-1 rounded-lg w-24 outline-none transition">
           </div>
-          <input type="range" id="age-input" min="18" max="55" step="1" value="30" oninput="calculateNPS()" class="w-full accent-amber-400 bg-slate-950 h-2 rounded-lg cursor-pointer">
+          <input type="range" id="age-range" min="18" max="55" step="1" value="30" oninput="syncFromRange('age')" class="w-full accent-amber-400 bg-slate-950 h-2 rounded-lg cursor-pointer">
         </div>
 
-        <!-- Expected CAGR Rate during Accumulation -->
+        <!-- Expected Portfolio CAGR Return -->
         <div class="space-y-2">
-          <div class="flex justify-between font-mono text-xs">
-            <label class="text-slate-300 font-bold">Expected Portfolio Return (CAGR)</label>
-            <span id="rate-val" class="text-amber-400 font-bold">10.0%</span>
+          <div class="flex justify-between items-center font-mono text-xs">
+            <label class="text-slate-300 font-bold">Expected Portfolio Return (% CAGR)</label>
+            <input type="number" id="rate-num" min="5.0" max="20.0" step="0.5" value="10.0" oninput="syncFromNum('rate')" class="bg-slate-950 border border-slate-700 focus:border-amber-400 text-amber-400 font-bold text-right px-3 py-1 rounded-lg w-28 outline-none transition">
           </div>
-          <input type="range" id="rate-input" min="6.0" max="16.0" step="0.5" value="10.0" oninput="calculateNPS()" class="w-full accent-amber-400 bg-slate-950 h-2 rounded-lg cursor-pointer">
+          <input type="range" id="rate-range" min="6.0" max="16.0" step="0.5" value="10.0" oninput="syncFromRange('rate')" class="w-full accent-amber-400 bg-slate-950 h-2 rounded-lg cursor-pointer">
         </div>
 
-        <!-- Annuity Purchase Percentage (Min 40%) -->
+        <!-- Annuity Allocation Percentage -->
         <div class="space-y-2">
-          <div class="flex justify-between font-mono text-xs">
-            <label class="text-slate-300 font-bold">Annuity Allocation (Min 40%)</label>
-            <span id="annuity-pct-val" class="text-amber-400 font-bold">40%</span>
+          <div class="flex justify-between items-center font-mono text-xs">
+            <label class="text-slate-300 font-bold">Annuity Purchase (%) [Min 40%]</label>
+            <input type="number" id="annuityPct-num" min="40" max="100" step="5" value="40" oninput="syncFromNum('annuityPct')" class="bg-slate-950 border border-slate-700 focus:border-amber-400 text-amber-400 font-bold text-right px-3 py-1 rounded-lg w-24 outline-none transition">
           </div>
-          <input type="range" id="annuity-pct-input" min="40" max="100" step="5" value="40" oninput="calculateNPS()" class="w-full accent-amber-400 bg-slate-950 h-2 rounded-lg cursor-pointer">
+          <input type="range" id="annuityPct-range" min="40" max="100" step="5" value="40" oninput="syncFromRange('annuityPct')" class="w-full accent-amber-400 bg-slate-950 h-2 rounded-lg cursor-pointer">
         </div>
 
-        <!-- Expected Annuity Interest Rate -->
+        <!-- Expected Annuity Return Rate -->
         <div class="space-y-2">
-          <div class="flex justify-between font-mono text-xs">
-            <label class="text-slate-300 font-bold">Expected Annuity Return (p.a.)</label>
-            <span id="annuity-rate-val" class="text-amber-400 font-bold">6.5%</span>
+          <div class="flex justify-between items-center font-mono text-xs">
+            <label class="text-slate-300 font-bold">Annuity Return Rate (% p.a.)</label>
+            <input type="number" id="annuityRate-num" min="4.0" max="12.0" step="0.25" value="6.5" oninput="syncFromNum('annuityRate')" class="bg-slate-950 border border-slate-700 focus:border-amber-400 text-amber-400 font-bold text-right px-3 py-1 rounded-lg w-28 outline-none transition">
           </div>
-          <input type="range" id="annuity-rate-input" min="5.0" max="9.0" step="0.25" value="6.5" oninput="calculateNPS()" class="w-full accent-amber-400 bg-slate-950 h-2 rounded-lg cursor-pointer">
+          <input type="range" id="annuityRate-range" min="5.0" max="9.0" step="0.25" value="6.5" oninput="syncFromRange('annuityRate')" class="w-full accent-amber-400 bg-slate-950 h-2 rounded-lg cursor-pointer">
         </div>
 
       </div>
@@ -120,11 +124,11 @@
 
         <div class="grid grid-cols-2 gap-4 border-b border-slate-800 pb-6">
           <div>
-            <span class="font-mono text-[11px] text-emerald-400 uppercase">Lump-Sum (Tax-Free Payout)</span>
+            <span class="font-mono text-[11px] text-emerald-400 uppercase">Lump-Sum (60% Tax-Free)</span>
             <p id="lump-sum-amount" class="font-serif text-xl font-bold text-emerald-400 mt-1">₹0</p>
           </div>
           <div>
-            <span class="font-mono text-[11px] text-amber-400 uppercase">Annuity Corpus Pool</span>
+            <span class="font-mono text-[11px] text-amber-400 uppercase">Annuity Pool (Pension)</span>
             <p id="annuity-corpus-amount" class="font-serif text-xl font-bold text-amber-400 mt-1">₹0</p>
           </div>
         </div>
@@ -132,7 +136,7 @@
         <div class="bg-slate-950 border border-slate-800 p-4 rounded-2xl">
           <span class="font-mono text-[11px] text-amber-400 uppercase">Estimated Monthly Pension</span>
           <p id="monthly-pension" class="font-serif text-3xl font-bold text-amber-400 mt-1">₹0</p>
-          <span class="inline-block mt-2 font-mono text-[10px] text-slate-400">*Based on retirement at age 60 under standard annuity rules</span>
+          <span class="inline-block mt-2 font-mono text-[10px] text-slate-400">*Based on statutory retirement age of 60</span>
         </div>
 
         <!-- Chart Container -->
@@ -143,6 +147,46 @@
       </div>
 
     </div>
+
+    <!-- Clean Organic SEO Educational Guide -->
+    <article class="mt-16 pt-12 border-t border-slate-800 space-y-6 text-slate-300 text-sm leading-relaxed font-light">
+      
+      <div class="space-y-2">
+        <span class="font-mono text-xs font-bold text-amber-400 uppercase tracking-widest">Guide & Strategy</span>
+        <h2 class="font-serif text-2xl md:text-3xl font-normal text-slate-50">Structuring Retirement Security with the National Pension System (NPS)</h2>
+      </div>
+
+      <p>
+        The <strong>National Pension System (NPS)</strong> is a government-regulated, market-linked retirement scheme managed by the Pension Fund Regulatory and Development Authority (PFRDA). Designed to build a sustainable pension corpus during your working years, NPS combines low-cost professional asset management with unique tax benefits. Utilizing an interactive <strong>nps calculator</strong> enables self-directed investors to model Tier-1 accumulation, lump-sum tax-free withdrawals at age 60, and long-term annuity cash flows.
+      </p>
+
+      <h3 class="font-serif text-xl font-normal text-slate-100 mt-6">Unlocking Section 80CCD(1B) Tax Advantages</h3>
+      <p>
+        NPS provides a distinct tax deduction that sets it apart from standard instruments like PPF or EPF:
+      </p>
+      
+      <div class="bg-slate-900/60 border-l-2 border-amber-400 p-4 font-mono text-xs text-slate-300 space-y-1">
+        <p class="font-bold text-amber-400">Triple Tax Framework Breakdown:</p>
+        <p>• <strong>Section 80CCD(1):</strong> Deductions up to 10% of basic salary within the overall ₹1.5 Lakh ceiling of Section 80C.</p>
+        <p>• <strong>Section 80CCD(1B):</strong> An exclusive <em>additional tax deduction of ₹50,000</em> per fiscal year over and above the ₹1.5 Lakh limit under the Old Tax Regime.</p>
+        <p>• <strong>Section 80CCD(2):</strong> Employer contribution deductions up to 10% (14% for Central Government employees) of basic salary, available under both Old and New Tax Regimes.</p>
+      </div>
+
+      <h3 class="font-serif text-xl font-normal text-slate-100 mt-6">How Maturity Redemption Works at Age 60</h3>
+      <p>
+        Upon reaching the statutory retirement age of 60, your accumulated NPS corpus is split according to PFRDA guidelines:
+      </p>
+      <ul class="list-disc list-inside space-y-2 font-light">
+        <li><strong>Lump-Sum Withdrawal (Up to 60%):</strong> Up to 60% of the total accumulated corpus can be withdrawn as a lump sum completely tax-free.</li>
+        <li><strong>Mandatory Annuity Purchase (Minimum 40%):</strong> A minimum of 40% of the corpus must be allocated to purchase a lifelong annuity from a registered Annuity Service Provider (ASP), generating your regular monthly pension. (Note: Annuity income received is taxable as per your income tax slab in the year of receipt).</li>
+      </ul>
+
+      <h3 class="font-serif text-xl font-normal text-slate-100 mt-6">Optimizing Asset Allocation (Auto Choice vs. Active Choice)</h3>
+      <p>
+        NPS allows customization across four asset classes: Equity (E), Corporate Bonds (C), Government Securities (G), and Alternate Assets (A). Investors can opt for <strong>Active Choice</strong> (allocating up to 75% in equity up to age 50) or <strong>Auto Choice</strong> (which automatically tapers equity exposure down as you approach retirement to lock in capital safety).
+      </p>
+
+    </article>
 
     <!-- Bottom Ecosystem Navigation Grid -->
     <section class="mt-16 pt-12 border-t border-slate-800 bg-slate-900/60 -mx-6 px-6 py-10 rounded-3xl">
@@ -202,32 +246,42 @@
       return new Intl.NumberFormat('en-IN', { style: 'currency', currency: 'INR', maximumFractionDigits: 0 }).format(Math.max(0, val));
     }
 
+    function syncFromRange(key) {
+      const val = document.getElementById(`${key}-range`).value;
+      document.getElementById(`${key}-num`).value = val;
+      calculateNPS();
+    }
+
+    function syncFromNum(key) {
+      const val = document.getElementById(`${key}-num`).value;
+      if (val !== '' && !isNaN(val)) {
+        document.getElementById(`${key}-range`).value = val;
+        calculateNPS();
+      }
+    }
+
     function calculateNPS() {
-      const monthlyContribution = parseFloat(document.getElementById('monthly-input').value);
-      const currentAge = parseInt(document.getElementById('age-input').value);
-      const cagr = parseFloat(document.getElementById('rate-input').value) / 100;
-      const annuityPct = parseFloat(document.getElementById('annuity-pct-input').value) / 100;
-      const annuityRate = parseFloat(document.getElementById('annuity-rate-input').value) / 100;
+      const monthlyContribution = parseFloat(document.getElementById('monthly-num').value) || 0;
+      const currentAge = parseInt(document.getElementById('age-num').value) || 0;
+      const cagr = (parseFloat(document.getElementById('rate-num').value) || 0) / 100;
+      const annuityPct = (parseFloat(document.getElementById('annuityPct-num').value) || 0) / 100;
+      const annuityRate = (parseFloat(document.getElementById('annuityRate-num').value) || 0) / 100;
 
       const retirementAge = 60;
       const years = Math.max(1, retirementAge - currentAge);
       const months = years * 12;
       const monthlyRate = cagr / 12;
 
-      document.getElementById('monthly-val').innerText = formatINR(monthlyContribution);
-      document.getElementById('age-val').innerText = currentAge + ' Years (' + years + ' Yrs to 60)';
-      document.getElementById('rate-val').innerText = (cagr * 100).toFixed(1) + '%';
-      document.getElementById('annuity-pct-val').innerText = (annuityPct * 100) + '%';
-      document.getElementById('annuity-rate-val').innerText = (annuityRate * 100).toFixed(2) + '%';
+      let totalCorpus = 0;
+      let totalInvested = monthlyContribution * months;
 
-      // Future Value of Monthly SIP formula: FV = P * [((1+r)^n - 1)/r] * (1+r)
-      const totalCorpus = monthlyContribution * (((Math.pow(1 + monthlyRate, months) - 1) / monthlyRate)) * (1 + monthlyRate);
-      const totalInvested = monthlyContribution * months;
+      if (monthlyContribution > 0 && monthlyRate > 0 && months > 0) {
+        totalCorpus = monthlyContribution * (((Math.pow(1 + monthlyRate, months) - 1) / monthlyRate)) * (1 + monthlyRate);
+      }
 
       const annuityCorpus = totalCorpus * annuityPct;
       const lumpSumCorpus = totalCorpus * (1 - annuityPct);
 
-      // Monthly pension from annuity pool
       const annualAnnuityIncome = annuityCorpus * annuityRate;
       const monthlyPension = annualAnnuityIncome / 12;
 
@@ -244,7 +298,7 @@
       chartInstance = new Chart(ctx, {
         type: 'doughnut',
         data: {
-          labels: ['Tax-Free Lump-Sum (Cash)', 'Annuity Corpus (Pension Pool)'],
+          labels: ['Tax-Free Lump-Sum (60%)', 'Annuity Corpus Pool'],
           datasets: [{
             data: [lumpSumCorpus, annuityCorpus],
             backgroundColor: ['#10b981', '#fbbf24'],
