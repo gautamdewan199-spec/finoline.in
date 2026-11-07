@@ -4,7 +4,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0" />
   <title>Car Loan Amortization Engine & EMI Calculator | finoline.in</title>
-  <meta name="description" content="Calculate car loan EMIs, interest outgo, principal repayment schedules, and vehicle value depreciation curves." />
+  <meta name="description" content="Calculate car loan EMIs, interest outgo, and principal repayment schedules with custom inputs and interactive sliders." />
   
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -48,7 +48,7 @@
     <div class="space-y-3">
       <span class="font-mono text-xs font-bold text-amber-400 bg-amber-400/10 border border-amber-400/30 px-3 py-1 rounded uppercase tracking-widest">Automotive Financing</span>
       <h1 class="font-serif text-3xl md:text-5xl font-normal text-slate-50">Car Loan Amortization Engine</h1>
-      <p class="text-slate-400 text-sm md:text-base font-light">Simulate monthly EMI schedules, total interest costs, and vehicle depreciation over time.</p>
+      <p class="text-slate-400 text-sm md:text-base font-light">Type your exact numbers or adjust sliders to calculate monthly EMIs and total interest outgo.</p>
     </div>
 
     <!-- Inputs & Outputs Grid -->
@@ -57,40 +57,31 @@
       <!-- Controls Panel -->
       <div class="lg:col-span-6 bg-slate-900 border border-slate-800 p-6 md:p-8 rounded-3xl space-y-6">
         
-        <!-- On-Road Vehicle Price -->
+        <!-- Loan Amount -->
         <div class="space-y-2">
-          <div class="flex justify-between font-mono text-xs">
-            <label class="text-slate-300 font-bold">Vehicle On-Road Price</label>
-            <span id="price-val" class="text-amber-400 font-bold">₹15,00,000</span>
+          <div class="flex justify-between items-center font-mono text-xs">
+            <label class="text-slate-300 font-bold">Car Loan Amount (₹)</label>
+            <input type="number" id="loan-num" min="50000" max="10000000" step="10000" value="1000000" oninput="syncFromNum('loan')" class="bg-slate-950 border border-slate-700 focus:border-amber-400 text-amber-400 font-bold text-right px-3 py-1 rounded-lg w-36 outline-none transition">
           </div>
-          <input type="range" id="price-input" min="300000" max="10000000" step="50000" value="1500000" oninput="calculateCarLoan()" class="w-full accent-amber-400 bg-slate-950 h-2 rounded-lg cursor-pointer">
-        </div>
-
-        <!-- Down Payment -->
-        <div class="space-y-2">
-          <div class="flex justify-between font-mono text-xs">
-            <label class="text-slate-300 font-bold">Down Payment</label>
-            <span id="down-val" class="text-amber-400 font-bold">₹3,00,000</span>
-          </div>
-          <input type="range" id="down-input" min="0" max="5000000" step="25000" value="300000" oninput="calculateCarLoan()" class="w-full accent-amber-400 bg-slate-950 h-2 rounded-lg cursor-pointer">
+          <input type="range" id="loan-range" min="50000" max="10000000" step="10000" value="1000000" oninput="syncFromRange('loan')" class="w-full accent-amber-400 bg-slate-950 h-2 rounded-lg cursor-pointer">
         </div>
 
         <!-- Interest Rate -->
         <div class="space-y-2">
-          <div class="flex justify-between font-mono text-xs">
-            <label class="text-slate-300 font-bold">Interest Rate (p.a.)</label>
-            <span id="rate-val" class="text-amber-400 font-bold">9.0%</span>
+          <div class="flex justify-between items-center font-mono text-xs">
+            <label class="text-slate-300 font-bold">Interest Rate (% p.a.)</label>
+            <input type="number" id="rate-num" min="5" max="20" step="0.1" value="9.0" oninput="syncFromNum('rate')" class="bg-slate-950 border border-slate-700 focus:border-amber-400 text-amber-400 font-bold text-right px-3 py-1 rounded-lg w-28 outline-none transition">
           </div>
-          <input type="range" id="rate-input" min="7.0" max="16.0" step="0.25" value="9.0" oninput="calculateCarLoan()" class="w-full accent-amber-400 bg-slate-950 h-2 rounded-lg cursor-pointer">
+          <input type="range" id="rate-range" min="5" max="20" step="0.1" value="9.0" oninput="syncFromRange('rate')" class="w-full accent-amber-400 bg-slate-950 h-2 rounded-lg cursor-pointer">
         </div>
 
         <!-- Loan Tenure -->
         <div class="space-y-2">
-          <div class="flex justify-between font-mono text-xs">
-            <label class="text-slate-300 font-bold">Loan Tenure</label>
-            <span id="tenure-val" class="text-amber-400 font-bold">5 Years</span>
+          <div class="flex justify-between items-center font-mono text-xs">
+            <label class="text-slate-300 font-bold">Loan Tenure (Years)</label>
+            <input type="number" id="tenure-num" min="1" max="7" step="1" value="5" oninput="syncFromNum('tenure')" class="bg-slate-950 border border-slate-700 focus:border-amber-400 text-amber-400 font-bold text-right px-3 py-1 rounded-lg w-24 outline-none transition">
           </div>
-          <input type="range" id="tenure-input" min="1" max="7" step="1" value="5" oninput="calculateCarLoan()" class="w-full accent-amber-400 bg-slate-950 h-2 rounded-lg cursor-pointer">
+          <input type="range" id="tenure-range" min="1" max="7" step="1" value="5" oninput="syncFromRange('tenure')" class="w-full accent-amber-400 bg-slate-950 h-2 rounded-lg cursor-pointer">
         </div>
 
       </div>
@@ -100,8 +91,8 @@
         
         <div class="grid grid-cols-2 gap-4 border-b border-slate-800 pb-6">
           <div>
-            <span class="font-mono text-[11px] text-slate-500 uppercase">Loan Amount (Financed)</span>
-            <p id="loan-amount" class="font-serif text-xl font-bold text-slate-200 mt-1">₹0</p>
+            <span class="font-mono text-[11px] text-slate-500 uppercase">Principal Financed</span>
+            <p id="display-principal" class="font-serif text-xl font-bold text-slate-200 mt-1">₹0</p>
           </div>
           <div>
             <span class="font-mono text-[11px] text-slate-500 uppercase">Total Interest</span>
@@ -188,35 +179,44 @@
       return new Intl.NumberFormat('en-IN', { style: 'currency', currency: 'INR', maximumFractionDigits: 0 }).format(Math.max(0, val));
     }
 
+    function syncFromRange(key) {
+      const val = document.getElementById(`${key}-range`).value;
+      document.getElementById(`${key}-num`).value = val;
+      calculateCarLoan();
+    }
+
+    function syncFromNum(key) {
+      const val = document.getElementById(`${key}-num`).value;
+      if (val !== '' && !isNaN(val)) {
+        document.getElementById(`${key}-range`).value = val;
+        calculateCarLoan();
+      }
+    }
+
     function calculateCarLoan() {
-      const vehiclePrice = parseFloat(document.getElementById('price-input').value);
-      const downPayment = parseFloat(document.getElementById('down-input').value);
-      const annualRate = parseFloat(document.getElementById('rate-input').value);
-      const years = parseInt(document.getElementById('tenure-input').value);
-
-      // Enforce Down Payment limits relative to Vehicle Price
-      const maxDown = Math.min(downPayment, vehiclePrice - 50000);
-      const principal = Math.max(50000, vehiclePrice - maxDown);
-
-      document.getElementById('price-val').innerText = formatINR(vehiclePrice);
-      document.getElementById('down-val').innerText = formatINR(maxDown);
-      document.getElementById('rate-val').innerText = annualRate.toFixed(2) + '%';
-      document.getElementById('tenure-val').innerText = years + ' Years';
+      const principal = parseFloat(document.getElementById('loan-num').value) || 0;
+      const annualRate = parseFloat(document.getElementById('rate-num').value) || 0;
+      const years = parseInt(document.getElementById('tenure-num').value) || 0;
 
       const r = annualRate / 12 / 100;
       const n = years * 12;
 
-      // EMI Formula
-      const emi = (principal * r * Math.pow(1 + r, n)) / (Math.pow(1 + r, n) - 1);
-      const totalOutgo = emi * n;
-      const totalInterest = totalOutgo - principal;
+      let emi = 0;
+      let totalOutgo = 0;
+      let totalInterest = 0;
 
-      document.getElementById('loan-amount').innerText = formatINR(principal);
+      if (principal > 0 && r > 0 && n > 0) {
+        emi = (principal * r * Math.pow(1 + r, n)) / (Math.pow(1 + r, n) - 1);
+        totalOutgo = emi * n;
+        totalInterest = totalOutgo - principal;
+      }
+
+      document.getElementById('display-principal').innerText = formatINR(principal);
       document.getElementById('total-interest').innerText = formatINR(totalInterest);
       document.getElementById('monthly-emi').innerText = formatINR(emi);
       document.getElementById('total-outgo').innerText = formatINR(totalOutgo);
 
-      // Render Comparison Chart
+      // Render Chart
       const ctx = document.getElementById('carLoanChart').getContext('2d');
       if (chartInstance) chartInstance.destroy();
 
