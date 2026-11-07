@@ -4,7 +4,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0" />
   <title>Home Loan Prepayment & Interest Crusher Engine | finoline.in</title>
-  <meta name="description" content="Calculate home loan EMIs, interest savings, and tenure reduction using lump-sum or annual recurring prepayments." />
+  <meta name="description" content="Calculate home loan EMIs, interest savings, and tenure reduction using lump-sum or annual recurring prepayments with dual slider and numerical inputs." />
   
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -48,7 +48,7 @@
     <div class="space-y-3">
       <span class="font-mono text-xs font-bold text-amber-400 bg-amber-400/10 border border-amber-400/30 px-3 py-1 rounded uppercase tracking-widest">Liability Optimization</span>
       <h1 class="font-serif text-3xl md:text-5xl font-normal text-slate-50">Home Loan Interest Crusher</h1>
-      <p class="text-slate-400 text-sm md:text-base font-light">Simulate how extra principal prepayments slash your total interest outgo and shorten loan tenure.</p>
+      <p class="text-slate-400 text-sm md:text-base font-light">Type your exact figures or drag sliders to simulate extra principal prepayments and tenure reductions.</p>
     </div>
 
     <!-- Inputs & Outputs Grid -->
@@ -59,38 +59,38 @@
         
         <!-- Loan Principal -->
         <div class="space-y-2">
-          <div class="flex justify-between font-mono text-xs">
-            <label class="text-slate-300 font-bold">Home Loan Amount</label>
-            <span id="loan-val" class="text-amber-400 font-bold">₹50,00,000</span>
+          <div class="flex justify-between items-center font-mono text-xs">
+            <label class="text-slate-300 font-bold">Home Loan Amount (₹)</label>
+            <input type="number" id="loan-num" min="100000" max="50000000" step="50000" value="5000000" oninput="syncFromNum('loan')" class="bg-slate-950 border border-slate-700 focus:border-amber-400 text-amber-400 font-bold text-right px-3 py-1 rounded-lg w-36 outline-none transition">
           </div>
-          <input type="range" id="loan-input" min="500000" max="30000000" step="500000" value="5000000" oninput="calculateLoan()" class="w-full accent-amber-400 bg-slate-950 h-2 rounded-lg cursor-pointer">
+          <input type="range" id="loan-range" min="500000" max="30000000" step="100000" value="5000000" oninput="syncFromRange('loan')" class="w-full accent-amber-400 bg-slate-950 h-2 rounded-lg cursor-pointer">
         </div>
 
         <!-- Interest Rate -->
         <div class="space-y-2">
-          <div class="flex justify-between font-mono text-xs">
-            <label class="text-slate-300 font-bold">Interest Rate (p.a.)</label>
-            <span id="rate-val" class="text-amber-400 font-bold">8.5%</span>
+          <div class="flex justify-between items-center font-mono text-xs">
+            <label class="text-slate-300 font-bold">Interest Rate (% p.a.)</label>
+            <input type="number" id="rate-num" min="5" max="20" step="0.1" value="8.5" oninput="syncFromNum('rate')" class="bg-slate-950 border border-slate-700 focus:border-amber-400 text-amber-400 font-bold text-right px-3 py-1 rounded-lg w-28 outline-none transition">
           </div>
-          <input type="range" id="rate-input" min="6.5" max="14.0" step="0.1" value="8.5" oninput="calculateLoan()" class="w-full accent-amber-400 bg-slate-950 h-2 rounded-lg cursor-pointer">
+          <input type="range" id="rate-range" min="6.5" max="15.0" step="0.1" value="8.5" oninput="syncFromRange('rate')" class="w-full accent-amber-400 bg-slate-950 h-2 rounded-lg cursor-pointer">
         </div>
 
         <!-- Loan Tenure -->
         <div class="space-y-2">
-          <div class="flex justify-between font-mono text-xs">
-            <label class="text-slate-300 font-bold">Loan Tenure</label>
-            <span id="tenure-val" class="text-amber-400 font-bold">20 Years</span>
+          <div class="flex justify-between items-center font-mono text-xs">
+            <label class="text-slate-300 font-bold">Loan Tenure (Years)</label>
+            <input type="number" id="tenure-num" min="1" max="30" step="1" value="20" oninput="syncFromNum('tenure')" class="bg-slate-950 border border-slate-700 focus:border-amber-400 text-amber-400 font-bold text-right px-3 py-1 rounded-lg w-24 outline-none transition">
           </div>
-          <input type="range" id="tenure-input" min="5" max="30" step="1" value="20" oninput="calculateLoan()" class="w-full accent-amber-400 bg-slate-950 h-2 rounded-lg cursor-pointer">
+          <input type="range" id="tenure-range" min="1" max="30" step="1" value="20" oninput="syncFromRange('tenure')" class="w-full accent-amber-400 bg-slate-950 h-2 rounded-lg cursor-pointer">
         </div>
 
         <!-- Extra Annual Prepayment -->
         <div class="space-y-2">
-          <div class="flex justify-between font-mono text-xs">
-            <label class="text-slate-300 font-bold">Annual Extra Prepayment</label>
-            <span id="prepay-val" class="text-amber-400 font-bold">₹1,00,000</span>
+          <div class="flex justify-between items-center font-mono text-xs">
+            <label class="text-slate-300 font-bold">Annual Extra Prepayment (₹)</label>
+            <input type="number" id="prepay-num" min="0" max="2000000" step="10000" value="100000" oninput="syncFromNum('prepay')" class="bg-slate-950 border border-slate-700 focus:border-amber-400 text-amber-400 font-bold text-right px-3 py-1 rounded-lg w-36 outline-none transition">
           </div>
-          <input type="range" id="prepay-input" min="0" max="500000" step="10000" value="100000" oninput="calculateLoan()" class="w-full accent-amber-400 bg-slate-950 h-2 rounded-lg cursor-pointer">
+          <input type="range" id="prepay-range" min="0" max="1000000" step="10000" value="100000" oninput="syncFromRange('prepay')" class="w-full accent-amber-400 bg-slate-950 h-2 rounded-lg cursor-pointer">
         </div>
 
       </div>
@@ -188,52 +188,69 @@
       return new Intl.NumberFormat('en-IN', { style: 'currency', currency: 'INR', maximumFractionDigits: 0 }).format(Math.max(0, val));
     }
 
+    function syncFromRange(key) {
+      const val = document.getElementById(`${key}-range`).value;
+      document.getElementById(`${key}-num`).value = val;
+      calculateLoan();
+    }
+
+    function syncFromNum(key) {
+      const val = document.getElementById(`${key}-num`).value;
+      if (val !== '' && !isNaN(val)) {
+        document.getElementById(`${key}-range`).value = val;
+        calculateLoan();
+      }
+    }
+
     function calculateLoan() {
-      const P = parseFloat(document.getElementById('loan-input').value);
-      const annualRate = parseFloat(document.getElementById('rate-input').value);
+      const P = parseFloat(document.getElementById('loan-num').value) || 0;
+      const annualRate = parseFloat(document.getElementById('rate-num').value) || 0;
+      const years = parseInt(document.getElementById('tenure-num').value) || 0;
+      const annualPrepayment = parseFloat(document.getElementById('prepay-num').value) || 0;
+
       const r = annualRate / 12 / 100;
-      const years = parseInt(document.getElementById('tenure-input').value);
       const n = years * 12;
-      const annualPrepayment = parseFloat(document.getElementById('prepay-input').value);
 
-      document.getElementById('loan-val').innerText = formatINR(P);
-      document.getElementById('rate-val').innerText = annualRate.toFixed(1) + '%';
-      document.getElementById('tenure-val').innerText = years + ' Years';
-      document.getElementById('prepay-val').innerText = formatINR(annualPrepayment);
+      let emi = 0;
+      let originalInterest = 0;
+      let interestSaved = 0;
+      let monthsSaved = 0;
+      let newTotalInterest = 0;
 
-      // Standard Monthly EMI Calculation
-      const emi = (P * r * Math.pow(1 + r, n)) / (Math.pow(1 + r, n) - 1);
-      const originalTotalPayable = emi * n;
-      const originalInterest = originalTotalPayable - P;
+      if (P > 0 && r > 0 && n > 0) {
+        // Standard Monthly EMI
+        emi = (P * r * Math.pow(1 + r, n)) / (Math.pow(1 + r, n) - 1);
+        const originalTotalPayable = emi * n;
+        originalInterest = originalTotalPayable - P;
+
+        // Amortization Schedule with Prepayments
+        let balance = P;
+        let monthsElapsed = 0;
+
+        while (balance > 0 && monthsElapsed < n) {
+          monthsElapsed++;
+          const interestForMonth = balance * r;
+          newTotalInterest += interestForMonth;
+
+          let principalForMonth = emi - interestForMonth;
+          balance -= principalForMonth;
+
+          // Apply Annual Prepayment every 12th month
+          if (monthsElapsed % 12 === 0 && balance > 0 && annualPrepayment > 0) {
+            balance -= annualPrepayment;
+          }
+
+          if (balance < 0) balance = 0;
+        }
+
+        interestSaved = Math.max(0, originalInterest - newTotalInterest);
+        monthsSaved = Math.max(0, n - monthsElapsed);
+      }
+
+      const yearsSaved = (monthsSaved / 12).toFixed(1);
 
       document.getElementById('emi-amount').innerText = formatINR(emi);
       document.getElementById('original-interest').innerText = formatINR(originalInterest);
-
-      // Amortization Schedule with Prepayments
-      let balance = P;
-      let newTotalInterest = 0;
-      let monthsElapsed = 0;
-
-      while (balance > 0 && monthsElapsed < n) {
-        monthsElapsed++;
-        const interestForMonth = balance * r;
-        newTotalInterest += interestForMonth;
-
-        let principalForMonth = emi - interestForMonth;
-        balance -= principalForMonth;
-
-        // Apply Annual Prepayment at month 12, 24, 36...
-        if (monthsElapsed % 12 === 0 && balance > 0 && annualPrepayment > 0) {
-          balance -= annualPrepayment;
-        }
-
-        if (balance < 0) balance = 0;
-      }
-
-      const interestSaved = Math.max(0, originalInterest - newTotalInterest);
-      const monthsSaved = Math.max(0, n - monthsElapsed);
-      const yearsSaved = (monthsSaved / 12).toFixed(1);
-
       document.getElementById('interest-saved').innerText = formatINR(interestSaved);
       document.getElementById('tenure-reduced').innerText = `${yearsSaved} Years (${monthsSaved} Mos)`;
 
