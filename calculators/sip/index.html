@@ -4,7 +4,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0" />
   <title>SIP & Step-Up SIP Wealth Calculator | finoline.in</title>
-  <meta name="description" content="Calculate mutual fund SIP growth with annual step-up percentage, inflation adjustment, and wealth compounding schedules." />
+  <meta name="description" content="Calculate mutual fund SIP growth with annual step-up percentage, inflation adjustment, and wealth compounding schedules using dual slider and numerical inputs." />
   
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -48,7 +48,7 @@
     <div class="space-y-3">
       <span class="font-mono text-xs font-bold text-amber-400 bg-amber-400/10 border border-amber-400/30 px-3 py-1 rounded uppercase tracking-widest">Equity Compounding</span>
       <h1 class="font-serif text-3xl md:text-5xl font-normal text-slate-50">SIP & Step-Up Calculator</h1>
-      <p class="text-slate-400 text-sm md:text-base font-light">Simulate monthly wealth accumulation with automatic annual investment step-ups.</p>
+      <p class="text-slate-400 text-sm md:text-base font-light">Type your exact monthly contributions or drag sliders to model long-term compounding.</p>
     </div>
 
     <!-- Inputs & Outputs Grid -->
@@ -59,38 +59,38 @@
         
         <!-- Monthly Investment -->
         <div class="space-y-2">
-          <div class="flex justify-between font-mono text-xs">
-            <label class="text-slate-300 font-bold">Monthly SIP Amount</label>
-            <span id="sip-val" class="text-amber-400 font-bold">₹25,000</span>
+          <div class="flex justify-between items-center font-mono text-xs">
+            <label class="text-slate-300 font-bold">Monthly SIP Amount (₹)</label>
+            <input type="number" id="sip-num" min="500" max="1000000" step="500" value="25000" oninput="syncFromNum('sip')" class="bg-slate-950 border border-slate-700 focus:border-amber-400 text-amber-400 font-bold text-right px-3 py-1 rounded-lg w-36 outline-none transition">
           </div>
-          <input type="range" id="sip-input" min="1000" max="200000" step="1000" value="25000" oninput="calculateSIP()" class="w-full accent-amber-400 bg-slate-950 h-2 rounded-lg cursor-pointer">
+          <input type="range" id="sip-range" min="500" max="500000" step="500" value="25000" oninput="syncFromRange('sip')" class="w-full accent-amber-400 bg-slate-950 h-2 rounded-lg cursor-pointer">
         </div>
 
         <!-- Annual Return Rate -->
         <div class="space-y-2">
-          <div class="flex justify-between font-mono text-xs">
-            <label class="text-slate-300 font-bold">Expected Annual Return (CAGR)</label>
-            <span id="rate-val" class="text-amber-400 font-bold">12.0%</span>
+          <div class="flex justify-between items-center font-mono text-xs">
+            <label class="text-slate-300 font-bold">Expected Return (% CAGR)</label>
+            <input type="number" id="rate-num" min="1" max="30" step="0.5" value="12.0" oninput="syncFromNum('rate')" class="bg-slate-950 border border-slate-700 focus:border-amber-400 text-amber-400 font-bold text-right px-3 py-1 rounded-lg w-28 outline-none transition">
           </div>
-          <input type="range" id="rate-input" min="5" max="25" step="0.5" value="12" oninput="calculateSIP()" class="w-full accent-amber-400 bg-slate-950 h-2 rounded-lg cursor-pointer">
+          <input type="range" id="rate-range" min="1" max="30" step="0.5" value="12" oninput="syncFromRange('rate')" class="w-full accent-amber-400 bg-slate-950 h-2 rounded-lg cursor-pointer">
         </div>
 
         <!-- Duration Years -->
         <div class="space-y-2">
-          <div class="flex justify-between font-mono text-xs">
+          <div class="flex justify-between items-center font-mono text-xs">
             <label class="text-slate-300 font-bold">Time Horizon (Years)</label>
-            <span id="years-val" class="text-amber-400 font-bold">15 Years</span>
+            <input type="number" id="years-num" min="1" max="50" step="1" value="15" oninput="syncFromNum('years')" class="bg-slate-950 border border-slate-700 focus:border-amber-400 text-amber-400 font-bold text-right px-3 py-1 rounded-lg w-24 outline-none transition">
           </div>
-          <input type="range" id="years-input" min="1" max="40" step="1" value="15" oninput="calculateSIP()" class="w-full accent-amber-400 bg-slate-950 h-2 rounded-lg cursor-pointer">
+          <input type="range" id="years-range" min="1" max="40" step="1" value="15" oninput="syncFromRange('years')" class="w-full accent-amber-400 bg-slate-950 h-2 rounded-lg cursor-pointer">
         </div>
 
         <!-- Annual Step-Up -->
         <div class="space-y-2">
-          <div class="flex justify-between font-mono text-xs">
-            <label class="text-slate-300 font-bold">Annual Step-Up (% Increase)</label>
-            <span id="step-val" class="text-amber-400 font-bold">10%</span>
+          <div class="flex justify-between items-center font-mono text-xs">
+            <label class="text-slate-300 font-bold">Annual Step-Up (%)</label>
+            <input type="number" id="step-num" min="0" max="50" step="1" value="10" oninput="syncFromNum('step')" class="bg-slate-950 border border-slate-700 focus:border-amber-400 text-amber-400 font-bold text-right px-3 py-1 rounded-lg w-24 outline-none transition">
           </div>
-          <input type="range" id="step-input" min="0" max="25" step="1" value="10" oninput="calculateSIP()" class="w-full accent-amber-400 bg-slate-950 h-2 rounded-lg cursor-pointer">
+          <input type="range" id="step-range" min="0" max="30" step="1" value="10" oninput="syncFromRange('step')" class="w-full accent-amber-400 bg-slate-950 h-2 rounded-lg cursor-pointer">
         </div>
 
       </div>
@@ -110,7 +110,7 @@
         </div>
 
         <div>
-          <span class="font-mono text-[11px] text-slate-500 uppercase">Final Projected Value</span>
+          <span class="font-mono text-[11px] text-slate-500 uppercase">Final Projected Corpus</span>
           <p id="final-corpus" class="font-serif text-3xl md:text-4xl font-bold text-slate-50 mt-1">₹0</p>
         </div>
 
@@ -178,19 +178,28 @@
     let chartInstance = null;
 
     function formatINR(val) {
-      return new Intl.NumberFormat('en-IN', { style: 'currency', currency: 'INR', maximumFractionDigits: 0 }).format(val);
+      return new Intl.NumberFormat('en-IN', { style: 'currency', currency: 'INR', maximumFractionDigits: 0 }).format(Math.max(0, val));
+    }
+
+    function syncFromRange(key) {
+      const val = document.getElementById(`${key}-range`).value;
+      document.getElementById(`${key}-num`).value = val;
+      calculateSIP();
+    }
+
+    function syncFromNum(key) {
+      const val = document.getElementById(`${key}-num`).value;
+      if (val !== '' && !isNaN(val)) {
+        document.getElementById(`${key}-range`).value = val;
+        calculateSIP();
+      }
     }
 
     function calculateSIP() {
-      const monthlySIP = parseFloat(document.getElementById('sip-input').value);
-      const cagr = parseFloat(document.getElementById('rate-input').value) / 100;
-      const years = parseInt(document.getElementById('years-input').value);
-      const stepUp = parseFloat(document.getElementById('step-input').value) / 100;
-
-      document.getElementById('sip-val').innerText = formatINR(monthlySIP);
-      document.getElementById('rate-val').innerText = cagr * 100 + '%';
-      document.getElementById('years-val').innerText = years + ' Years';
-      document.getElementById('step-val').innerText = stepUp * 100 + '%';
+      const monthlySIP = parseFloat(document.getElementById('sip-num').value) || 0;
+      const cagr = (parseFloat(document.getElementById('rate-num').value) || 0) / 100;
+      const years = parseInt(document.getElementById('years-num').value) || 0;
+      const stepUp = (parseFloat(document.getElementById('step-num').value) || 0) / 100;
 
       const monthlyRate = cagr / 12;
       let totalInvested = 0;
@@ -205,7 +214,7 @@
         currentMonthlySIP *= (1 + stepUp);
       }
 
-      const totalGains = corpus - totalInvested;
+      const totalGains = Math.max(0, corpus - totalInvested);
 
       document.getElementById('total-invested').innerText = formatINR(totalInvested);
       document.getElementById('total-gains').innerText = formatINR(totalGains);
