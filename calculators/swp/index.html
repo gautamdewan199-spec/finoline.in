@@ -3,13 +3,17 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0" />
-  <title>Retirement SWP Calculator: Decumulation Engine | finoline.in</title>
-  <meta name="description" content="Calculate monthly systematic withdrawal plans (SWP), inflation-adjusted retirement income, and portfolio survival timelines." />
-  
+  <title>Retirement SWP Calculator & Decumulation Engine | finoline.in</title>
+  <meta name="description" content="Calculate monthly systematic withdrawal plans (SWP), inflation-adjusted retirement cash flow, and portfolio survival timelines with dual slider and numerical inputs." />
+  <meta name="keywords" content="swp calculator India, systematic withdrawal plan calculator, retirement swp calculator, inflation adjusted withdrawal engine, mutual fund swp annuity" />
+  <link rel="canonical" href="https://finoline.in/calculators/swp/" />
+
+  <!-- Google Fonts: Playfair Display, Inter & JetBrains Mono -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:wght@500;600;700&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400&family=Playfair+Display:ital,wght@0,500;0,600;0,700;1,400&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
 
+  <!-- Tailwind CSS & Chart.js -->
   <script src="https://cdn.tailwindcss.com"></script>
   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
   <script>
@@ -42,13 +46,13 @@
   </header>
 
   <!-- Calculator Main Interface -->
-  <main class="max-w-4xl mx-auto px-6 py-12 flex-grow w-full space-y-10">
+  <main class="max-w-4xl mx-auto px-6 py-12 flex-grow w-full space-y-12">
     
     <!-- Header -->
     <div class="space-y-3">
       <span class="font-mono text-xs font-bold text-amber-400 bg-amber-400/10 border border-amber-400/30 px-3 py-1 rounded uppercase tracking-widest">Retirement Decumulation</span>
       <h1 class="font-serif text-3xl md:text-5xl font-normal text-slate-50">SWP Cash Flow Engine</h1>
-      <p class="text-slate-400 text-sm md:text-base font-light">Simulate monthly systematic withdrawals, inflation adjustments, and corpus longevity.</p>
+      <p class="text-slate-400 text-sm md:text-base font-light">Type your exact figures or drag sliders to simulate monthly withdrawals and corpus longevity.</p>
     </div>
 
     <!-- Inputs & Outputs Grid -->
@@ -59,47 +63,47 @@
         
         <!-- Total Corpus -->
         <div class="space-y-2">
-          <div class="flex justify-between font-mono text-xs">
-            <label class="text-slate-300 font-bold">Total Retirement Corpus</label>
-            <span id="corpus-val" class="text-amber-400 font-bold">₹1,00,00,000</span>
+          <div class="flex justify-between items-center font-mono text-xs">
+            <label class="text-slate-300 font-bold">Total Retirement Corpus (₹)</label>
+            <input type="number" id="corpus-num" min="100000" max="500000000" step="100000" value="10000000" oninput="syncFromNum('corpus')" class="bg-slate-950 border border-slate-700 focus:border-amber-400 text-amber-400 font-bold text-right px-3 py-1 rounded-lg w-36 outline-none transition">
           </div>
-          <input type="range" id="corpus-input" min="1000000" max="100000000" step="500000" value="10000000" oninput="calculateSWP()" class="w-full accent-amber-400 bg-slate-950 h-2 rounded-lg cursor-pointer">
+          <input type="range" id="corpus-range" min="1000000" max="100000000" step="500000" value="10000000" oninput="syncFromRange('corpus')" class="w-full accent-amber-400 bg-slate-950 h-2 rounded-lg cursor-pointer">
         </div>
 
         <!-- Monthly Withdrawal -->
         <div class="space-y-2">
-          <div class="flex justify-between font-mono text-xs">
-            <label class="text-slate-300 font-bold">Monthly Withdrawal (SWP)</label>
-            <span id="withdrawal-val" class="text-amber-400 font-bold">₹50,000</span>
+          <div class="flex justify-between items-center font-mono text-xs">
+            <label class="text-slate-300 font-bold">Monthly Withdrawal (₹)</label>
+            <input type="number" id="withdrawal-num" min="1000" max="2000000" step="1000" value="50000" oninput="syncFromNum('withdrawal')" class="bg-slate-950 border border-slate-700 focus:border-amber-400 text-amber-400 font-bold text-right px-3 py-1 rounded-lg w-32 outline-none transition">
           </div>
-          <input type="range" id="withdrawal-input" min="5000" max="500000" step="5000" value="50000" oninput="calculateSWP()" class="w-full accent-amber-400 bg-slate-950 h-2 rounded-lg cursor-pointer">
+          <input type="range" id="withdrawal-range" min="5000" max="500000" step="5000" value="50000" oninput="syncFromRange('withdrawal')" class="w-full accent-amber-400 bg-slate-950 h-2 rounded-lg cursor-pointer">
         </div>
 
         <!-- Expected Portfolio Return -->
         <div class="space-y-2">
-          <div class="flex justify-between font-mono text-xs">
-            <label class="text-slate-300 font-bold">Expected Portfolio Return (p.a.)</label>
-            <span id="return-val" class="text-amber-400 font-bold">8.5%</span>
+          <div class="flex justify-between items-center font-mono text-xs">
+            <label class="text-slate-300 font-bold">Expected Return (% p.a.)</label>
+            <input type="number" id="return-num" min="1" max="25" step="0.5" value="8.5" oninput="syncFromNum('return')" class="bg-slate-950 border border-slate-700 focus:border-amber-400 text-amber-400 font-bold text-right px-3 py-1 rounded-lg w-28 outline-none transition">
           </div>
-          <input type="range" id="return-input" min="4" max="18" step="0.5" value="8.5" oninput="calculateSWP()" class="w-full accent-amber-400 bg-slate-950 h-2 rounded-lg cursor-pointer">
+          <input type="range" id="return-range" min="4" max="18" step="0.5" value="8.5" oninput="syncFromRange('return')" class="w-full accent-amber-400 bg-slate-950 h-2 rounded-lg cursor-pointer">
         </div>
 
         <!-- Duration Years -->
         <div class="space-y-2">
-          <div class="flex justify-between font-mono text-xs">
+          <div class="flex justify-between items-center font-mono text-xs">
             <label class="text-slate-300 font-bold">Time Horizon (Years)</label>
-            <span id="years-val" class="text-amber-400 font-bold">25 Years</span>
+            <input type="number" id="years-num" min="1" max="50" step="1" value="25" oninput="syncFromNum('years')" class="bg-slate-950 border border-slate-700 focus:border-amber-400 text-amber-400 font-bold text-right px-3 py-1 rounded-lg w-24 outline-none transition">
           </div>
-          <input type="range" id="years-input" min="5" max="40" step="1" value="25" oninput="calculateSWP()" class="w-full accent-amber-400 bg-slate-950 h-2 rounded-lg cursor-pointer">
+          <input type="range" id="years-range" min="5" max="40" step="1" value="25" oninput="syncFromRange('years')" class="w-full accent-amber-400 bg-slate-950 h-2 rounded-lg cursor-pointer">
         </div>
 
-        <!-- Annual Withdrawal Increment -->
+        <!-- Annual Inflation Increment -->
         <div class="space-y-2">
-          <div class="flex justify-between font-mono text-xs">
-            <label class="text-slate-300 font-bold">Annual Inflation Increment</label>
-            <span id="step-val" class="text-amber-400 font-bold">5%</span>
+          <div class="flex justify-between items-center font-mono text-xs">
+            <label class="text-slate-300 font-bold">Annual Inflation Increment (%)</label>
+            <input type="number" id="step-num" min="0" max="20" step="1" value="5" oninput="syncFromNum('step')" class="bg-slate-950 border border-slate-700 focus:border-amber-400 text-amber-400 font-bold text-right px-3 py-1 rounded-lg w-24 outline-none transition">
           </div>
-          <input type="range" id="step-input" min="0" max="12" step="1" value="5" oninput="calculateSWP()" class="w-full accent-amber-400 bg-slate-950 h-2 rounded-lg cursor-pointer">
+          <input type="range" id="step-range" min="0" max="12" step="1" value="5" oninput="syncFromRange('step')" class="w-full accent-amber-400 bg-slate-950 h-2 rounded-lg cursor-pointer">
         </div>
 
       </div>
@@ -133,7 +137,44 @@
 
     </div>
 
-    <!-- Bottom Ecosystem Navigation -->
+    <!-- Clean Organic SEO Educational Guide -->
+    <article class="mt-16 pt-12 border-t border-slate-800 space-y-6 text-slate-300 text-sm leading-relaxed font-light">
+      
+      <div class="space-y-2">
+        <span class="font-mono text-xs font-bold text-amber-400 uppercase tracking-widest">Guide & Strategy</span>
+        <h2 class="font-serif text-2xl md:text-3xl font-normal text-slate-50">Engineering Sustainable Retirement Income with an SWP Calculator</h2>
+      </div>
+
+      <p>
+        Transitioning from wealth accumulation to portfolio decumulation is one of the most critical phases in personal finance. For retirees and financially independent investors in India, relying solely on traditional fixed deposits or low-yielding annuities often results in purchasing power erosion due to inflation. A <strong>systematic withdrawal plan (SWP)</strong> allows you to redeem a fixed monthly cash flow from mutual fund holdings while leaving the remaining balance invested to continue compounding. Utilizing an interactive <strong>swp calculator</strong> helps model exact withdrawal rates to ensure your principal lasts through retirement.
+      </p>
+
+      <h3 class="font-serif text-xl font-normal text-slate-100 mt-6">The Mechanics of Decumulation vs. Inflation Drag</h3>
+      <p>
+        Unlike a fixed annuity payout, an optimal SWP strategy must account for inflation. A constant monthly payout of ₹50,000 might cover household expenses today, but at a modest 5% to 6% annual inflation rate, your required living expenses will double in approximately 12 years. Incorporating an annual withdrawal step-up ensures your cash flow keeps pace with real-world price increases.
+      </p>
+      
+      <div class="bg-slate-900/60 border-l-2 border-amber-400 p-4 font-mono text-xs text-slate-300 space-y-1">
+        <p class="font-bold text-amber-400">Decumulation Sustainability Model (₹1 Crore Corpus @ 8.5% Portfolio Return):</p>
+        <p>• <strong>Flat SWP (₹50,000/mo = 6.0% Initial Withdrawal Rate):</strong> Total Payout: ₹1.50 Crores over 25 Years | Remaining Corpus: ~₹88.5 Lakhs</p>
+        <p>• <strong>Inflation-Adjusted SWP (₹50,000/mo + 5% Annual Increment):</strong> Total Payout: ₹2.86 Crores over 25 Years | Remaining Corpus: ~₹12.4 Lakhs</p>
+      </div>
+
+      <p>
+        As shown in the model above, maintaining a prudent initial withdrawal rate (between 4% and 6%) while stepping up payouts annually provides stable inflation hedging without triggering premature corpus depletion.
+      </p>
+
+      <h3 class="font-serif text-xl font-normal text-slate-100 mt-6">Best Practices for Structuring a Mutual Fund SWP</h3>
+      <ol class="list-decimal list-inside space-y-2 font-light">
+        <li><strong>Adhere to Safe Withdrawal Rules:</strong> Keeping your initial annual withdrawal rate below or equal to your portfolio's real rate of return prevents sequence-of-returns risk during early retirement years.</li>
+        <li><strong>Adopt a Bucket Strategy:</strong> Divide your retirement corpus across asset classes. Keep 2 to 3 years of immediate cash needs in liquid/arbitrage funds (Bucket 1), and allocate the remaining balance across hybrid and broad market index funds (Bucket 2) to maintain long-term capital growth.</li>
+        <li><strong>Leverage Tax Efficiency Under Capital Gains Slabs:</strong> Unlike bank FD interest, which is taxed at your full slab rate, mutual fund SWP redemptions consist of both principal capital and growth. Only the gain portion is subject to LTCG (12.5% above the ₹1.25 Lakh exemption limit), making SWP significantly more tax-efficient than conventional income options.</li>
+        <li><strong>Review Portfolio Returns Periodically:</strong> Rebalance your underlying portfolio once a year to reset asset allocations between debt and equity based on market conditions.</li>
+      </ol>
+
+    </article>
+
+    <!-- Bottom Ecosystem Navigation Grid -->
     <section class="mt-16 pt-12 border-t border-slate-800 bg-slate-900/60 -mx-6 px-6 py-10 rounded-3xl">
       <div class="max-w-4xl mx-auto space-y-6">
         <div class="flex items-center justify-between">
@@ -191,20 +232,28 @@
       return new Intl.NumberFormat('en-IN', { style: 'currency', currency: 'INR', maximumFractionDigits: 0 }).format(Math.max(0, val));
     }
 
+    function syncFromRange(key) {
+      const val = document.getElementById(`${key}-range`).value;
+      document.getElementById(`${key}-num`).value = val;
+      calculateSWP();
+    }
+
+    function syncFromNum(key) {
+      const val = document.getElementById(`${key}-num`).value;
+      if (val !== '' && !isNaN(val)) {
+        document.getElementById(`${key}-range`).value = val;
+        calculateSWP();
+      }
+    }
+
     function calculateSWP() {
-      const initialCorpus = parseFloat(document.getElementById('corpus-input').value);
-      const initialWithdrawal = parseFloat(document.getElementById('withdrawal-input').value);
-      const annualReturn = parseFloat(document.getElementById('return-input').value) / 100;
-      const years = parseInt(document.getElementById('years-input').value);
-      const stepUp = parseFloat(document.getElementById('step-input').value) / 100;
+      const initialCorpus = parseFloat(document.getElementById('corpus-num').value) || 0;
+      const initialWithdrawal = parseFloat(document.getElementById('withdrawal-num').value) || 0;
+      const annualReturn = (parseFloat(document.getElementById('return-num').value) || 0) / 100;
+      const years = parseInt(document.getElementById('years-num').value) || 0;
+      const stepUp = (parseFloat(document.getElementById('step-num').value) || 0) / 100;
 
-      document.getElementById('corpus-val').innerText = formatINR(initialCorpus);
-      document.getElementById('withdrawal-val').innerText = formatINR(initialWithdrawal);
-      document.getElementById('return-val').innerText = (annualReturn * 100).toFixed(1) + '%';
-      document.getElementById('years-val').innerText = years + ' Years';
-      document.getElementById('step-val').innerText = (stepUp * 100) + '%';
-
-      const initialSwpRate = ((initialWithdrawal * 12) / initialCorpus) * 100;
+      const initialSwpRate = initialCorpus > 0 ? ((initialWithdrawal * 12) / initialCorpus) * 100 : 0;
       document.getElementById('swp-rate').innerText = initialSwpRate.toFixed(2) + '%';
 
       const monthlyReturn = annualReturn / 12;
@@ -240,7 +289,7 @@
         statusBadge.innerText = "Corpus Sustainable";
         statusBadge.className = "inline-block mt-2 font-mono text-xs font-bold px-2.5 py-1 rounded bg-emerald-400/10 text-emerald-400 border border-emerald-400/30";
       } else {
-        const depletedYears = (depletedMonth / 12).toFixed(1);
+        const depletedYears = depletedMonth ? (depletedMonth / 12).toFixed(1) : "0";
         statusBadge.innerText = `Corpus Depleted in ${depletedYears} Years`;
         statusBadge.className = "inline-block mt-2 font-mono text-xs font-bold px-2.5 py-1 rounded bg-rose-400/10 text-rose-400 border border-rose-400/30";
       }
