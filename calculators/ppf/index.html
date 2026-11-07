@@ -3,13 +3,17 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0" />
-  <title>Public Provident Fund (PPF) Tax-Free Compounder | finoline.in</title>
-  <meta name="description" content="Calculate statutory PPF EEE tax-free returns, annual contributions up to ₹1.5L, and 15-year compounding schedules." />
-  
+  <title>PPF Calculator: Sovereign EEE Tax-Free Compounder | finoline.in</title>
+  <meta name="description" content="Calculate statutory Public Provident Fund (PPF) returns, EEE tax-free interest growth, and 15 to 30 year maturity schedules with dual slider and numerical inputs." />
+  <meta name="keywords" content="ppf calculator India, public provident fund calculator, statutory tax free compounding, section 80c tax savings, ppf maturity schedule" />
+  <link rel="canonical" href="https://finoline.in/calculators/ppf/" />
+
+  <!-- Google Fonts: Playfair Display, Inter & JetBrains Mono -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:wght@500;600;700&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400&family=Playfair+Display:ital,wght@0,500;0,600;0,700;1,400&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
 
+  <!-- Tailwind CSS & Chart.js -->
   <script src="https://cdn.tailwindcss.com"></script>
   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
   <script>
@@ -42,13 +46,13 @@
   </header>
 
   <!-- Calculator Main Interface -->
-  <main class="max-w-4xl mx-auto px-6 py-12 flex-grow w-full space-y-10">
+  <main class="max-w-4xl mx-auto px-6 py-12 flex-grow w-full space-y-12">
     
     <!-- Header -->
     <div class="space-y-3">
-      <span class="font-mono text-xs font-bold text-amber-400 bg-amber-400/10 border border-amber-400/30 px-3 py-1 rounded uppercase tracking-widest">Sovereign Debt</span>
+      <span class="font-mono text-xs font-bold text-amber-400 bg-amber-400/10 border border-amber-400/30 px-3 py-1 rounded uppercase tracking-widest">Sovereign Debt Engine</span>
       <h1 class="font-serif text-3xl md:text-5xl font-normal text-slate-50">Public Provident Fund (PPF) Engine</h1>
-      <p class="text-slate-400 text-sm md:text-base font-light">Simulate EEE tax-free wealth compounding across statutory 15-year lock-in terms.</p>
+      <p class="text-slate-400 text-sm md:text-base font-light">Type your exact deposit amounts or drag sliders to calculate statutory EEE tax-free returns and maturity schedules.</p>
     </div>
 
     <!-- Inputs & Outputs Grid -->
@@ -59,29 +63,29 @@
         
         <!-- Yearly Deposit -->
         <div class="space-y-2">
-          <div class="flex justify-between font-mono text-xs">
-            <label class="text-slate-300 font-bold">Annual Deposit (Max ₹1.5L)</label>
-            <span id="deposit-val" class="text-amber-400 font-bold">₹1,50,000</span>
+          <div class="flex justify-between items-center font-mono text-xs">
+            <label class="text-slate-300 font-bold">Annual Deposit (Max ₹1.5L) (₹)</label>
+            <input type="number" id="deposit-num" min="500" max="150000" step="5000" value="150000" oninput="syncFromNum('deposit')" class="bg-slate-950 border border-slate-700 focus:border-amber-400 text-amber-400 font-bold text-right px-3 py-1 rounded-lg w-36 outline-none transition">
           </div>
-          <input type="range" id="deposit-input" min="5000" max="150000" step="5000" value="150000" oninput="calculatePPF()" class="w-full accent-amber-400 bg-slate-950 h-2 rounded-lg cursor-pointer">
+          <input type="range" id="deposit-range" min="5000" max="150000" step="5000" value="150000" oninput="syncFromRange('deposit')" class="w-full accent-amber-400 bg-slate-950 h-2 rounded-lg cursor-pointer">
         </div>
 
         <!-- Interest Rate -->
         <div class="space-y-2">
-          <div class="flex justify-between font-mono text-xs">
-            <label class="text-slate-300 font-bold">Statutory Interest Rate (p.a.)</label>
-            <span id="rate-val" class="text-amber-400 font-bold">7.1%</span>
+          <div class="flex justify-between items-center font-mono text-xs">
+            <label class="text-slate-300 font-bold">Statutory Rate (% p.a.)</label>
+            <input type="number" id="rate-num" min="5.0" max="10.0" step="0.1" value="7.1" oninput="syncFromNum('rate')" class="bg-slate-950 border border-slate-700 focus:border-amber-400 text-amber-400 font-bold text-right px-3 py-1 rounded-lg w-28 outline-none transition">
           </div>
-          <input type="range" id="rate-input" min="6.0" max="9.0" step="0.1" value="7.1" oninput="calculatePPF()" class="w-full accent-amber-400 bg-slate-950 h-2 rounded-lg cursor-pointer">
+          <input type="range" id="rate-range" min="6.0" max="9.0" step="0.1" value="7.1" oninput="syncFromRange('rate')" class="w-full accent-amber-400 bg-slate-950 h-2 rounded-lg cursor-pointer">
         </div>
 
-        <!-- Time Horizon Years (15, 20, 25, 30) -->
+        <!-- Time Horizon Years -->
         <div class="space-y-2">
-          <div class="flex justify-between font-mono text-xs">
+          <div class="flex justify-between items-center font-mono text-xs">
             <label class="text-slate-300 font-bold">Time Horizon (Years)</label>
-            <span id="years-val" class="text-amber-400 font-bold">15 Years</span>
+            <input type="number" id="years-num" min="15" max="30" step="5" value="15" oninput="syncFromNum('years')" class="bg-slate-950 border border-slate-700 focus:border-amber-400 text-amber-400 font-bold text-right px-3 py-1 rounded-lg w-24 outline-none transition">
           </div>
-          <input type="range" id="years-input" min="15" max="30" step="5" value="15" oninput="calculatePPF()" class="w-full accent-amber-400 bg-slate-950 h-2 rounded-lg cursor-pointer">
+          <input type="range" id="years-range" min="15" max="30" step="5" value="15" oninput="syncFromRange('years')" class="w-full accent-amber-400 bg-slate-950 h-2 rounded-lg cursor-pointer">
         </div>
 
       </div>
@@ -113,6 +117,45 @@
       </div>
 
     </div>
+
+    <!-- Clean Organic SEO Educational Guide -->
+    <article class="mt-16 pt-12 border-t border-slate-800 space-y-6 text-slate-300 text-sm leading-relaxed font-light">
+      
+      <div class="space-y-2">
+        <span class="font-mono text-xs font-bold text-amber-400 uppercase tracking-widest">Guide & Strategy</span>
+        <h2 class="font-serif text-2xl md:text-3xl font-normal text-slate-50">Maximizing Risk-Free Wealth with EEE Tax Benefits in PPF</h2>
+      </div>
+
+      <p>
+        The <strong>Public Provident Fund (PPF)</strong> remains one of India's most trusted fixed-income investment vehicles. Backed directly by the Government of India, it provides complete capital protection alongside guaranteed annual compounding returns. Its standout feature is its statutory <strong>Exempt-Exempt-Exempt (EEE)</strong> tax status: annual contributions are deductible under Section 80C, interest credited is non-taxable, and the final maturity corpus is entirely exempt from income tax. Using an interactive <strong>ppf calculator</strong> allows conservative and hybrid investors to model precise long-term debt wealth building.
+      </p>
+
+      <h3 class="font-serif text-xl font-normal text-slate-100 mt-6">The 5th-of-the-Month Deposit Optimization Strategy</h3>
+      <p>
+        Interest on PPF accounts is calculated on the minimum balance held between the close of the <strong>5th day and the last day of each month</strong>, but credited annually at the end of the fiscal year (March 31st). To maximize your returns:
+      </p>
+
+      <div class="bg-slate-900/60 border-l-2 border-amber-400 p-4 font-mono text-xs text-slate-300 space-y-1">
+        <p class="font-bold text-amber-400">Timing Strategy Breakdown:</p>
+        <p>• <strong>Optimal Monthly Timing:</strong> Deposit your installment on or before the 5th of every month to earn interest for that full month.</p>
+        <p>• <strong>Lump-Sum Power Move:</strong> Deposit the maximum annual limit of ₹1,50,000 between April 1st and April 5th to lock in interest compounding on the full sum for all 12 months of the financial year.</p>
+      </div>
+
+      <h3 class="font-serif text-xl font-normal text-slate-100 mt-6">Understanding the Lock-in Period & 5-Year Extensions</h3>
+      <p>
+        A PPF account carries a mandatory statutory lock-in period of <strong>15 financial years</strong>. However, upon reaching maturity, account holders are not required to close the account. You can extend your PPF account in blocks of 5 years indefinitely:
+      </p>
+      <ul class="list-disc list-inside space-y-2 font-light">
+        <li><strong>Extension with Fresh Contributions:</strong> Submit Form H within one year of maturity to continue depositing up to ₹1,50,000 annually while maintaining EEE tax benefits.</li>
+        <li><strong>Extension without Fresh Contributions:</strong> Retain your entire accumulated corpus in the account without making new deposits; the full balance continues to earn tax-free interest annually while allowing one penalty-free withdrawal per year.</li>
+      </ul>
+
+      <h3 class="font-serif text-xl font-normal text-slate-100 mt-6">Structuring PPF in a Balanced Asset Allocation</h3>
+      <p>
+        While equity SIPs build capital, allocation to PPF provides defensive debt anchoring. It acts as an emergency backstop during market drawdowns and offers a completely tax-free cash cushion for major life events like higher education or retirement funding.
+      </p>
+
+    </article>
 
     <!-- Bottom Ecosystem Navigation Grid -->
     <section class="mt-16 pt-12 border-t border-slate-800 bg-slate-900/60 -mx-6 px-6 py-10 rounded-3xl">
@@ -169,17 +212,27 @@
     let chartInstance = null;
 
     function formatINR(val) {
-      return new Intl.NumberFormat('en-IN', { style: 'currency', currency: 'INR', maximumFractionDigits: 0 }).format(val);
+      return new Intl.NumberFormat('en-IN', { style: 'currency', currency: 'INR', maximumFractionDigits: 0 }).format(Math.max(0, val));
+    }
+
+    function syncFromRange(key) {
+      const val = document.getElementById(`${key}-range`).value;
+      document.getElementById(`${key}-num`).value = val;
+      calculatePPF();
+    }
+
+    function syncFromNum(key) {
+      const val = document.getElementById(`${key}-num`).value;
+      if (val !== '' && !isNaN(val)) {
+        document.getElementById(`${key}-range`).value = val;
+        calculatePPF();
+      }
     }
 
     function calculatePPF() {
-      const P = parseFloat(document.getElementById('deposit-input').value);
-      const i = parseFloat(document.getElementById('rate-input').value) / 100;
-      const years = parseInt(document.getElementById('years-input').value);
-
-      document.getElementById('deposit-val').innerText = formatINR(P);
-      document.getElementById('rate-val').innerText = (i * 100).toFixed(1) + '%';
-      document.getElementById('years-val').innerText = years + ' Years';
+      const P = parseFloat(document.getElementById('deposit-num').value) || 0;
+      const i = (parseFloat(document.getElementById('rate-num').value) || 0) / 100;
+      const years = parseInt(document.getElementById('years-num').value) || 0;
 
       let balance = 0;
       let totalInvested = 0;
@@ -191,7 +244,7 @@
         totalInvested += P;
       }
 
-      const totalInterest = balance - totalInvested;
+      const totalInterest = Math.max(0, balance - totalInvested);
 
       document.getElementById('total-invested').innerText = formatINR(totalInvested);
       document.getElementById('total-interest').innerText = formatINR(totalInterest);
