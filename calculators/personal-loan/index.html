@@ -3,37 +3,19 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0" />
-  <title>Personal Loan EMI & Prepayment Penalty Calculator | finoline.in</title>
-
-  <!-- Primary SEO Meta Tags -->
-  <meta name="description" content="Calculate unsecured personal loan EMI, total interest, foreclosure charges, and early prepayment penalty savings under RBI rules with 18% GST." />
-  <meta name="keywords" content="Personal loan EMI calculator, Personal loan foreclosure charges calculator, RBI loan prepayment rules 2026, Personal loan penalty savings India" />
+  <title>Personal Loan EMI & Processing Fee Calculator | finoline.in</title>
+  <meta name="description" content="Calculate unsecured personal loan EMIs, total interest burdens, and processing fee impacts with dual slider and numerical inputs." />
+  <meta name="keywords" content="personal loan calculator India, personal loan emi calculator, unsecured loan interest calculator, processing fee impact calculator, loan cost analyzer" />
   <link rel="canonical" href="https://finoline.in/calculators/personal-loan/" />
-
-  <!-- Structured Data (JSON-LD) for Google Rich Snippets -->
-  <script type="application/ld+json">
-  {
-    "@context": "https://schema.org",
-    "@type": "WebApplication",
-    "name": "Finoline Personal Loan EMI & Prepayment Penalty Calculator",
-    "url": "https://finoline.in/calculators/personal-loan/",
-    "applicationCategory": "FinanceApplication",
-    "operatingSystem": "All",
-    "offers": {
-      "@type": "Offer",
-      "price": "0",
-      "priceCurrency": "INR"
-    }
-  }
-  </script>
 
   <!-- Google Fonts: Playfair Display, Inter & JetBrains Mono -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Playfair+Display:wght@600;700&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400&family=Playfair+Display:ital,wght@0,500;0,600;0,700;1,400&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
 
-  <!-- Tailwind CSS CDN -->
+  <!-- Tailwind CSS & Chart.js -->
   <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
   <script>
     tailwind.config = {
       theme: {
@@ -48,260 +30,273 @@
     }
   </script>
 </head>
-<body class="bg-slate-950 text-slate-100 font-sans antialiased min-h-screen flex flex-col pb-24 lg:pb-0 selection:bg-amber-400 selection:text-slate-950">
+<body class="bg-slate-950 text-slate-100 font-sans antialiased min-h-screen flex flex-col selection:bg-amber-400 selection:text-slate-950">
 
-  <!-- Compact Mobile & Desktop Header -->
-  <header class="bg-slate-900/95 backdrop-blur-md border-b border-slate-800 sticky top-0 z-40">
-    <div class="max-w-6xl mx-auto px-4 py-3.5 flex items-center justify-between">
-      <a href="/" class="flex items-center space-x-1.5 tracking-tight">
-        <span class="font-serif text-2xl font-bold text-slate-50">finoline</span>
-        <span class="font-mono text-[10px] font-bold text-amber-400 uppercase tracking-widest bg-amber-400/10 px-1.5 py-0.5 rounded border border-amber-400/30">.in</span>
+  <!-- Navigation Bar -->
+  <header class="bg-slate-900/90 backdrop-blur-md border-b border-slate-800 sticky top-0 z-50">
+    <div class="max-w-6xl mx-auto px-6 py-4 flex items-center justify-between">
+      <a href="/" class="flex items-center space-x-2 tracking-tight group">
+        <span class="font-serif text-3xl font-semibold text-slate-50 group-hover:text-amber-400 transition">finoline</span>
+        <span class="font-mono text-[11px] font-bold text-amber-400 uppercase tracking-widest bg-amber-400/10 px-2 py-0.5 rounded border border-amber-400/30">.in</span>
       </a>
-      <a href="/" class="text-xs font-mono font-semibold text-slate-400 hover:text-amber-400 transition">
-        ← Exit Hub
-      </a>
+      <div class="flex items-center space-x-6 text-xs font-mono font-bold uppercase tracking-wider">
+        <a href="/calculators/" class="text-slate-400 hover:text-amber-400 transition">← Calculators Hub</a>
+      </div>
     </div>
   </header>
 
-  <!-- Hero Header -->
-  <section class="py-6 px-4 border-b border-slate-800 bg-slate-950 text-center space-y-2">
-    <span class="font-mono text-[10px] font-bold text-amber-400 uppercase tracking-widest bg-amber-400/10 px-2.5 py-0.5 rounded-full border border-amber-400/20">
-      Unsecured Debt Suite
-    </span>
-    <h1 class="font-serif text-2xl md:text-4xl font-semibold text-slate-50">
-      Personal Loan EMI & <span class="text-amber-300">Prepayment Penalty</span> Suite
-    </h1>
-    <p class="text-xs md:text-sm text-slate-400 max-w-xl mx-auto font-light leading-relaxed">
-      Analyze personal loan EMIs, evaluate early foreclosure penalties under RBI regulations, and project interest saved.
-    </p>
-  </section>
+  <!-- Calculator Main Interface -->
+  <main class="max-w-4xl mx-auto px-6 py-12 flex-grow w-full space-y-12">
+    
+    <!-- Header -->
+    <div class="space-y-3">
+      <span class="font-mono text-xs font-bold text-amber-400 bg-amber-400/10 border border-amber-400/30 px-3 py-1 rounded uppercase tracking-widest">Unsecured Debt Engine</span>
+      <h1 class="font-serif text-3xl md:text-5xl font-normal text-slate-50">Personal Loan Cost Analyzer</h1>
+      <p class="text-slate-400 text-sm md:text-base font-light">Type your exact numbers or drag sliders to evaluate monthly EMIs, total interest outgo, and effective borrowing costs.</p>
+    </div>
 
-  <!-- Main Calculator Grid -->
-  <main class="max-w-6xl mx-auto px-4 py-6 flex-grow w-full grid grid-cols-1 lg:grid-cols-12 gap-6">
-
-    <!-- Touch-Friendly Controls Panel -->
-    <section class="lg:col-span-6 bg-slate-900 border border-slate-800 rounded-2xl p-5 space-y-5 shadow-xl">
-      <h2 class="font-serif text-lg font-semibold text-slate-100 border-b border-slate-800 pb-3">Loan & Prepayment Inputs</h2>
-
-      <!-- Input 1: Loan Amount -->
-      <div class="space-y-2">
-        <div class="flex justify-between items-center text-xs">
-          <label class="font-medium text-slate-300">Personal Loan Principal</label>
-          <span id="disp-amount" class="font-mono text-sm text-amber-400 font-bold">₹ 5,00,000</span>
-        </div>
-        <input type="range" id="input-amount" min="50000" max="4000000" step="25000" value="500000" 
-          class="w-full h-3 bg-slate-800 rounded-lg appearance-none cursor-pointer accent-amber-400 touch-pan-x">
-      </div>
-
-      <!-- Input 2: Interest Rate -->
-      <div class="space-y-2">
-        <div class="flex justify-between items-center text-xs">
-          <label class="font-medium text-slate-300">Interest Rate (% p.a.)</label>
-          <span id="disp-rate" class="font-mono text-sm text-amber-400 font-bold">13.5 %</span>
-        </div>
-        <input type="range" id="input-rate" min="10.0" max="28.0" step="0.25" value="13.5" 
-          class="w-full h-3 bg-slate-800 rounded-lg appearance-none cursor-pointer accent-amber-400 touch-pan-x">
-      </div>
-
-      <!-- Input 3: Tenure -->
-      <div class="space-y-2">
-        <div class="flex justify-between items-center text-xs">
-          <label class="font-medium text-slate-300">Tenure (Years)</label>
-          <span id="disp-tenure" class="font-mono text-sm text-amber-400 font-bold">3 Years</span>
-        </div>
-        <input type="range" id="input-tenure" min="1" max="6" step="1" value="3" 
-          class="w-full h-3 bg-slate-800 rounded-lg appearance-none cursor-pointer accent-amber-400 touch-pan-x">
-      </div>
-
-      <!-- Input 4: Rate Structure Toggle (RBI 2026 Rules) -->
-      <div class="pt-3 border-t border-slate-800 space-y-2">
-        <label class="block text-xs font-semibold text-slate-200">Interest Rate Type (RBI Rule Test)</label>
-        <div class="grid grid-cols-2 gap-3">
-          <button type="button" id="btn-floating" onclick="setRateType('floating')" 
-            class="py-2 px-3 rounded-xl border text-xs font-mono font-bold transition text-center bg-amber-400/20 border-amber-400 text-amber-300">
-            Floating Rate (0% Fee)
-          </button>
-          <button type="button" id="btn-fixed" onclick="setRateType('fixed')" 
-            class="py-2 px-3 rounded-xl border text-xs font-mono font-bold transition text-center bg-slate-800 border-slate-700 text-slate-400">
-            Fixed Rate (Penalty Applies)
-          </button>
-        </div>
-      </div>
-
-      <!-- Input 5: Prepayment Amount -->
-      <div class="space-y-2">
-        <div class="flex justify-between items-center text-xs">
-          <label class="font-medium text-emerald-400">Target Prepayment / Foreclosure Amount</label>
-          <span id="disp-prepay" class="font-mono text-sm text-emerald-400 font-bold">₹ 2,00,000</span>
-        </div>
-        <input type="range" id="input-prepay" min="25000" max="4000000" step="25000" value="200000" 
-          class="w-full h-3 bg-slate-800 rounded-lg appearance-none cursor-pointer accent-emerald-400 touch-pan-x">
-      </div>
-
-      <!-- Input 6: Disclosed Penalty Percentage (for Fixed Rate) -->
-      <div id="penalty-input-container" class="space-y-2 opacity-50 pointer-events-none transition-all">
-        <div class="flex justify-between items-center text-xs">
-          <label class="font-medium text-slate-400">Bank Foreclosure Fee Rate (% + 18% GST)</label>
-          <span id="disp-penalty-rate" class="font-mono text-sm text-slate-400 font-bold">3.0 %</span>
-        </div>
-        <input type="range" id="input-penalty-rate" min="0" max="5.0" step="0.5" value="3.0" 
-          class="w-full h-3 bg-slate-800 rounded-lg appearance-none cursor-pointer accent-slate-400 touch-pan-x">
-      </div>
-    </section>
-
-    <!-- Analytics & Output Panel -->
-    <section class="lg:col-span-6 space-y-4">
+    <!-- Inputs & Outputs Grid -->
+    <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
       
-      <!-- Primary Key Metrics Grid -->
-      <div class="grid grid-cols-2 sm:grid-cols-3 gap-3">
-        <div class="bg-slate-900 border border-slate-800 p-4 rounded-xl">
-          <span class="font-mono text-[10px] text-slate-400 uppercase tracking-wider block">Monthly EMI</span>
-          <span id="res-emi" class="font-mono text-lg font-bold text-slate-50 block">₹ 0</span>
+      <!-- Controls Panel -->
+      <div class="lg:col-span-6 bg-slate-900 border border-slate-800 p-6 md:p-8 rounded-3xl space-y-6">
+        
+        <!-- Loan Amount -->
+        <div class="space-y-2">
+          <div class="flex justify-between items-center font-mono text-xs">
+            <label class="text-slate-300 font-bold">Personal Loan Amount (₹)</label>
+            <input type="number" id="loan-num" min="20000" max="5000000" step="10000" value="500000" oninput="syncFromNum('loan')" class="bg-slate-950 border border-slate-700 focus:border-amber-400 text-amber-400 font-bold text-right px-3 py-1 rounded-lg w-36 outline-none transition">
+          </div>
+          <input type="range" id="loan-range" min="20000" max="4000000" step="10000" value="500000" oninput="syncFromRange('loan')" class="w-full accent-amber-400 bg-slate-950 h-2 rounded-lg cursor-pointer">
         </div>
 
-        <div class="bg-slate-900 border border-slate-800 p-4 rounded-xl">
-          <span class="font-mono text-[10px] text-rose-400 uppercase tracking-wider block">Penalty + GST Cost</span>
-          <span id="res-penalty-cost" class="font-mono text-lg font-bold text-rose-400 block">₹ 0</span>
+        <!-- Interest Rate -->
+        <div class="space-y-2">
+          <div class="flex justify-between items-center font-mono text-xs">
+            <label class="text-slate-300 font-bold">Interest Rate (% p.a.)</label>
+            <input type="number" id="rate-num" min="9.0" max="36.0" step="0.25" value="12.5" oninput="syncFromNum('rate')" class="bg-slate-950 border border-slate-700 focus:border-amber-400 text-amber-400 font-bold text-right px-3 py-1 rounded-lg w-28 outline-none transition">
+          </div>
+          <input type="range" id="rate-range" min="9.0" max="30.0" step="0.25" value="12.5" oninput="syncFromRange('rate')" class="w-full accent-amber-400 bg-slate-950 h-2 rounded-lg cursor-pointer">
         </div>
 
-        <div class="col-span-2 sm:col-span-1 bg-slate-900 border border-slate-800 p-4 rounded-xl">
-          <span class="font-mono text-[10px] text-emerald-400 uppercase tracking-wider block">Net Net Savings</span>
-          <span id="res-net-savings" class="font-mono text-lg font-bold text-emerald-400 block">₹ 0</span>
+        <!-- Loan Tenure -->
+        <div class="space-y-2">
+          <div class="flex justify-between items-center font-mono text-xs">
+            <label class="text-slate-300 font-bold">Loan Tenure (Years)</label>
+            <input type="number" id="tenure-num" min="1" max="7" step="1" value="3" oninput="syncFromNum('tenure')" class="bg-slate-950 border border-slate-700 focus:border-amber-400 text-amber-400 font-bold text-right px-3 py-1 rounded-lg w-24 outline-none transition">
+          </div>
+          <input type="range" id="tenure-range" min="1" max="7" step="1" value="3" oninput="syncFromRange('tenure')" class="w-full accent-amber-400 bg-slate-950 h-2 rounded-lg cursor-pointer">
         </div>
+
+        <!-- Processing Fee Percentage -->
+        <div class="space-y-2">
+          <div class="flex justify-between items-center font-mono text-xs">
+            <label class="text-slate-300 font-bold">Processing Fee (%) [Upfront]</label>
+            <input type="number" id="fee-num" min="0" max="5.0" step="0.25" value="2.0" oninput="syncFromNum('fee')" class="bg-slate-950 border border-slate-700 focus:border-amber-400 text-amber-400 font-bold text-right px-3 py-1 rounded-lg w-24 outline-none transition">
+          </div>
+          <input type="range" id="fee-range" min="0" max="5.0" step="0.25" value="2.0" oninput="syncFromRange('fee')" class="w-full accent-amber-400 bg-slate-950 h-2 rounded-lg cursor-pointer">
+        </div>
+
       </div>
 
-      <!-- Dynamic Impact Summary Box -->
-      <div class="bg-slate-900 border border-slate-800 rounded-2xl p-5 space-y-3">
-        <div class="flex items-center justify-between border-b border-slate-800 pb-2">
-          <h3 class="font-serif text-base font-semibold text-slate-100">Prepayment Analysis & RBI Status</h3>
-          <span id="badge-rbi" class="font-mono text-[10px] uppercase font-bold text-emerald-400 bg-emerald-400/10 border border-emerald-400/30 px-2 py-0.5 rounded">
-            RBI 0% Fee Exempt
-          </span>
+      <!-- Results & Chart Panel -->
+      <div class="lg:col-span-6 bg-slate-900 border border-slate-800 p-6 md:p-8 rounded-3xl space-y-6">
+        
+        <div class="grid grid-cols-2 gap-4 border-b border-slate-800 pb-6">
+          <div>
+            <span class="font-mono text-[11px] text-slate-500 uppercase">Monthly EMI</span>
+            <p id="monthly-emi" class="font-serif text-xl font-bold text-amber-400 mt-1">₹0</p>
+          </div>
+          <div>
+            <span class="font-mono text-[11px] text-slate-500 uppercase">Total Interest Cost</span>
+            <p id="total-interest" class="font-serif text-xl font-bold text-rose-400/90 mt-1">₹0</p>
+          </div>
         </div>
-        <p id="res-summary" class="text-xs text-slate-300 leading-relaxed font-light"></p>
+
+        <div class="space-y-3">
+          <div class="flex justify-between items-baseline">
+            <div>
+              <span class="font-mono text-[11px] text-slate-500 uppercase">Upfront Processing Fee</span>
+              <p id="processing-fee" class="font-serif text-lg font-bold text-slate-200 mt-0.5">₹0</p>
+            </div>
+            <div class="text-right">
+              <span class="font-mono text-[11px] text-slate-500 uppercase">Net Disbursed Cash</span>
+              <p id="net-disbursed" class="font-serif text-lg font-bold text-emerald-400 mt-0.5">₹0</p>
+            </div>
+          </div>
+
+          <div class="bg-slate-950 border border-slate-800 p-4 rounded-2xl">
+            <span class="font-mono text-[10px] text-slate-400 uppercase">Total Loan Outgo (Principal + Interest + Fee)</span>
+            <p id="total-outgo" class="font-mono text-xl font-bold text-slate-50 mt-1">₹0</p>
+          </div>
+        </div>
+
+        <!-- Chart Container -->
+        <div class="relative aspect-square max-h-48 mx-auto pt-2">
+          <canvas id="personalLoanChart"></canvas>
+        </div>
+
       </div>
 
-      <!-- Contextual SEO Educational Content -->
-      <article class="bg-slate-900 border border-slate-800 rounded-2xl p-5 text-xs text-slate-400 space-y-3 leading-relaxed">
-        <h2 class="text-sm font-semibold text-slate-200">RBI Rules on Personal Loan Prepayment Penalties</h2>
-        <p>
-          Under Reserve Bank of India (RBI) directions, regulated lenders are prohibited from charging foreclosure or prepayment penalties on <strong>floating-rate personal loans</strong> granted to individual non-business borrowers.
-        </p>
-        <p>
-          However, most digital and retail personal loans carry <strong>fixed interest rates</strong>. For fixed-rate loans, lenders may charge foreclosure fees if explicitly disclosed in your Key Fact Statement (KFS). Prepayment penalties attract an additional <strong>18% GST</strong> in India.
-        </p>
-      </article>
+    </div>
 
+    <!-- Clean Organic SEO Educational Guide -->
+    <article class="mt-16 pt-12 border-t border-slate-800 space-y-6 text-slate-300 text-sm leading-relaxed font-light">
+      
+      <div class="space-y-2">
+        <span class="font-mono text-xs font-bold text-amber-400 uppercase tracking-widest">Guide & Strategy</span>
+        <h2 class="font-serif text-2xl md:text-3xl font-normal text-slate-50">Evaluating Unsecured Borrowing: The True Cost of Personal Loans</h2>
+      </div>
+
+      <p>
+        Unsecured personal loans offer fast liquidity without requiring physical collateral like real estate or gold. However, because financial institutions take on higher credit risk, interest rates on personal loans generally range between 10.5% and 24% p.a., making them significantly more expensive than secured mortgages. Utilizing a dedicated <strong>personal loan calculator</strong> helps borrowers compute monthly EMIs, quantify total interest burdens, and account for hidden upfront fees before signing loan agreements.
+      </p>
+
+      <h3 class="font-serif text-xl font-normal text-slate-100 mt-6">Decoding the True Cost of Borrowing</h3>
+      <p>
+        When evaluating personal debt options, focusing exclusively on the monthly EMI can obscure the true long-term financial drag. Key cost components include:
+      </p>
+
+      <div class="bg-slate-900/60 border-l-2 border-amber-400 p-4 font-mono text-xs text-slate-300 space-y-1">
+        <p class="font-bold text-amber-400">Personal Loan Cost Architecture:</p>
+        <p>• <strong>Nominal Interest Rate:</strong> The annual percentage rate charged on the reducing balance.</p>
+        <p>• <strong>Upfront Processing Fees:</strong> Lenders typically deduct 1% to 3% (plus 18% GST) directly from the loan principal prior to disbursement.</p>
+        <p>• <strong>Preclosure & Foreclosure Charges:</strong> Many banks impose preclosure penalties ranging from 2% to 5% if you settle the loan before the scheduled tenure ends.</p>
+      </div>
+
+      <h3 class="font-serif text-xl font-normal text-slate-100 mt-6">Strategies to Minimize Personal Loan Expenses</h3>
+      <ol class="list-decimal list-inside space-y-2 font-light">
+        <li><strong>Maintain a 750+ CIBIL Score:</strong> High credit scores qualify borrowers for preferential interest rate slabs and discounted or zero processing fees.</li>
+        <li><strong>Choose Shorter Tenures for High Rates:</strong> While extending the loan tenure reduces the monthly EMI, it substantially increases total interest paid over time. Keep unsecured loan tenures as short as comfortably affordable.</li>
+        <li><strong>Consolidate High-Interest Credit Card Debt:</strong> If carrying revolving credit card balances (which charge up to 36%–42% annual interest), taking a lower-interest personal loan to pay off the cards can significantly lower monthly interest outgo.</li>
+        <li><strong>Negotiate Upfront Fee Waivers:</strong> Processing fees are often negotiable, especially during festival promotional offers or for corporate pre-approved salary accounts.</li>
+      </ol>
+
+    </article>
+
+    <!-- Bottom Ecosystem Navigation Grid -->
+    <section class="mt-16 pt-12 border-t border-slate-800 bg-slate-900/60 -mx-6 px-6 py-10 rounded-3xl">
+      <div class="max-w-4xl mx-auto space-y-6">
+        <div class="flex items-center justify-between">
+          <div>
+            <span class="font-mono text-xs font-bold text-amber-400 uppercase tracking-widest">Ecosystem Navigation</span>
+            <h3 class="font-serif text-2xl font-normal text-slate-50 mt-1">Explore Other Calculators</h3>
+          </div>
+          <a href="/calculators/" class="text-xs font-mono font-bold text-amber-400 hover:underline flex items-center space-x-1">
+            <span>View All 14 Tools</span>
+            <span>→</span>
+          </a>
+        </div>
+
+        <!-- Quick Switcher Grid -->
+        <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-3 font-mono text-xs">
+          <a href="/calculators/sip/" class="bg-slate-950 border border-slate-800 hover:border-amber-400 p-3 rounded-xl text-slate-300 hover:text-amber-300 transition text-center font-semibold">
+            📈 SIP Compounder
+          </a>
+          <a href="/calculators/lumpsum/" class="bg-slate-950 border border-slate-800 hover:border-amber-400 p-3 rounded-xl text-slate-300 hover:text-amber-300 transition text-center font-semibold">
+            💰 Lumpsum Calculator
+          </a>
+          <a href="/calculators/swp/" class="bg-slate-950 border border-slate-800 hover:border-amber-400 p-3 rounded-xl text-slate-300 hover:text-amber-300 transition text-center font-semibold">
+            🏖️ Retirement SWP
+          </a>
+          <a href="/calculators/ppf/" class="bg-slate-950 border border-slate-800 hover:border-amber-400 p-3 rounded-xl text-slate-300 hover:text-amber-300 transition text-center font-semibold">
+            🛡️ PPF Tax-Free
+          </a>
+          <a href="/calculators/home-loan/" class="bg-slate-950 border border-slate-800 hover:border-amber-400 p-3 rounded-xl text-slate-300 hover:text-amber-300 transition text-center font-semibold">
+            🏡 Home Loan Prepay
+          </a>
+          <a href="/calculators/tax-regime/" class="bg-slate-950 border border-slate-800 hover:border-amber-400 p-3 rounded-xl text-slate-300 hover:text-amber-300 transition text-center font-semibold">
+            ⚖️ Tax Regime 2026
+          </a>
+          <a href="/calculators/nps/" class="bg-slate-950 border border-slate-800 hover:border-amber-400 p-3 rounded-xl text-slate-300 hover:text-amber-300 transition text-center font-semibold">
+            🏛️ NPS Pension Engine
+          </a>
+          <a href="/calculators/business-loan/" class="bg-slate-950 border border-slate-800 hover:border-amber-400 p-3 rounded-xl text-slate-300 hover:text-amber-300 transition text-center font-semibold">
+            🏢 Business Loan CC/OD
+          </a>
+        </div>
+      </div>
     </section>
 
   </main>
 
-  <!-- Sticky Mobile Summary Bar -->
-  <div class="lg:hidden fixed bottom-0 left-0 right-0 bg-slate-900/95 backdrop-blur-md border-t border-slate-800 px-4 py-3 z-50 flex items-center justify-between">
-    <div>
-      <span class="text-[10px] font-mono text-slate-400 uppercase block">Monthly EMI</span>
-      <span id="mobile-res-emi" class="font-mono text-base font-bold text-slate-50">₹ 0</span>
-    </div>
-    <div class="text-right">
-      <span class="text-[10px] font-mono text-emerald-400 uppercase block">Net Savings</span>
-      <span id="mobile-res-saved" class="font-mono text-base font-bold text-emerald-400">₹ 0</span>
-    </div>
-  </div>
-
-  <!-- Footer -->
-  <footer class="bg-slate-950 border-t border-slate-800 py-6 px-4 text-center text-xs text-slate-500">
-    <p>© 2026 finoline.in. Independent financial literacy & loan tools.</p>
+  <footer class="bg-slate-950 border-t border-slate-800 py-10 px-6 text-center text-xs text-slate-500">
+    <p class="font-serif text-xl font-medium text-slate-200">finoline<span class="font-mono text-xs text-amber-400">.in</span></p>
+    <p class="mt-1">© 2026 finoline.in. Independent financial literacy for self-directed investors.</p>
   </footer>
 
-  <!-- Calculator Logic Script -->
   <script>
+    let chartInstance = null;
+
     function formatINR(val) {
-      return new Intl.NumberFormat('en-IN', { style: 'currency', currency: 'INR', maximumFractionDigits: 0 }).format(Math.round(val));
+      return new Intl.NumberFormat('en-IN', { style: 'currency', currency: 'INR', maximumFractionDigits: 0 }).format(Math.max(0, val));
     }
 
-    const amtIn = document.getElementById('input-amount');
-    const rateIn = document.getElementById('input-rate');
-    const tenureIn = document.getElementById('input-tenure');
-    const prepayIn = document.getElementById('input-prepay');
-    const penaltyRateIn = document.getElementById('input-penalty-rate');
-
-    let currentRateType = 'floating';
-
-    function setRateType(type) {
-      currentRateType = type;
-      const btnFloating = document.getElementById('btn-floating');
-      const btnFixed = document.getElementById('btn-fixed');
-      const penaltyContainer = document.getElementById('penalty-input-container');
-      const badgeRbi = document.getElementById('badge-rbi');
-
-      if (type === 'floating') {
-        btnFloating.className = 'py-2 px-3 rounded-xl border text-xs font-mono font-bold transition text-center bg-amber-400/20 border-amber-400 text-amber-300';
-        btnFixed.className = 'py-2 px-3 rounded-xl border text-xs font-mono font-bold transition text-center bg-slate-800 border-slate-700 text-slate-400';
-        penaltyContainer.className = 'space-y-2 opacity-50 pointer-events-none transition-all';
-        badgeRbi.innerText = 'RBI 0% Fee Exempt';
-        badgeRbi.className = 'font-mono text-[10px] uppercase font-bold text-emerald-400 bg-emerald-400/10 border border-emerald-400/30 px-2 py-0.5 rounded';
-      } else {
-        btnFixed.className = 'py-2 px-3 rounded-xl border text-xs font-mono font-bold transition text-center bg-rose-400/20 border-rose-400 text-rose-300';
-        btnFloating.className = 'py-2 px-3 rounded-xl border text-xs font-mono font-bold transition text-center bg-slate-800 border-slate-700 text-slate-400';
-        penaltyContainer.className = 'space-y-2 opacity-100 pointer-events-auto transition-all';
-        badgeRbi.innerText = 'Fixed Rate (KFS Fee Allowed)';
-        badgeRbi.className = 'font-mono text-[10px] uppercase font-bold text-amber-400 bg-amber-400/10 border border-amber-400/30 px-2 py-0.5 rounded';
-      }
-
+    function syncFromRange(key) {
+      const val = document.getElementById(`${key}-range`).value;
+      document.getElementById(`${key}-num`).value = val;
       calculatePersonalLoan();
     }
 
-    function calculatePersonalLoan() {
-      const P = parseFloat(amtIn.value);
-      const annualRate = parseFloat(rateIn.value);
-      const r = annualRate / 12 / 100;
-      const n = parseInt(tenureIn.value) * 12;
-
-      let prepayAmt = parseFloat(prepayIn.value);
-      if (prepayAmt > P) {
-        prepayAmt = P;
-        prepayIn.value = P;
-      }
-
-      const penaltyPct = currentRateType === 'floating' ? 0 : parseFloat(penaltyRateIn.value);
-
-      document.getElementById('disp-amount').innerText = formatINR(P);
-      document.getElementById('disp-rate').innerText = `${annualRate} %`;
-      document.getElementById('disp-tenure').innerText = `${tenureIn.value} Years`;
-      document.getElementById('disp-prepay').innerText = formatINR(prepayAmt);
-      document.getElementById('disp-penalty-rate').innerText = `${penaltyPct} %`;
-
-      // Monthly EMI calculation
-      const emi = (P * r * Math.pow(1 + r, n)) / (Math.pow(1 + r, n) - 1);
-      
-      // Penalty calculations (Base Fee + 18% GST)
-      const basePenalty = prepayAmt * (penaltyPct / 100);
-      const gstCost = basePenalty * 0.18;
-      const totalPenaltyCost = basePenalty + gstCost;
-
-      // Estimated interest saved by prepaying the amount over half remaining tenure
-      const estimatedInterestSaved = prepayAmt * (annualRate / 100) * (tenureIn.value / 2);
-      const netSavings = Math.max(0, estimatedInterestSaved - totalPenaltyCost);
-
-      document.getElementById('res-emi').innerText = formatINR(emi);
-      document.getElementById('res-penalty-cost').innerText = formatINR(totalPenaltyCost);
-      document.getElementById('res-net-savings').innerText = formatINR(netSavings);
-
-      document.getElementById('mobile-res-emi').innerText = formatINR(emi);
-      document.getElementById('mobile-res-saved').innerText = formatINR(netSavings);
-
-      if (currentRateType === 'floating') {
-        document.getElementById('res-summary').innerHTML = `
-          Your personal loan of <strong>${formatINR(P)}</strong> carries a monthly EMI of <strong>${formatINR(emi)}</strong>. Because your loan has a <strong>floating interest rate</strong>, RBI rules prohibit lenders from charging foreclosure fees. Prepaying <strong>${formatINR(prepayAmt)}</strong> incurs <strong class="text-emerald-400">₹0 penalty</strong> and yields estimated interest savings of <strong class="text-emerald-400">${formatINR(netSavings)}</strong>.
-        `;
-      } else {
-        document.getElementById('res-summary').innerHTML = `
-          Your personal loan EMI is <strong>${formatINR(emi)}</strong>. For a <strong>fixed-rate personal loan</strong>, prepaying <strong>${formatINR(prepayAmt)}</strong> incurs a ${penaltyPct}% fee (${formatINR(basePenalty)}) plus 18% GST (${formatINR(gstCost)}), totaling <strong class="text-rose-400">${formatINR(totalPenaltyCost)}</strong>. Net estimated interest savings after penalty costs equal <strong class="text-emerald-400">${formatINR(netSavings)}</strong>.
-        `;
+    function syncFromNum(key) {
+      const val = document.getElementById(`${key}-num`).value;
+      if (val !== '' && !isNaN(val)) {
+        document.getElementById(`${key}-range`).value = val;
+        calculatePersonalLoan();
       }
     }
 
-    [amtIn, rateIn, tenureIn, prepayIn, penaltyRateIn].forEach(el => el.addEventListener('input', calculatePersonalLoan));
+    function calculatePersonalLoan() {
+      const principal = parseFloat(document.getElementById('loan-num').value) || 0;
+      const annualRate = (parseFloat(document.getElementById('rate-num').value) || 0) / 100;
+      const years = parseInt(document.getElementById('tenure-num').value) || 0;
+      const feePct = (parseFloat(document.getElementById('fee-num').value) || 0) / 100;
+
+      const r = annualRate / 12;
+      const n = years * 12;
+
+      let emi = 0;
+      let totalOutgo = 0;
+      let totalInterest = 0;
+
+      if (principal > 0 && r > 0 && n > 0) {
+        emi = (principal * r * Math.pow(1 + r, n)) / (Math.pow(1 + r, n) - 1);
+        const totalEMIPayments = emi * n;
+        totalInterest = totalEMIPayments - principal;
+      }
+
+      const processingFee = principal * feePct * 1.18; // Including 18% GST on processing fee
+      const netDisbursed = Math.max(0, principal - processingFee);
+      totalOutgo = (emi * n) + processingFee;
+
+      document.getElementById('monthly-emi').innerText = formatINR(emi);
+      document.getElementById('total-interest').innerText = formatINR(totalInterest);
+      document.getElementById('processing-fee').innerText = formatINR(processingFee);
+      document.getElementById('net-disbursed').innerText = formatINR(netDisbursed);
+      document.getElementById('total-outgo').innerText = formatINR(totalOutgo);
+
+      // Render Chart
+      const ctx = document.getElementById('personalLoanChart').getContext('2d');
+      if (chartInstance) chartInstance.destroy();
+
+      chartInstance = new Chart(ctx, {
+        type: 'doughnut',
+        data: {
+          labels: ['Principal Amount', 'Total Interest Cost', 'Processing Fee & GST'],
+          datasets: [{
+            data: [principal, totalInterest, processingFee],
+            backgroundColor: ['#334155', '#fbbf24', '#f87171'],
+            borderWidth: 0
+          }]
+        },
+        options: {
+          responsive: true,
+          maintainAspectRatio: false,
+          plugins: { legend: { display: false } }
+        }
+      });
+    }
+
     document.addEventListener('DOMContentLoaded', calculatePersonalLoan);
   </script>
 </body>
