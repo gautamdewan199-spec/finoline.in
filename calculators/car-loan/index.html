@@ -3,13 +3,17 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0" />
-  <title>Car Loan Amortization Engine & EMI Calculator | finoline.in</title>
-  <meta name="description" content="Calculate car loan EMIs, interest outgo, and principal repayment schedules with custom inputs and interactive sliders." />
-  
+  <title>Car Loan EMI & Down Payment Calculator | finoline.in</title>
+  <meta name="description" content="Calculate auto loan EMIs, interest costs, down payment requirements, and total financing outgo with dual slider and numerical inputs." />
+  <meta name="keywords" content="car loan emi calculator India, auto loan calculator, vehicle financing cost, down payment car loan calculator, car loan interest calculator" />
+  <link rel="canonical" href="https://finoline.in/calculators/car-loan/" />
+
+  <!-- Google Fonts: Playfair Display, Inter & JetBrains Mono -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:wght@500;600;700&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400&family=Playfair+Display:ital,wght@0,500;0,600;0,700;1,400&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
 
+  <!-- Tailwind CSS & Chart.js -->
   <script src="https://cdn.tailwindcss.com"></script>
   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
   <script>
@@ -42,13 +46,13 @@
   </header>
 
   <!-- Calculator Main Interface -->
-  <main class="max-w-4xl mx-auto px-6 py-12 flex-grow w-full space-y-10">
+  <main class="max-w-4xl mx-auto px-6 py-12 flex-grow w-full space-y-12">
     
     <!-- Header -->
     <div class="space-y-3">
-      <span class="font-mono text-xs font-bold text-amber-400 bg-amber-400/10 border border-amber-400/30 px-3 py-1 rounded uppercase tracking-widest">Automotive Financing</span>
-      <h1 class="font-serif text-3xl md:text-5xl font-normal text-slate-50">Car Loan Amortization Engine</h1>
-      <p class="text-slate-400 text-sm md:text-base font-light">Type your exact numbers or adjust sliders to calculate monthly EMIs and total interest outgo.</p>
+      <span class="font-mono text-xs font-bold text-amber-400 bg-amber-400/10 border border-amber-400/30 px-3 py-1 rounded uppercase tracking-widest">Auto Financing Engine</span>
+      <h1 class="font-serif text-3xl md:text-5xl font-normal text-slate-50">Car Loan EMI & Down Payment Engine</h1>
+      <p class="text-slate-400 text-sm md:text-base font-light">Type vehicle costs and down payment amounts or drag sliders to evaluate monthly EMIs and total financing costs.</p>
     </div>
 
     <!-- Inputs & Outputs Grid -->
@@ -57,31 +61,40 @@
       <!-- Controls Panel -->
       <div class="lg:col-span-6 bg-slate-900 border border-slate-800 p-6 md:p-8 rounded-3xl space-y-6">
         
-        <!-- Loan Amount -->
+        <!-- Vehicle On-Road Price -->
         <div class="space-y-2">
           <div class="flex justify-between items-center font-mono text-xs">
-            <label class="text-slate-300 font-bold">Car Loan Amount (₹)</label>
-            <input type="number" id="loan-num" min="50000" max="10000000" step="10000" value="1000000" oninput="syncFromNum('loan')" class="bg-slate-950 border border-slate-700 focus:border-amber-400 text-amber-400 font-bold text-right px-3 py-1 rounded-lg w-36 outline-none transition">
+            <label class="text-slate-300 font-bold">On-Road Vehicle Price (₹)</label>
+            <input type="number" id="price-num" min="100000" max="15000000" step="25000" value="1200000" oninput="syncFromNum('price')" class="bg-slate-950 border border-slate-700 focus:border-amber-400 text-amber-400 font-bold text-right px-3 py-1 rounded-lg w-36 outline-none transition">
           </div>
-          <input type="range" id="loan-range" min="50000" max="10000000" step="10000" value="1000000" oninput="syncFromRange('loan')" class="w-full accent-amber-400 bg-slate-950 h-2 rounded-lg cursor-pointer">
+          <input type="range" id="price-range" min="200000" max="10000000" step="25000" value="1200000" oninput="syncFromRange('price')" class="w-full accent-amber-400 bg-slate-950 h-2 rounded-lg cursor-pointer">
+        </div>
+
+        <!-- Down Payment Amount -->
+        <div class="space-y-2">
+          <div class="flex justify-between items-center font-mono text-xs">
+            <label class="text-slate-300 font-bold">Down Payment Amount (₹)</label>
+            <input type="number" id="down-num" min="0" max="10000000" step="10000" value="200000" oninput="syncFromNum('down')" class="bg-slate-950 border border-slate-700 focus:border-amber-400 text-amber-400 font-bold text-right px-3 py-1 rounded-lg w-36 outline-none transition">
+          </div>
+          <input type="range" id="down-range" min="0" max="5000000" step="10000" value="200000" oninput="syncFromRange('down')" class="w-full accent-amber-400 bg-slate-950 h-2 rounded-lg cursor-pointer">
         </div>
 
         <!-- Interest Rate -->
         <div class="space-y-2">
           <div class="flex justify-between items-center font-mono text-xs">
             <label class="text-slate-300 font-bold">Interest Rate (% p.a.)</label>
-            <input type="number" id="rate-num" min="5" max="20" step="0.1" value="9.0" oninput="syncFromNum('rate')" class="bg-slate-950 border border-slate-700 focus:border-amber-400 text-amber-400 font-bold text-right px-3 py-1 rounded-lg w-28 outline-none transition">
+            <input type="number" id="rate-num" min="5.0" max="24.0" step="0.25" value="8.75" oninput="syncFromNum('rate')" class="bg-slate-950 border border-slate-700 focus:border-amber-400 text-amber-400 font-bold text-right px-3 py-1 rounded-lg w-28 outline-none transition">
           </div>
-          <input type="range" id="rate-range" min="5" max="20" step="0.1" value="9.0" oninput="syncFromRange('rate')" class="w-full accent-amber-400 bg-slate-950 h-2 rounded-lg cursor-pointer">
+          <input type="range" id="rate-range" min="6.0" max="18.0" step="0.25" value="8.75" oninput="syncFromRange('rate')" class="w-full accent-amber-400 bg-slate-950 h-2 rounded-lg cursor-pointer">
         </div>
 
         <!-- Loan Tenure -->
         <div class="space-y-2">
           <div class="flex justify-between items-center font-mono text-xs">
             <label class="text-slate-300 font-bold">Loan Tenure (Years)</label>
-            <input type="number" id="tenure-num" min="1" max="7" step="1" value="5" oninput="syncFromNum('tenure')" class="bg-slate-950 border border-slate-700 focus:border-amber-400 text-amber-400 font-bold text-right px-3 py-1 rounded-lg w-24 outline-none transition">
+            <input type="number" id="tenure-num" min="1" max="8" step="1" value="5" oninput="syncFromNum('tenure')" class="bg-slate-950 border border-slate-700 focus:border-amber-400 text-amber-400 font-bold text-right px-3 py-1 rounded-lg w-24 outline-none transition">
           </div>
-          <input type="range" id="tenure-range" min="1" max="7" step="1" value="5" oninput="syncFromRange('tenure')" class="w-full accent-amber-400 bg-slate-950 h-2 rounded-lg cursor-pointer">
+          <input type="range" id="tenure-range" min="1" max="8" step="1" value="5" oninput="syncFromRange('tenure')" class="w-full accent-amber-400 bg-slate-950 h-2 rounded-lg cursor-pointer">
         </div>
 
       </div>
@@ -91,24 +104,30 @@
         
         <div class="grid grid-cols-2 gap-4 border-b border-slate-800 pb-6">
           <div>
-            <span class="font-mono text-[11px] text-slate-500 uppercase">Principal Financed</span>
-            <p id="display-principal" class="font-serif text-xl font-bold text-slate-200 mt-1">₹0</p>
+            <span class="font-mono text-[11px] text-slate-500 uppercase">Monthly EMI</span>
+            <p id="monthly-emi" class="font-serif text-xl font-bold text-amber-400 mt-1">₹0</p>
           </div>
           <div>
-            <span class="font-mono text-[11px] text-slate-500 uppercase">Total Interest</span>
-            <p id="total-interest" class="font-serif text-xl font-bold text-rose-400/90 mt-1">₹0</p>
+            <span class="font-mono text-[11px] text-slate-500 uppercase">Financed Principal</span>
+            <p id="financed-loan" class="font-serif text-xl font-bold text-slate-200 mt-1">₹0</p>
           </div>
         </div>
 
         <div class="space-y-3">
-          <div>
-            <span class="font-mono text-[11px] text-amber-400 uppercase">Monthly Car EMI</span>
-            <p id="monthly-emi" class="font-serif text-3xl md:text-4xl font-bold text-amber-400 mt-1">₹0</p>
+          <div class="flex justify-between items-baseline">
+            <div>
+              <span class="font-mono text-[11px] text-slate-500 uppercase">Total Interest Payable</span>
+              <p id="total-interest" class="font-serif text-lg font-bold text-rose-400/90 mt-0.5">₹0</p>
+            </div>
+            <div class="text-right">
+              <span class="font-mono text-[11px] text-slate-500 uppercase">LTV (Loan-to-Value)</span>
+              <p id="ltv-ratio" class="font-serif text-lg font-bold text-emerald-400 mt-0.5">0.0%</p>
+            </div>
           </div>
 
-          <div class="flex items-center justify-between bg-slate-950 border border-slate-800 p-4 rounded-2xl">
-            <span class="font-mono text-xs text-slate-400">Total Outgo (Principal + Interest)</span>
-            <span id="total-outgo" class="font-mono text-sm font-bold text-slate-200">₹0</span>
+          <div class="bg-slate-950 border border-slate-800 p-4 rounded-2xl">
+            <span class="font-mono text-[10px] text-slate-400 uppercase">Total Vehicle Outgo (Down Payment + Loan Payments)</span>
+            <p id="total-outgo" class="font-mono text-xl font-bold text-slate-50 mt-1">₹0</p>
           </div>
         </div>
 
@@ -120,6 +139,39 @@
       </div>
 
     </div>
+
+    <!-- Clean Organic SEO Educational Guide -->
+    <article class="mt-16 pt-12 border-t border-slate-800 space-y-6 text-slate-300 text-sm leading-relaxed font-light">
+      
+      <div class="space-y-2">
+        <span class="font-mono text-xs font-bold text-amber-400 uppercase tracking-widest">Guide & Strategy</span>
+        <h2 class="font-serif text-2xl md:text-3xl font-normal text-slate-50">Smart Vehicle Financing: Balancing Down Payments vs. EMI Tenure</h2>
+      </div>
+
+      <p>
+        Purchasing a vehicle is a major financial commitment. Because automobiles are depreciating assets—losing 15% to 20% of their value in the first year alone—structuring an auto loan correctly is critical to avoiding negative equity (owing more on the loan than the vehicle is worth). Using a dedicated <strong>car loan EMI calculator</strong> allows buyers to optimize their upfront down payment, compute exact monthly cash outflows, and control overall interest expenses.
+      </p>
+
+      <h3 class="font-serif text-xl font-normal text-slate-100 mt-6">The 20/4/10 Rule of Auto Purchasing</h3>
+      <p>
+        To keep auto debt from straining your monthly budget, financial planners recommend adhering to the <strong>20/4/10 guideline</strong>:
+      </p>
+
+      <div class="bg-slate-900/60 border-l-2 border-amber-400 p-4 font-mono text-xs text-slate-300 space-y-1">
+        <p class="font-bold text-amber-400">The 20/4/10 Auto Rule Framework:</p>
+        <p>• <strong>20% Minimum Down Payment:</strong> Pay at least 20% of the on-road price in cash to keep your Loan-to-Value (LTV) ratio manageable.</p>
+        <p>• <strong>4-Year Maximum Tenure:</strong> Limit loan terms to 4 years (48 months) to avoid paying excessive interest on a depreciating asset.</p>
+        <p>• <strong>10% Income Cap:</strong> Ensure total vehicle expenses (EMI + Insurance + Fuel) do not exceed 10% of your gross monthly income.</p>
+      </div>
+
+      <h3 class="font-serif text-xl font-normal text-slate-100 mt-6">Key Factors Influencing Auto Financing Costs</h3>
+      <ul class="list-disc list-inside space-y-2 font-light">
+        <li><strong>On-Road Price vs. Ex-Showroom Price:</strong> Always calculate financing on the full <em>on-road price</em>, which includes ex-showroom price, RTO registration taxes, road tax, and mandatory insurance premiums.</li>
+        <li><strong>Fixed vs. Floating Interest Rates:</strong> Most Indian car loans feature fixed interest rates. Check whether the lender uses a reducing balance method or a flat interest rate structure (flat rates appear lower initially but carry significantly higher effective annual interest).</li>
+        <li><strong>Foreclosure and Prepayment Clauses:</strong> Review bank foreclosure penalty rules. Some lenders allow penalty-free part-prepayments after 12 EMIs, enabling you to clear vehicle debt ahead of schedule.</li>
+      </ul>
+
+    </article>
 
     <!-- Bottom Ecosystem Navigation Grid -->
     <section class="mt-16 pt-12 border-t border-slate-800 bg-slate-900/60 -mx-6 px-6 py-10 rounded-3xl">
@@ -158,8 +210,8 @@
           <a href="/calculators/nps/" class="bg-slate-950 border border-slate-800 hover:border-amber-400 p-3 rounded-xl text-slate-300 hover:text-amber-300 transition text-center font-semibold">
             🏛️ NPS Pension Engine
           </a>
-          <a href="/calculators/business-loan/" class="bg-slate-950 border border-slate-800 hover:border-amber-400 p-3 rounded-xl text-slate-300 hover:text-amber-300 transition text-center font-semibold">
-            🏢 Business Loan CC/OD
+          <a href="/calculators/personal-loan/" class="bg-slate-950 border border-slate-800 hover:border-amber-400 p-3 rounded-xl text-slate-300 hover:text-amber-300 transition text-center font-semibold">
+            💳 Personal Loan EMI
           </a>
         </div>
       </div>
@@ -194,26 +246,31 @@
     }
 
     function calculateCarLoan() {
-      const principal = parseFloat(document.getElementById('loan-num').value) || 0;
-      const annualRate = parseFloat(document.getElementById('rate-num').value) || 0;
+      const vehiclePrice = parseFloat(document.getElementById('price-num').value) || 0;
+      const downPayment = parseFloat(document.getElementById('down-num').value) || 0;
+      const annualRate = (parseFloat(document.getElementById('rate-num').value) || 0) / 100;
       const years = parseInt(document.getElementById('tenure-num').value) || 0;
 
-      const r = annualRate / 12 / 100;
+      const financedPrincipal = Math.max(0, vehiclePrice - downPayment);
+      const ltv = vehiclePrice > 0 ? (financedPrincipal / vehiclePrice) * 100 : 0;
+
+      const r = annualRate / 12;
       const n = years * 12;
 
       let emi = 0;
-      let totalOutgo = 0;
       let totalInterest = 0;
 
-      if (principal > 0 && r > 0 && n > 0) {
-        emi = (principal * r * Math.pow(1 + r, n)) / (Math.pow(1 + r, n) - 1);
-        totalOutgo = emi * n;
-        totalInterest = totalOutgo - principal;
+      if (financedPrincipal > 0 && r > 0 && n > 0) {
+        emi = (financedPrincipal * r * Math.pow(1 + r, n)) / (Math.pow(1 + r, n) - 1);
+        totalInterest = (emi * n) - financedPrincipal;
       }
 
-      document.getElementById('display-principal').innerText = formatINR(principal);
-      document.getElementById('total-interest').innerText = formatINR(totalInterest);
+      const totalOutgo = downPayment + (emi * n);
+
       document.getElementById('monthly-emi').innerText = formatINR(emi);
+      document.getElementById('financed-loan').innerText = formatINR(financedPrincipal);
+      document.getElementById('total-interest').innerText = formatINR(totalInterest);
+      document.getElementById('ltv-ratio').innerText = ltv.toFixed(1) + '%';
       document.getElementById('total-outgo').innerText = formatINR(totalOutgo);
 
       // Render Chart
@@ -223,10 +280,10 @@
       chartInstance = new Chart(ctx, {
         type: 'doughnut',
         data: {
-          labels: ['Principal Financed', 'Total Interest'],
+          labels: ['Down Payment', 'Financed Principal', 'Total Interest'],
           datasets: [{
-            data: [principal, totalInterest],
-            backgroundColor: ['#334155', '#fbbf24'],
+            data: [downPayment, financedPrincipal, totalInterest],
+            backgroundColor: ['#10b981', '#334155', '#fbbf24'],
             borderWidth: 0
           }]
         },
