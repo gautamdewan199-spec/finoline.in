@@ -1,13 +1,16 @@
 <!DOCTYPE html>
-<html lang="en" class="scroll-smooth">
+<html lang="en" class="scroll-smooth dark">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title id="page-title">Loading Article | finoline.in</title>
+  <title id="page-title">Loading Publication | finoline.in</title>
   <meta id="page-description" name="description" content="Independent financial literacy and macroeconomic analysis for self-directed Indian investors." />
   <meta id="page-keywords" name="keywords" content="finoline, personal finance India" />
 
-  <!-- Google Fonts: Playfair Display, Inter & JetBrains Mono -->
+  <!-- Inline Favicon -->
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>📈</text></svg>">
+
+  <!-- Google Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:ital,wght@0,500;0,600;0,700;1,400&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
@@ -16,6 +19,7 @@
   <script src="https://cdn.tailwindcss.com"></script>
   <script>
     tailwind.config = {
+      darkMode: 'class',
       theme: {
         extend: {
           fontFamily: {
@@ -31,26 +35,26 @@
   <!-- Supabase JS Client CDN -->
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 </head>
-<body class="bg-slate-50 text-slate-900 font-sans antialiased min-h-screen flex flex-col selection:bg-amber-100 selection:text-amber-900">
+<body class="bg-slate-950 text-slate-200 font-sans antialiased min-h-screen flex flex-col selection:bg-amber-500/30 selection:text-amber-200">
 
   <!-- Header Navigation -->
-  <header class="bg-white/90 backdrop-blur-md border-b border-slate-200/80 sticky top-0 z-50">
+  <header class="bg-slate-900/90 backdrop-blur-md border-b border-slate-800 sticky top-0 z-50">
     <div class="max-w-6xl mx-auto px-6 py-4 flex items-center justify-between">
       <a href="/" class="flex items-center space-x-2 tracking-tight group">
-        <span class="font-serif text-3xl font-semibold text-slate-950 group-hover:text-amber-800 transition">finoline</span>
-        <span class="font-mono text-[11px] font-bold text-amber-800 uppercase tracking-widest bg-amber-50 px-2 py-0.5 rounded border border-amber-200/80">.in</span>
+        <span class="font-serif text-3xl font-semibold text-slate-100 group-hover:text-amber-400 transition">finoline</span>
+        <span class="font-mono text-[11px] font-bold text-amber-400 uppercase tracking-widest bg-amber-400/10 px-2 py-0.5 rounded border border-amber-400/20">.in</span>
       </a>
 
-      <nav class="hidden md:flex items-center space-x-8 text-sm font-medium text-slate-600">
-        <a href="/" class="hover:text-slate-950 transition">Publications</a>
-        <a href="/calculators/" class="text-amber-800 font-semibold hover:text-slate-950 transition flex items-center space-x-1">
+      <nav class="hidden md:flex items-center space-x-8 text-sm font-medium text-slate-400">
+        <a href="/" class="hover:text-slate-100 transition">Publications</a>
+        <a href="/calculators/" class="text-amber-400 font-semibold hover:text-slate-100 transition flex items-center space-x-1">
           <span>Calculators Hub</span>
-          <span class="bg-amber-100 text-amber-800 text-[10px] font-mono px-1.5 py-0.5 rounded">11 TOOLS</span>
+          <span class="bg-amber-400/10 text-amber-400 text-[10px] font-mono px-1.5 py-0.5 rounded border border-amber-400/20">11 TOOLS</span>
         </a>
-        <a href="/ebook.html" class="hover:text-slate-950 transition">The E-Book</a>
+        <a href="/ebook.html" class="hover:text-slate-100 transition">The E-Book</a>
       </nav>
 
-      <a href="/calculators/" class="hidden sm:inline-flex items-center text-xs font-semibold uppercase tracking-wider bg-slate-950 hover:bg-slate-800 text-amber-400 px-4 py-2.5 rounded-lg transition shadow-sm">
+      <a href="/calculators/" class="hidden sm:inline-flex items-center text-xs font-semibold uppercase tracking-wider bg-amber-400 hover:bg-amber-300 text-slate-950 px-4 py-2.5 rounded-lg transition shadow-sm">
         Explore Calculators →
       </a>
     </div>
@@ -58,239 +62,181 @@
 
   <!-- Article Main Container -->
   <main class="max-w-4xl mx-auto px-6 py-12 flex-grow w-full space-y-10">
-    <!-- Loading State -->
+    
+    <!-- Loading Spinner -->
     <div id="post-loading" class="text-center py-20 space-y-4">
-      <div class="inline-block w-8 h-8 border-4 border-amber-800 border-t-transparent rounded-full animate-spin"></div>
-      <p class="text-xs font-mono text-slate-500 uppercase tracking-widest">Loading Article from Ledger...</p>
+      <div class="inline-block w-8 h-8 border-4 border-amber-400 border-t-transparent rounded-full animate-spin"></div>
+      <p class="text-xs font-mono text-slate-400 uppercase tracking-widest">Loading Publication from Ledger...</p>
     </div>
 
-    <!-- Main Article Body -->
+    <!-- Main Article Render Area -->
     <article id="post-content-area" class="hidden space-y-10">
       
-      <!-- Article Header & Metadata -->
-      <div class="space-y-4 border-b border-slate-200 pb-8">
+      <!-- Metadata Header -->
+      <div class="space-y-4 border-b border-slate-800 pb-8">
         <div class="flex items-center space-x-3 text-xs">
-          <span id="post-category" class="font-mono font-bold text-amber-800 bg-amber-50 px-2.5 py-1 rounded border border-amber-200/60 uppercase tracking-wider">Category</span>
-          <span id="post-date" class="font-mono text-slate-400">Date</span>
+          <span id="post-category" class="font-mono font-bold text-amber-400 bg-amber-400/10 px-2.5 py-1 rounded border border-amber-400/30 uppercase tracking-wider">Category</span>
+          <span id="post-date" class="font-mono text-slate-500">Date</span>
         </div>
-        <h1 id="post-title" class="font-serif text-3xl md:text-5xl font-normal text-slate-950 leading-tight">Title</h1>
-        <p id="post-subtitle" class="text-slate-600 text-lg md:text-xl font-light leading-relaxed">Subtitle</p>
-
-        <!-- Dynamic Keywords Badges -->
+        <h1 id="post-title" class="font-serif text-3xl md:text-5xl font-normal text-slate-100 leading-tight">Title</h1>
+        <p id="post-subtitle" class="text-slate-400 text-lg md:text-xl font-light leading-relaxed">Subtitle</p>
         <div id="post-keywords-container" class="flex flex-wrap gap-2 pt-2"></div>
       </div>
 
-      <!-- Featured Banner Image -->
-      <div id="post-image-container" class="hidden rounded-2xl overflow-hidden border border-slate-200/80 shadow-sm">
+      <!-- Banner Image -->
+      <div id="post-image-container" class="hidden rounded-2xl overflow-hidden border border-slate-800 shadow-md">
         <img id="post-image" src="" alt="Featured Banner" class="w-full h-auto object-cover max-h-[480px]" />
       </div>
 
-      <!-- Embedded YouTube Video Player -->
-      <div id="post-video-container" class="hidden space-y-3">
-        <span class="text-xs font-mono font-bold text-amber-800 uppercase tracking-widest block">📺 Video Briefing</span>
-        <div class="relative w-full pb-[56.25%] h-0 rounded-2xl overflow-hidden border border-slate-200 shadow-md bg-slate-950">
-          <iframe id="post-video-iframe" class="absolute top-0 left-0 w-full h-full" src="" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-        </div>
-      </div>
-
-      <!-- Dynamic Rendered Content Sections -->
-      <div id="post-body" class="space-y-8 text-slate-800 text-base md:text-lg leading-relaxed font-light"></div>
+      <!-- Body Sections -->
+      <div id="post-body" class="space-y-8 text-slate-300 text-base md:text-lg leading-relaxed font-light"></div>
 
     </article>
   </main>
 
-  <!-- Complete Ecosystem Footer Link Grid -->
-  <section class="bg-white border-t border-b border-slate-200 py-12 px-6">
+  <!-- Ecosystem Master Footer Grid -->
+  <section class="bg-slate-900/60 border-t border-b border-slate-800 py-12 px-6">
     <div class="max-w-6xl mx-auto space-y-6">
       <div class="flex items-center justify-between">
         <div>
-          <span class="text-xs font-bold font-mono text-amber-800 uppercase tracking-widest">Ecosystem Navigation</span>
-          <h3 class="font-serif text-xl font-semibold text-slate-900">Explore All 11 Financial Engines</h3>
+          <span class="text-xs font-bold font-mono text-amber-400 uppercase tracking-widest">Ecosystem Navigation</span>
+          <h3 class="font-serif text-xl font-semibold text-slate-100">Explore All 11 Financial Engines</h3>
         </div>
-        <a href="/calculators/" class="text-xs font-mono font-bold text-amber-800 hover:text-slate-950 transition uppercase tracking-wider">
+        <a href="/calculators/" class="text-xs font-mono font-bold text-amber-400 hover:text-slate-100 transition uppercase tracking-wider">
           View Hub Directory →
         </a>
       </div>
 
       <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-3 font-mono text-xs">
-        <a href="/calculators/sip/" class="p-3 bg-slate-50 border border-slate-200 rounded-xl hover:border-amber-400 hover:bg-amber-50/40 text-slate-700 transition text-center font-semibold">📈 SIP Compounder</a>
-        <a href="/calculators/lumpsum/" class="p-3 bg-slate-50 border border-slate-200 rounded-xl hover:border-amber-400 hover:bg-amber-50/40 text-slate-700 transition text-center font-semibold">💰 Lumpsum Engine</a>
-        <a href="/calculators/swp/" class="p-3 bg-slate-50 border border-slate-200 rounded-xl hover:border-amber-400 hover:bg-amber-50/40 text-slate-700 transition text-center font-semibold">🏖️ Retirement SWP</a>
-        <a href="/calculators/ppf/" class="p-3 bg-slate-50 border border-slate-200 rounded-xl hover:border-amber-400 hover:bg-amber-50/40 text-slate-700 transition text-center font-semibold">🛡️ PPF Tax-Free</a>
-        <a href="/calculators/home-loan/" class="p-3 bg-slate-50 border border-slate-200 rounded-xl hover:border-amber-400 hover:bg-amber-50/40 text-slate-700 transition text-center font-semibold">🏡 Home Loan Prepay</a>
-        <a href="/calculators/tax-regime/" class="p-3 bg-slate-50 border border-slate-200 rounded-xl hover:border-amber-400 hover:bg-amber-50/40 text-slate-700 transition text-center font-semibold">⚖️ Tax Regime 2026</a>
-        <a href="/calculators/nps/" class="p-3 bg-slate-50 border border-slate-200 rounded-xl hover:border-amber-400 hover:bg-amber-50/40 text-slate-700 transition text-center font-semibold">🏛️ NPS Pension</a>
-        <a href="/calculators/car-loan/" class="p-3 bg-slate-50 border border-slate-200 rounded-xl hover:border-amber-400 hover:bg-amber-50/40 text-slate-700 transition text-center font-semibold">🚘 Car Loan EMI</a>
-        <a href="/calculators/personal-loan/" class="p-3 bg-slate-50 border border-slate-200 rounded-xl hover:border-amber-400 hover:bg-amber-50/40 text-slate-700 transition text-center font-semibold">💳 Personal Loan</a>
-        <a href="/calculators/business-loan/" class="p-3 bg-slate-50 border border-slate-200 rounded-xl hover:border-amber-400 hover:bg-amber-50/40 text-slate-700 transition text-center font-semibold">🏢 Business CC/OD</a>
-        <a href="/calculators/govt-schemes/" class="p-3 bg-slate-50 border border-slate-200 rounded-xl hover:border-amber-400 hover:bg-amber-50/40 text-slate-700 transition text-center font-semibold">🏛️ PMEGP / MUDRA</a>
+        <a href="/calculators/sip/" class="p-3 bg-slate-900 border border-slate-800 rounded-xl hover:border-amber-500/50 text-slate-300 transition text-center font-semibold">📈 SIP Compounder</a>
+        <a href="/calculators/lumpsum/" class="p-3 bg-slate-900 border border-slate-800 rounded-xl hover:border-amber-500/50 text-slate-300 transition text-center font-semibold">💰 Lumpsum Engine</a>
+        <a href="/calculators/swp/" class="p-3 bg-slate-900 border border-slate-800 rounded-xl hover:border-amber-500/50 text-slate-300 transition text-center font-semibold">🏖️ Retirement SWP</a>
+        <a href="/calculators/ppf/" class="p-3 bg-slate-900 border border-slate-800 rounded-xl hover:border-amber-500/50 text-slate-300 transition text-center font-semibold">🛡️ PPF Tax-Free</a>
+        <a href="/calculators/home-loan/" class="p-3 bg-slate-900 border border-slate-800 rounded-xl hover:border-amber-500/50 text-slate-300 transition text-center font-semibold">🏡 Home Loan Prepay</a>
+        <a href="/calculators/tax-regime/" class="p-3 bg-slate-900 border border-slate-800 rounded-xl hover:border-amber-500/50 text-slate-300 transition text-center font-semibold">⚖️ Tax Regime 2026</a>
+        <a href="/calculators/nps/" class="p-3 bg-slate-900 border border-slate-800 rounded-xl hover:border-amber-500/50 text-slate-300 transition text-center font-semibold">🏛️ NPS Pension</a>
+        <a href="/calculators/car-loan/" class="p-3 bg-slate-900 border border-slate-800 rounded-xl hover:border-amber-500/50 text-slate-300 transition text-center font-semibold">🚘 Car Loan EMI</a>
+        <a href="/calculators/personal-loan/" class="p-3 bg-slate-900 border border-slate-800 rounded-xl hover:border-amber-500/50 text-slate-300 transition text-center font-semibold">💳 Personal Loan</a>
+        <a href="/calculators/business-loan/" class="p-3 bg-slate-900 border border-slate-800 rounded-xl hover:border-amber-500/50 text-slate-300 transition text-center font-semibold">🏢 Business CC/OD</a>
+        <a href="/calculators/govt-schemes/" class="p-3 bg-slate-900 border border-slate-800 rounded-xl hover:border-amber-500/50 text-slate-300 transition text-center font-semibold">🏛️ PMEGP / MUDRA</a>
       </div>
     </div>
   </section>
 
   <!-- Footer -->
-  <footer class="bg-white border-t border-slate-200 py-12 px-6 text-center text-xs text-slate-500">
+  <footer class="bg-slate-950 border-t border-slate-800 py-12 px-6 text-center text-xs text-slate-500">
     <div class="max-w-6xl mx-auto space-y-4">
-      <a href="/" class="inline-block font-serif text-2xl font-semibold text-slate-950">finoline<span class="text-amber-800 font-mono text-sm">.in</span></a>
-      <p class="text-slate-600">© 2026 finoline.in. Independent financial education resources for self-directed investors.</p>
+      <a href="/" class="inline-block font-serif text-2xl font-semibold text-slate-100">finoline<span class="text-amber-400 font-mono text-sm">.in</span></a>
+      <p class="text-slate-400">© 2026 finoline.in. Independent financial education resources for self-directed investors.</p>
     </div>
   </footer>
 
-  <!-- Supabase Fetch & Dynamic Parser Logic -->
+  <!-- Supabase Fetch Script -->
   <script>
-    // Configuration Credentials - Replace with your actual project values if needed
-      const SUPABASE_URL = 'https://crogiylnzpufptqflotd.supabase.co/rest/v1/';
+    (function initReader() {
+      const SUPABASE_URL = 'https://crogiylnzpufptqflotd.supabase.co';
       const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImNyb2dpeWxuenB1ZnB0cWZsb3RkIiwicm9sZSI6ImFub24iLCJpYXQiOjE3OTQxMDMwMDUsImV4cCI6MjEwOTY3OTAwNX0.hFVRYYoaIDk49oonVQra_7GIPMEK0uqQqsAPJT45Az4';
-    
-    const supabase = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+      
+      const sbClient = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
 
-    // Extract YouTube ID safely from long or short URLs
-    function extractYouTubeId(url) {
-      if (!url) return null;
-      const regExp = /^.*(youtu.be\/|v\/|u\/\w\/|embed\/|watch\?v=|\&v=)([^#\&\?]*).*/;
-      const match = url.match(regExp);
-      return (match && match[2].length === 11) ? match[2] : null;
-    }
+      async function renderArticle() {
+        const params = new URLSearchParams(window.location.search);
+        const slug = params.get('slug');
 
-    async function renderArticle() {
-      const params = new URLSearchParams(window.location.search);
-      const slug = params.get('slug');
-
-      if (!slug) {
-        window.location.href = '/';
-        return;
-      }
-
-      try {
-        const { data: post, error } = await supabase
-          .from('posts')
-          .select('*')
-          .eq('slug', slug)
-          .eq('published', true)
-          .single();
-
-        if (error || !post) throw error || new Error('Article missing');
-
-        // 1. Inject Page SEO Meta Header Tags
-        document.getElementById('page-title').innerText = `${post.title} | finoline.in`;
-        if (post.excerpt) document.getElementById('page-description').content = post.excerpt;
-        if (post.keywords && Array.isArray(post.keywords)) {
-          document.getElementById('page-keywords').content = post.keywords.join(', ');
+        if (!slug) {
+          window.location.href = '/';
+          return;
         }
 
-        // 2. Populate Main Header Information
-        document.getElementById('post-title').innerText = post.title;
-        document.getElementById('post-category').innerText = post.category || 'Insights';
-        document.getElementById('post-date').innerText = new Date(post.created_at).toLocaleDateString('en-IN', { month: 'short', day: 'numeric', year: 'numeric' });
+        try {
+          const { data: post, error } = await sbClient
+            .from('posts')
+            .select('*')
+            .eq('slug', slug)
+            .eq('published', true)
+            .single();
 
-        // 3. Render Keyword Badges
-        const kwContainer = document.getElementById('post-keywords-container');
-        if (post.keywords && Array.isArray(post.keywords) && post.keywords.length > 0) {
-          kwContainer.innerHTML = post.keywords.map(kw => `
-            <span class="text-[11px] font-mono text-slate-500 bg-slate-100 px-2 py-0.5 rounded border border-slate-200">#${kw}</span>
-          `).join('');
-        }
+          if (error || !post) throw error || new Error('Article missing');
 
-        // 4. Render Banner Image
-        if (post.image_url) {
-          document.getElementById('post-image').src = post.image_url;
-          document.getElementById('post-image-container').classList.remove('hidden');
-        }
+          document.getElementById('page-title').innerText = `${post.title} | finoline.in`;
+          if (post.excerpt) document.getElementById('page-description').content = post.excerpt;
 
-        // 5. Render YouTube Embed
-        if (post.youtube_url) {
-          const videoId = extractYouTubeId(post.youtube_url);
-          if (videoId) {
-            document.getElementById('post-video-iframe').src = `https://www.youtube.com/embed/${videoId}?autoplay=0&rel=0`;
-            document.getElementById('post-video-container').classList.remove('hidden');
+          document.getElementById('post-title').innerText = post.title;
+          document.getElementById('post-category').innerText = post.category || 'Insights';
+          document.getElementById('post-date').innerText = new Date(post.created_at).toLocaleDateString('en-IN', { month: 'short', day: 'numeric', year: 'numeric' });
+
+          const kwContainer = document.getElementById('post-keywords-container');
+          if (post.keywords && Array.isArray(post.keywords)) {
+            kwContainer.innerHTML = post.keywords.map(kw => `
+              <span class="text-[11px] font-mono text-slate-400 bg-slate-900 px-2 py-0.5 rounded border border-slate-800">#${kw}</span>
+            `).join('');
           }
-        }
 
-        // 6. Parse Section Payload Structure
-        let contentObj = post.content;
-        if (typeof contentObj === 'string') {
-          try { contentObj = JSON.parse(contentObj); } catch (e) {}
-        }
+          if (post.image_url) {
+            document.getElementById('post-image').src = post.image_url;
+            document.getElementById('post-image-container').classList.remove('hidden');
+          }
 
-        document.getElementById('post-subtitle').innerText = contentObj?.subtitle || post.excerpt || '';
+          let contentObj = post.content;
+          if (typeof contentObj === 'string') {
+            try { contentObj = JSON.parse(contentObj); } catch (e) {}
+          }
 
-        const bodyContainer = document.getElementById('post-body');
+          document.getElementById('post-subtitle').innerText = contentObj?.subtitle || post.excerpt || '';
 
-        if (contentObj && contentObj.sections && Array.isArray(contentObj.sections)) {
-          bodyContainer.innerHTML = contentObj.sections.map(sec => {
-            let sectionHTML = '';
+          const bodyContainer = document.getElementById('post-body');
 
-            if (sec.title) {
-              sectionHTML += `<h2 class="font-serif text-2xl md:text-3xl font-semibold text-slate-900 mt-8 mb-4 border-b border-slate-100 pb-2">${sec.title}</h2>`;
-            }
-
-            if (sec.type === 'text') {
-              sectionHTML += `<p class="leading-relaxed font-light text-slate-800 mb-6">${sec.body}</p>`;
-            } 
-            else if (sec.type === 'list') {
-              sectionHTML += `
-                <ul class="list-disc pl-6 space-y-3 mb-6 font-light text-slate-800">
-                  ${sec.items.map(item => `<li class="pl-1">${item}</li>`).join('')}
-                </ul>
-              `;
-            } 
-            else if (sec.type === 'table') {
-              sectionHTML += `
-                <div class="overflow-x-auto my-8 border border-slate-200/80 rounded-2xl shadow-sm bg-white">
-                  <table class="w-full text-left text-sm border-collapse">
-                    <thead>
-                      <tr class="bg-slate-950 font-mono text-xs uppercase text-amber-400">
-                        ${sec.headers.map(h => `<th class="p-4 border-b border-slate-800 font-bold tracking-wider">${h}</th>`).join('')}
-                      </tr>
-                    </thead>
-                    <tbody class="divide-y divide-slate-100 font-light text-xs md:text-sm text-slate-700">
-                      ${sec.rows.map((row, idx) => `
-                        <tr class="${idx % 2 === 0 ? 'bg-white' : 'bg-slate-50/50'} hover:bg-amber-50/30 transition">
-                          ${row.map(cell => `<td class="p-4 border-r border-slate-100 last:border-r-0">${cell}</td>`).join('')}
+          if (contentObj && contentObj.sections && Array.isArray(contentObj.sections)) {
+            bodyContainer.innerHTML = contentObj.sections.map(sec => {
+              let html = '';
+              if (sec.title) {
+                html += `<h2 class="font-serif text-2xl md:text-3xl font-semibold text-slate-100 mt-8 mb-4 border-b border-slate-800 pb-2">${sec.title}</h2>`;
+              }
+              if (sec.type === 'text') {
+                html += `<p class="leading-relaxed font-light text-slate-300 mb-6">${sec.body}</p>`;
+              } else if (sec.type === 'list') {
+                html += `<ul class="list-disc pl-6 space-y-3 mb-6 font-light text-slate-300">${sec.items.map(item => `<li>${item}</li>`).join('')}</ul>`;
+              } else if (sec.type === 'table') {
+                html += `
+                  <div class="overflow-x-auto my-8 border border-slate-800 rounded-2xl shadow-sm bg-slate-900">
+                    <table class="w-full text-left text-sm border-collapse">
+                      <thead>
+                        <tr class="bg-slate-950 font-mono text-xs uppercase text-amber-400">
+                          ${sec.headers.map(h => `<th class="p-4 border-b border-slate-800 font-bold tracking-wider">${h}</th>`).join('')}
                         </tr>
-                      `).join('')}
-                    </tbody>
-                  </table>
-                </div>
-              `;
-            }
-            else if (sec.type === 'models') {
-              sectionHTML += `
-                <div class="grid grid-cols-1 md:grid-cols-2 gap-6 my-8">
-                  ${sec.models.map(m => `
-                    <div class="bg-white p-6 rounded-2xl border border-slate-200 shadow-sm space-y-4">
-                      <h3 class="font-serif text-lg font-bold text-slate-950">${m.name}</h3>
-                      <p class="text-xs font-mono text-amber-800 bg-amber-50 px-2.5 py-1 rounded border border-amber-200/60">${m.target}</p>
-                      <ul class="list-disc pl-5 space-y-2 text-xs font-light text-slate-700">
-                        ${m.breakdown.map(b => `<li>${b}</li>`).join('')}
-                      </ul>
-                    </div>
-                  `).join('')}
-                </div>
-              `;
-            }
+                      </thead>
+                      <tbody class="divide-y divide-slate-800 font-light text-xs md:text-sm text-slate-300">
+                        ${sec.rows.map(row => `
+                          <tr class="hover:bg-slate-850 transition">
+                            ${row.map(cell => `<td class="p-4 border-r border-slate-800 last:border-r-0">${cell}</td>`).join('')}
+                          </tr>
+                        `).join('')}
+                      </tbody>
+                    </table>
+                  </div>
+                `;
+              }
+              return html;
+            }).join('');
+          } else {
+            bodyContainer.innerHTML = `<p class="leading-relaxed font-light">${typeof post.content === 'string' ? post.content : post.excerpt}</p>`;
+          }
 
-            return sectionHTML;
-          }).join('');
-        } else {
-          bodyContainer.innerHTML = `<p class="leading-relaxed font-light">${typeof post.content === 'string' ? post.content : post.excerpt}</p>`;
+          document.getElementById('post-loading').classList.add('hidden');
+          document.getElementById('post-content-area').classList.remove('hidden');
+
+        } catch (err) {
+          console.error('Failed to load publication:', err);
+          document.getElementById('post-loading').innerHTML = `
+            <div class="text-rose-400 bg-rose-950/40 p-6 rounded-2xl border border-rose-900/50 text-sm font-mono">
+              Unable to load publication. Please verify database connectivity.
+            </div>
+          `;
         }
-
-        // Show Article Area
-        document.getElementById('post-loading').classList.add('hidden');
-        document.getElementById('post-content-area').classList.remove('hidden');
-
-      } catch (err) {
-        console.error('Failed to load publication:', err);
-        document.getElementById('post-loading').innerHTML = `
-          <div class="text-red-600 bg-red-50 p-6 rounded-2xl border border-red-200 text-sm">
-            Unable to load publication. Please verify the URL slug or database credentials.
-          </div>
-        `;
       }
-    }
 
-    document.addEventListener('DOMContentLoaded', renderArticle);
+      document.addEventListener('DOMContentLoaded', renderArticle);
+    })();
   </script>
 </body>
 </html>
