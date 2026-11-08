@@ -47,7 +47,6 @@
           <span>Calculators Hub</span>
           <span class="bg-amber-100 text-amber-800 text-[10px] font-mono px-1.5 py-0.5 rounded">11 TOOLS</span>
         </a>
-        <a href="/planner.html" class="hover:text-slate-950 transition">Robo-Planner</a>
         <a href="/ebook.html" class="hover:text-slate-950 transition">The E-Book</a>
       </nav>
 
@@ -59,13 +58,16 @@
 
   <!-- Article Main Container -->
   <main class="max-w-4xl mx-auto px-6 py-12 flex-grow w-full space-y-10">
+    <!-- Loading State -->
     <div id="post-loading" class="text-center py-20 space-y-4">
       <div class="inline-block w-8 h-8 border-4 border-amber-800 border-t-transparent rounded-full animate-spin"></div>
-      <p class="text-xs font-mono text-slate-500 uppercase tracking-widest">Loading Publication...</p>
+      <p class="text-xs font-mono text-slate-500 uppercase tracking-widest">Loading Article from Ledger...</p>
     </div>
 
-    <article id="post-content-area" class="hidden space-y-8">
-      <!-- Article Header -->
+    <!-- Main Article Body -->
+    <article id="post-content-area" class="hidden space-y-10">
+      
+      <!-- Article Header & Metadata -->
       <div class="space-y-4 border-b border-slate-200 pb-8">
         <div class="flex items-center space-x-3 text-xs">
           <span id="post-category" class="font-mono font-bold text-amber-800 bg-amber-50 px-2.5 py-1 rounded border border-amber-200/60 uppercase tracking-wider">Category</span>
@@ -74,25 +76,26 @@
         <h1 id="post-title" class="font-serif text-3xl md:text-5xl font-normal text-slate-950 leading-tight">Title</h1>
         <p id="post-subtitle" class="text-slate-600 text-lg md:text-xl font-light leading-relaxed">Subtitle</p>
 
-        <!-- Dynamic Keywords List -->
+        <!-- Dynamic Keywords Badges -->
         <div id="post-keywords-container" class="flex flex-wrap gap-2 pt-2"></div>
       </div>
 
-      <!-- Featured Image Banner -->
-      <div id="post-image-container" class="hidden rounded-2xl overflow-hidden border border-slate-200 shadow-sm">
-        <img id="post-image" src="" alt="Featured Banner" class="w-full h-auto object-cover max-h-[450px]" />
+      <!-- Featured Banner Image -->
+      <div id="post-image-container" class="hidden rounded-2xl overflow-hidden border border-slate-200/80 shadow-sm">
+        <img id="post-image" src="" alt="Featured Banner" class="w-full h-auto object-cover max-h-[480px]" />
       </div>
 
-      <!-- YouTube Video Embed Player -->
+      <!-- Embedded YouTube Video Player -->
       <div id="post-video-container" class="hidden space-y-3">
-        <span class="text-xs font-mono font-bold text-amber-800 uppercase tracking-widest block">📺 Featured Documentary / Video</span>
+        <span class="text-xs font-mono font-bold text-amber-800 uppercase tracking-widest block">📺 Video Briefing</span>
         <div class="relative w-full pb-[56.25%] h-0 rounded-2xl overflow-hidden border border-slate-200 shadow-md bg-slate-950">
           <iframe id="post-video-iframe" class="absolute top-0 left-0 w-full h-full" src="" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
         </div>
       </div>
 
-      <!-- Dynamic Article Body Sections -->
+      <!-- Dynamic Rendered Content Sections -->
       <div id="post-body" class="space-y-8 text-slate-800 text-base md:text-lg leading-relaxed font-light"></div>
+
     </article>
   </main>
 
@@ -129,17 +132,19 @@
   <footer class="bg-white border-t border-slate-200 py-12 px-6 text-center text-xs text-slate-500">
     <div class="max-w-6xl mx-auto space-y-4">
       <a href="/" class="inline-block font-serif text-2xl font-semibold text-slate-950">finoline<span class="text-amber-800 font-mono text-sm">.in</span></a>
-      <p class="text-slate-600">© 2026 finoline.in. Independent financial education resources for Indian investors.</p>
+      <p class="text-slate-600">© 2026 finoline.in. Independent financial education resources for self-directed investors.</p>
     </div>
   </footer>
 
-  <!-- Supabase Script & Render Logic -->
+  <!-- Supabase Fetch & Dynamic Parser Logic -->
   <script>
-    const SUPABASE_URL = 'YOUR_SUPABASE_URL_HERE';
-    const SUPABASE_ANON_KEY = 'YOUR_SUPABASE_ANON_KEY_HERE';
+    // Configuration Credentials - Replace with your actual project values if needed
+    const SUPABASE_URL = localStorage.getItem('finoline_sb_url') || 'https://YOUR-SUPABASE-PROJECT.supabase.co';
+    const SUPABASE_ANON_KEY = localStorage.getItem('finoline_sb_key') || 'YOUR-SUPABASE-ANON-KEY';
+    
     const supabase = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
 
-    // Extract YouTube Video ID from any standard URL
+    // Extract YouTube ID safely from long or short URLs
     function extractYouTubeId(url) {
       if (!url) return null;
       const regExp = /^.*(youtu.be\/|v\/|u\/\w\/|embed\/|watch\?v=|\&v=)([^#\&\?]*).*/;
@@ -147,9 +152,9 @@
       return (match && match[2].length === 11) ? match[2] : null;
     }
 
-    async function fetchSinglePost() {
-      const urlParams = new URLSearchParams(window.location.search);
-      const slug = urlParams.get('slug');
+    async function renderArticle() {
+      const params = new URLSearchParams(window.location.search);
+      const slug = params.get('slug');
 
       if (!slug) {
         window.location.href = '/';
@@ -164,21 +169,21 @@
           .eq('published', true)
           .single();
 
-        if (error || !post) throw error || new Error('Post not found');
+        if (error || !post) throw error || new Error('Article missing');
 
-        // Update Page SEO Metadata
+        // 1. Inject Page SEO Meta Header Tags
         document.getElementById('page-title').innerText = `${post.title} | finoline.in`;
         if (post.excerpt) document.getElementById('page-description').content = post.excerpt;
         if (post.keywords && Array.isArray(post.keywords)) {
           document.getElementById('page-keywords').content = post.keywords.join(', ');
         }
 
-        // Populate Header Data
+        // 2. Populate Main Header Information
         document.getElementById('post-title').innerText = post.title;
         document.getElementById('post-category').innerText = post.category || 'Insights';
         document.getElementById('post-date').innerText = new Date(post.created_at).toLocaleDateString('en-IN', { month: 'short', day: 'numeric', year: 'numeric' });
 
-        // Render Keywords Badges
+        // 3. Render Keyword Badges
         const kwContainer = document.getElementById('post-keywords-container');
         if (post.keywords && Array.isArray(post.keywords) && post.keywords.length > 0) {
           kwContainer.innerHTML = post.keywords.map(kw => `
@@ -186,68 +191,62 @@
           `).join('');
         }
 
-        // Render Featured Image
+        // 4. Render Banner Image
         if (post.image_url) {
-          const imgContainer = document.getElementById('post-image-container');
           document.getElementById('post-image').src = post.image_url;
-          imgContainer.classList.remove('hidden');
+          document.getElementById('post-image-container').classList.remove('hidden');
         }
 
-        // Render YouTube Video Player
+        // 5. Render YouTube Embed
         if (post.youtube_url) {
           const videoId = extractYouTubeId(post.youtube_url);
           if (videoId) {
-            const videoContainer = document.getElementById('post-video-container');
             document.getElementById('post-video-iframe').src = `https://www.youtube.com/embed/${videoId}?autoplay=0&rel=0`;
-            videoContainer.classList.remove('hidden');
+            document.getElementById('post-video-container').classList.remove('hidden');
           }
         }
 
-        // Render Article Sections
-        const bodyContainer = document.getElementById('post-body');
+        // 6. Parse Section Payload Structure
         let contentObj = post.content;
         if (typeof contentObj === 'string') {
           try { contentObj = JSON.parse(contentObj); } catch (e) {}
         }
 
-        if (contentObj && contentObj.subtitle) {
-          document.getElementById('post-subtitle').innerText = contentObj.subtitle;
-        } else {
-          document.getElementById('post-subtitle').innerText = post.excerpt || '';
-        }
+        document.getElementById('post-subtitle').innerText = contentObj?.subtitle || post.excerpt || '';
+
+        const bodyContainer = document.getElementById('post-body');
 
         if (contentObj && contentObj.sections && Array.isArray(contentObj.sections)) {
-          bodyContainer.innerHTML = contentObj.sections.map(section => {
-            if (section.type === 'text') {
-              return `
-                <div class="space-y-3">
-                  ${section.title ? `<h2 class="font-serif text-2xl font-semibold text-slate-900 mt-6">${section.title}</h2>` : ''}
-                  <p class="leading-relaxed font-light">${section.body}</p>
-                </div>
+          bodyContainer.innerHTML = contentObj.sections.map(sec => {
+            let sectionHTML = '';
+
+            if (sec.title) {
+              sectionHTML += `<h2 class="font-serif text-2xl md:text-3xl font-semibold text-slate-900 mt-8 mb-4 border-b border-slate-100 pb-2">${sec.title}</h2>`;
+            }
+
+            if (sec.type === 'text') {
+              sectionHTML += `<p class="leading-relaxed font-light text-slate-800 mb-6">${sec.body}</p>`;
+            } 
+            else if (sec.type === 'list') {
+              sectionHTML += `
+                <ul class="list-disc pl-6 space-y-3 mb-6 font-light text-slate-800">
+                  ${sec.items.map(item => `<li class="pl-1">${item}</li>`).join('')}
+                </ul>
               `;
-            } else if (section.type === 'list') {
-              return `
-                <div class="space-y-3">
-                  ${section.title ? `<h2 class="font-serif text-2xl font-semibold text-slate-900 mt-6">${section.title}</h2>` : ''}
-                  <ul class="list-disc pl-6 space-y-2 font-light">
-                    ${section.items.map(item => `<li>${item}</li>`).join('')}
-                  </ul>
-                </div>
-              `;
-            } else if (section.type === 'table') {
-              return `
-                <div class="space-y-3 overflow-x-auto my-6">
-                  ${section.title ? `<h2 class="font-serif text-2xl font-semibold text-slate-900">${section.title}</h2>` : ''}
-                  <table class="w-full text-left text-sm border-collapse border border-slate-200">
+            } 
+            else if (sec.type === 'table') {
+              sectionHTML += `
+                <div class="overflow-x-auto my-8 border border-slate-200/80 rounded-2xl shadow-sm bg-white">
+                  <table class="w-full text-left text-sm border-collapse">
                     <thead>
-                      <tr class="bg-slate-100 font-mono text-xs uppercase text-slate-700">
-                        ${section.headers.map(h => `<th class="p-3 border border-slate-200">${h}</th>`).join('')}
+                      <tr class="bg-slate-950 font-mono text-xs uppercase text-amber-400">
+                        ${sec.headers.map(h => `<th class="p-4 border-b border-slate-800 font-bold tracking-wider">${h}</th>`).join('')}
                       </tr>
                     </thead>
-                    <tbody class="font-light text-xs">
-                      ${section.rows.map(row => `
-                        <tr class="hover:bg-amber-50/30">
-                          ${row.map(cell => `<td class="p-3 border border-slate-200">${cell}</td>`).join('')}
+                    <tbody class="divide-y divide-slate-100 font-light text-xs md:text-sm text-slate-700">
+                      ${sec.rows.map((row, idx) => `
+                        <tr class="${idx % 2 === 0 ? 'bg-white' : 'bg-slate-50/50'} hover:bg-amber-50/30 transition">
+                          ${row.map(cell => `<td class="p-4 border-r border-slate-100 last:border-r-0">${cell}</td>`).join('')}
                         </tr>
                       `).join('')}
                     </tbody>
@@ -255,27 +254,43 @@
                 </div>
               `;
             }
-            return '';
+            else if (sec.type === 'models') {
+              sectionHTML += `
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6 my-8">
+                  ${sec.models.map(m => `
+                    <div class="bg-white p-6 rounded-2xl border border-slate-200 shadow-sm space-y-4">
+                      <h3 class="font-serif text-lg font-bold text-slate-950">${m.name}</h3>
+                      <p class="text-xs font-mono text-amber-800 bg-amber-50 px-2.5 py-1 rounded border border-amber-200/60">${m.target}</p>
+                      <ul class="list-disc pl-5 space-y-2 text-xs font-light text-slate-700">
+                        ${m.breakdown.map(b => `<li>${b}</li>`).join('')}
+                      </ul>
+                    </div>
+                  `).join('')}
+                </div>
+              `;
+            }
+
+            return sectionHTML;
           }).join('');
         } else {
           bodyContainer.innerHTML = `<p class="leading-relaxed font-light">${typeof post.content === 'string' ? post.content : post.excerpt}</p>`;
         }
 
-        // Show Content
+        // Show Article Area
         document.getElementById('post-loading').classList.add('hidden');
         document.getElementById('post-content-area').classList.remove('hidden');
 
       } catch (err) {
-        console.error('Error fetching article:', err);
+        console.error('Failed to load publication:', err);
         document.getElementById('post-loading').innerHTML = `
           <div class="text-red-600 bg-red-50 p-6 rounded-2xl border border-red-200 text-sm">
-            Unable to load publication. Please verify the URL or check back later.
+            Unable to load publication. Please verify the URL slug or database credentials.
           </div>
         `;
       }
     }
 
-    document.addEventListener('DOMContentLoaded', fetchSinglePost);
+    document.addEventListener('DOMContentLoaded', renderArticle);
   </script>
 </body>
 </html>
