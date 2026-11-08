@@ -2,17 +2,18 @@
 <html lang="en" class="scroll-smooth">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0" />
-  <title id="page-title">Publication | finoline.in</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title id="page-title">Loading Article | finoline.in</title>
+  <meta id="page-description" name="description" content="Independent financial literacy and macroeconomic analysis for self-directed Indian investors." />
+  <meta id="page-keywords" name="keywords" content="finoline, personal finance India" />
 
   <!-- Google Fonts: Playfair Display, Inter & JetBrains Mono -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400&family=Playfair+Display:ital,wght@0,500;0,600;0,700;1,400&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:ital,wght@0,500;0,600;0,700;1,400&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
 
   <!-- Tailwind CSS CDN -->
   <script src="https://cdn.tailwindcss.com"></script>
-  <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/typography@0.5.10/dist/typography.min.js"></script>
   <script>
     tailwind.config = {
       theme: {
@@ -27,155 +28,126 @@
     }
   </script>
 
-  <!-- Supabase JS Client & Marked HTML Parser -->
+  <!-- Supabase JS Client CDN -->
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-  <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
 </head>
-<body class="bg-slate-950 text-slate-100 font-sans antialiased min-h-screen flex flex-col selection:bg-amber-400 selection:text-slate-950 relative">
-
-  <!-- Scroll Progress Indicator -->
-  <div id="read-progress" class="fixed top-0 left-0 h-1 bg-amber-400 z-50 transition-all duration-75" style="width: 0%"></div>
+<body class="bg-slate-50 text-slate-900 font-sans antialiased min-h-screen flex flex-col selection:bg-amber-100 selection:text-amber-900">
 
   <!-- Header Navigation -->
-  <header class="bg-slate-900/90 backdrop-blur-md border-b border-slate-800 sticky top-0 z-40">
-    <div class="max-w-4xl mx-auto px-6 py-4 flex items-center justify-between">
-      <a href="/" class="flex items-center space-x-1.5 tracking-tight group">
-        <span class="font-serif text-3xl font-semibold text-slate-50 group-hover:text-amber-400 transition">finoline</span>
-        <span class="font-mono text-[11px] font-bold text-amber-400 uppercase tracking-widest bg-amber-400/10 px-2 py-0.5 rounded border border-amber-400/30">.in</span>
+  <header class="bg-white/90 backdrop-blur-md border-b border-slate-200/80 sticky top-0 z-50">
+    <div class="max-w-6xl mx-auto px-6 py-4 flex items-center justify-between">
+      <a href="/" class="flex items-center space-x-2 tracking-tight group">
+        <span class="font-serif text-3xl font-semibold text-slate-950 group-hover:text-amber-800 transition">finoline</span>
+        <span class="font-mono text-[11px] font-bold text-amber-800 uppercase tracking-widest bg-amber-50 px-2 py-0.5 rounded border border-amber-200/80">.in</span>
       </a>
 
-      <div class="flex items-center space-x-6 text-xs font-mono font-bold uppercase tracking-wider">
-        <a href="/calculators/" class="hidden sm:block text-slate-400 hover:text-amber-400 transition">Calculators Hub</a>
-        <a href="/" class="text-slate-200 hover:text-amber-400 transition">← All Articles</a>
-      </div>
+      <nav class="hidden md:flex items-center space-x-8 text-sm font-medium text-slate-600">
+        <a href="/" class="hover:text-slate-950 transition">Publications</a>
+        <a href="/calculators/" class="text-amber-800 font-semibold hover:text-slate-950 transition flex items-center space-x-1">
+          <span>Calculators Hub</span>
+          <span class="bg-amber-100 text-amber-800 text-[10px] font-mono px-1.5 py-0.5 rounded">11 TOOLS</span>
+        </a>
+        <a href="/planner.html" class="hover:text-slate-950 transition">Robo-Planner</a>
+        <a href="/ebook.html" class="hover:text-slate-950 transition">The E-Book</a>
+      </nav>
+
+      <a href="/calculators/" class="hidden sm:inline-flex items-center text-xs font-semibold uppercase tracking-wider bg-slate-950 hover:bg-slate-800 text-amber-400 px-4 py-2.5 rounded-lg transition shadow-sm">
+        Explore Calculators →
+      </a>
     </div>
   </header>
 
-  <!-- Main Article Container -->
-  <main class="max-w-3xl mx-auto px-6 py-12 flex-grow w-full space-y-10">
-    
-    <!-- Loading State -->
-    <div id="loader" class="space-y-6 animate-pulse py-12">
-      <div class="h-4 bg-slate-800 rounded w-1/4"></div>
-      <div class="h-10 bg-slate-800 rounded w-5/6"></div>
-      <div class="h-6 bg-slate-800 rounded w-1/3"></div>
-      <div class="h-64 bg-slate-900 rounded-3xl w-full"></div>
+  <!-- Article Main Container -->
+  <main class="max-w-4xl mx-auto px-6 py-12 flex-grow w-full space-y-10">
+    <div id="post-loading" class="text-center py-20 space-y-4">
+      <div class="inline-block w-8 h-8 border-4 border-amber-800 border-t-transparent rounded-full animate-spin"></div>
+      <p class="text-xs font-mono text-slate-500 uppercase tracking-widest">Loading Publication...</p>
     </div>
 
-    <!-- Rendered Article Content -->
-    <article id="article-content" class="hidden space-y-10">
-      
-      <!-- Header Meta -->
-      <header class="space-y-4 border-b border-slate-800 pb-8">
-        <div class="flex items-center justify-between text-xs font-mono">
-          <span id="post-category" class="font-bold text-amber-400 bg-amber-400/10 px-3 py-1 rounded border border-amber-400/30 uppercase tracking-widest"></span>
-          <time id="post-date" class="text-slate-500"></time>
+    <article id="post-content-area" class="hidden space-y-8">
+      <!-- Article Header -->
+      <div class="space-y-4 border-b border-slate-200 pb-8">
+        <div class="flex items-center space-x-3 text-xs">
+          <span id="post-category" class="font-mono font-bold text-amber-800 bg-amber-50 px-2.5 py-1 rounded border border-amber-200/60 uppercase tracking-wider">Category</span>
+          <span id="post-date" class="font-mono text-slate-400">Date</span>
         </div>
+        <h1 id="post-title" class="font-serif text-3xl md:text-5xl font-normal text-slate-950 leading-tight">Title</h1>
+        <p id="post-subtitle" class="text-slate-600 text-lg md:text-xl font-light leading-relaxed">Subtitle</p>
 
-        <h1 id="post-title" class="font-serif text-3xl md:text-5xl font-normal text-slate-50 leading-tight tracking-tight"></h1>
-        <p id="post-excerpt" class="text-slate-400 text-lg md:text-xl font-light leading-relaxed italic border-l-2 border-amber-400 pl-4 py-1"></p>
-      </header>
+        <!-- Dynamic Keywords List -->
+        <div id="post-keywords-container" class="flex flex-wrap gap-2 pt-2"></div>
+      </div>
 
-      <!-- Embedded YouTube Video Displayer Card -->
-      <div id="youtube-container" class="hidden space-y-4 bg-slate-900 p-6 rounded-3xl shadow-2xl border border-slate-800">
-        <div class="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 pb-2 border-b border-slate-800">
-          <div class="flex items-center space-x-2">
-            <span class="w-2.5 h-2.5 rounded-full bg-red-500 animate-pulse"></span>
-            <span class="font-mono text-xs font-bold text-slate-200 uppercase tracking-widest">Explanatory Video Breakdown</span>
-          </div>
-          
-          <div class="flex items-center space-x-2 w-full sm:w-auto justify-end">
-            <button onclick="handleLike()" id="like-btn" class="bg-slate-950 hover:bg-slate-800 border border-slate-800 text-slate-300 px-3 py-1.5 rounded-xl text-xs font-mono transition flex items-center space-x-1.5">
-              <span>👍</span>
-              <span id="like-count">142</span>
-            </button>
-            <a id="youtube-channel-link" href="https://www.youtube.com/@gautamdewan?sub_confirmation=1" target="_blank" rel="noopener noreferrer" class="bg-red-600 hover:bg-red-500 text-white px-4 py-1.5 rounded-xl text-xs font-mono font-bold transition shadow-sm flex items-center space-x-1">
-              <span>Subscribe on YouTube</span>
-            </a>
-          </div>
-        </div>
-        
-        <!-- 16:9 Responsive Video Frame -->
-        <div class="relative w-full aspect-video rounded-2xl overflow-hidden bg-slate-950 border border-slate-800">
-          <iframe id="youtube-iframe" class="absolute top-0 left-0 w-full h-full border-0" src="" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+      <!-- Featured Image Banner -->
+      <div id="post-image-container" class="hidden rounded-2xl overflow-hidden border border-slate-200 shadow-sm">
+        <img id="post-image" src="" alt="Featured Banner" class="w-full h-auto object-cover max-h-[450px]" />
+      </div>
+
+      <!-- YouTube Video Embed Player -->
+      <div id="post-video-container" class="hidden space-y-3">
+        <span class="text-xs font-mono font-bold text-amber-800 uppercase tracking-widest block">📺 Featured Documentary / Video</span>
+        <div class="relative w-full pb-[56.25%] h-0 rounded-2xl overflow-hidden border border-slate-200 shadow-md bg-slate-950">
+          <iframe id="post-video-iframe" class="absolute top-0 left-0 w-full h-full" src="" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
         </div>
       </div>
 
-      <!-- Markdown Body Output -->
-      <div id="post-body" class="prose prose-invert lg:prose-lg max-w-none prose-headings:font-serif prose-headings:font-normal prose-a:text-amber-400 prose-blockquote:border-amber-400 prose-blockquote:font-serif prose-blockquote:text-slate-300"></div>
-
+      <!-- Dynamic Article Body Sections -->
+      <div id="post-body" class="space-y-8 text-slate-800 text-base md:text-lg leading-relaxed font-light"></div>
     </article>
-
-    <!-- Bottom Book Promotion Footer -->
-    <div class="mt-16 pt-10 border-t border-slate-800 bg-slate-900 text-white rounded-3xl p-8 space-y-4 shadow-xl">
-      <span class="font-mono text-xs font-bold text-amber-400 uppercase tracking-widest">Continue Your DIY Journey</span>
-      <h3 class="font-serif text-2xl font-normal text-slate-50">Master the Full 12-Chapter Framework</h3>
-      <p class="text-slate-400 text-sm font-light leading-relaxed">
-        Read our standalone book <em>Re-assemble: A Beginner's Guide to DIY Investing</em> for structured asset allocation blueprints and glidepath execution schedules.
-      </p>
-      <a href="/ebook.html" class="inline-block bg-amber-400 hover:bg-amber-300 text-slate-950 font-bold px-6 py-3 rounded-xl text-xs uppercase tracking-wider transition font-mono shadow-md">
-        Access the E-Book →
-      </a>
-    </div>
-
   </main>
 
-  <!-- Classy Floating Scroll-to-Top Button -->
-  <button id="scroll-top-btn" onclick="scrollToTop()" class="fixed bottom-6 right-6 bg-slate-900 hover:bg-amber-400 text-slate-300 hover:text-slate-950 border border-slate-800 hover:border-amber-400 p-3.5 rounded-2xl shadow-2xl transition-all duration-300 opacity-0 pointer-events-none z-50 flex items-center justify-center group" title="Scroll to top">
-    <svg class="w-5 h-5 transform group-hover:-translate-y-0.5 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 15l7-7 7 7"></path>
-    </svg>
-  </button>
+  <!-- Complete Ecosystem Footer Link Grid -->
+  <section class="bg-white border-t border-b border-slate-200 py-12 px-6">
+    <div class="max-w-6xl mx-auto space-y-6">
+      <div class="flex items-center justify-between">
+        <div>
+          <span class="text-xs font-bold font-mono text-amber-800 uppercase tracking-widest">Ecosystem Navigation</span>
+          <h3 class="font-serif text-xl font-semibold text-slate-900">Explore All 11 Financial Engines</h3>
+        </div>
+        <a href="/calculators/" class="text-xs font-mono font-bold text-amber-800 hover:text-slate-950 transition uppercase tracking-wider">
+          View Hub Directory →
+        </a>
+      </div>
+
+      <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-3 font-mono text-xs">
+        <a href="/calculators/sip/" class="p-3 bg-slate-50 border border-slate-200 rounded-xl hover:border-amber-400 hover:bg-amber-50/40 text-slate-700 transition text-center font-semibold">📈 SIP Compounder</a>
+        <a href="/calculators/lumpsum/" class="p-3 bg-slate-50 border border-slate-200 rounded-xl hover:border-amber-400 hover:bg-amber-50/40 text-slate-700 transition text-center font-semibold">💰 Lumpsum Engine</a>
+        <a href="/calculators/swp/" class="p-3 bg-slate-50 border border-slate-200 rounded-xl hover:border-amber-400 hover:bg-amber-50/40 text-slate-700 transition text-center font-semibold">🏖️ Retirement SWP</a>
+        <a href="/calculators/ppf/" class="p-3 bg-slate-50 border border-slate-200 rounded-xl hover:border-amber-400 hover:bg-amber-50/40 text-slate-700 transition text-center font-semibold">🛡️ PPF Tax-Free</a>
+        <a href="/calculators/home-loan/" class="p-3 bg-slate-50 border border-slate-200 rounded-xl hover:border-amber-400 hover:bg-amber-50/40 text-slate-700 transition text-center font-semibold">🏡 Home Loan Prepay</a>
+        <a href="/calculators/tax-regime/" class="p-3 bg-slate-50 border border-slate-200 rounded-xl hover:border-amber-400 hover:bg-amber-50/40 text-slate-700 transition text-center font-semibold">⚖️ Tax Regime 2026</a>
+        <a href="/calculators/nps/" class="p-3 bg-slate-50 border border-slate-200 rounded-xl hover:border-amber-400 hover:bg-amber-50/40 text-slate-700 transition text-center font-semibold">🏛️ NPS Pension</a>
+        <a href="/calculators/car-loan/" class="p-3 bg-slate-50 border border-slate-200 rounded-xl hover:border-amber-400 hover:bg-amber-50/40 text-slate-700 transition text-center font-semibold">🚘 Car Loan EMI</a>
+        <a href="/calculators/personal-loan/" class="p-3 bg-slate-50 border border-slate-200 rounded-xl hover:border-amber-400 hover:bg-amber-50/40 text-slate-700 transition text-center font-semibold">💳 Personal Loan</a>
+        <a href="/calculators/business-loan/" class="p-3 bg-slate-50 border border-slate-200 rounded-xl hover:border-amber-400 hover:bg-amber-50/40 text-slate-700 transition text-center font-semibold">🏢 Business CC/OD</a>
+        <a href="/calculators/govt-schemes/" class="p-3 bg-slate-50 border border-slate-200 rounded-xl hover:border-amber-400 hover:bg-amber-50/40 text-slate-700 transition text-center font-semibold">🏛️ PMEGP / MUDRA</a>
+      </div>
+    </div>
+  </section>
 
   <!-- Footer -->
-  <footer class="bg-slate-950 border-t border-slate-800 py-10 px-6 text-center text-xs text-slate-500 mt-20">
-    <div class="max-w-4xl mx-auto space-y-2">
-      <p class="font-serif text-xl font-medium text-slate-200">finoline<span class="font-mono text-xs text-amber-400">.in</span></p>
-      <p>© 2026 finoline.in. Independent financial literacy for self-directed investors.</p>
+  <footer class="bg-white border-t border-slate-200 py-12 px-6 text-center text-xs text-slate-500">
+    <div class="max-w-6xl mx-auto space-y-4">
+      <a href="/" class="inline-block font-serif text-2xl font-semibold text-slate-950">finoline<span class="text-amber-800 font-mono text-sm">.in</span></a>
+      <p class="text-slate-600">© 2026 finoline.in. Independent financial education resources for Indian investors.</p>
     </div>
   </footer>
 
-  <!-- Script Engine -->
+  <!-- Supabase Script & Render Logic -->
   <script>
     const SUPABASE_URL = 'YOUR_SUPABASE_URL_HERE';
     const SUPABASE_ANON_KEY = 'YOUR_SUPABASE_ANON_KEY_HERE';
     const supabase = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
 
-    let hasLiked = false;
-    function handleLike() {
-      const countEl = document.getElementById('like-count');
-      let current = parseInt(countEl.innerText);
-      if (!hasLiked) {
-        countEl.innerText = current + 1;
-        hasLiked = true;
-        document.getElementById('like-btn').classList.add('border-amber-400', 'text-amber-400');
-      } else {
-        countEl.innerText = current - 1;
-        hasLiked = false;
-        document.getElementById('like-btn').classList.remove('border-amber-400', 'text-amber-400');
-      }
+    // Extract YouTube Video ID from any standard URL
+    function extractYouTubeId(url) {
+      if (!url) return null;
+      const regExp = /^.*(youtu.be\/|v\/|u\/\w\/|embed\/|watch\?v=|\&v=)([^#\&\?]*).*/;
+      const match = url.match(regExp);
+      return (match && match[2].length === 11) ? match[2] : null;
     }
 
-    // Scroll Progress & Floating Button Toggle Listener
-    window.addEventListener('scroll', () => {
-      const winScroll = document.body.scrollTop || document.documentElement.scrollTop;
-      const height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
-      const scrolled = (winScroll / height) * 100;
-      document.getElementById('read-progress').style.width = scrolled + '%';
-
-      const scrollBtn = document.getElementById('scroll-top-btn');
-      if (winScroll > 400) {
-        scrollBtn.classList.remove('opacity-0', 'pointer-events-none');
-      } else {
-        scrollBtn.classList.add('opacity-0', 'pointer-events-none');
-      }
-    });
-
-    function scrollToTop() {
-      window.scrollTo({ top: 0, behavior: 'smooth' });
-    }
-
-    async function loadPost() {
+    async function fetchSinglePost() {
       const urlParams = new URLSearchParams(window.location.search);
       const slug = urlParams.get('slug');
 
@@ -192,38 +164,118 @@
           .eq('published', true)
           .single();
 
-        if (error || !post) throw error;
+        if (error || !post) throw error || new Error('Post not found');
 
-        // Render Head & Meta Info
-        document.title = `${post.title} | finoline.in`;
-        document.getElementById('post-category').innerText = post.category || 'Portfolio Strategy';
-        document.getElementById('post-date').innerText = new Date(post.created_at).toLocaleDateString('en-IN', { month: 'long', day: 'numeric', year: 'numeric' });
-        document.getElementById('post-title').innerText = post.title;
-        document.getElementById('post-excerpt').innerText = post.excerpt;
-
-        // Handle Dynamic YouTube Video Player Rendering
-        if (post.youtube_video_id) {
-          document.getElementById('youtube-iframe').src = `https://www.youtube-nocookie.com/embed/${post.youtube_video_id}?rel=0`;
-          document.getElementById('youtube-container').classList.remove('hidden');
+        // Update Page SEO Metadata
+        document.getElementById('page-title').innerText = `${post.title} | finoline.in`;
+        if (post.excerpt) document.getElementById('page-description').content = post.excerpt;
+        if (post.keywords && Array.isArray(post.keywords)) {
+          document.getElementById('page-keywords').content = post.keywords.join(', ');
         }
 
-        // Render Markdown Body using Marked
-        document.getElementById('post-body').innerHTML = marked.parse(post.content);
+        // Populate Header Data
+        document.getElementById('post-title').innerText = post.title;
+        document.getElementById('post-category').innerText = post.category || 'Insights';
+        document.getElementById('post-date').innerText = new Date(post.created_at).toLocaleDateString('en-IN', { month: 'short', day: 'numeric', year: 'numeric' });
 
-        // Toggle Visibility
-        document.getElementById('loader').classList.add('hidden');
-        document.getElementById('article-content').classList.remove('hidden');
+        // Render Keywords Badges
+        const kwContainer = document.getElementById('post-keywords-container');
+        if (post.keywords && Array.isArray(post.keywords) && post.keywords.length > 0) {
+          kwContainer.innerHTML = post.keywords.map(kw => `
+            <span class="text-[11px] font-mono text-slate-500 bg-slate-100 px-2 py-0.5 rounded border border-slate-200">#${kw}</span>
+          `).join('');
+        }
+
+        // Render Featured Image
+        if (post.image_url) {
+          const imgContainer = document.getElementById('post-image-container');
+          document.getElementById('post-image').src = post.image_url;
+          imgContainer.classList.remove('hidden');
+        }
+
+        // Render YouTube Video Player
+        if (post.youtube_url) {
+          const videoId = extractYouTubeId(post.youtube_url);
+          if (videoId) {
+            const videoContainer = document.getElementById('post-video-container');
+            document.getElementById('post-video-iframe').src = `https://www.youtube.com/embed/${videoId}?autoplay=0&rel=0`;
+            videoContainer.classList.remove('hidden');
+          }
+        }
+
+        // Render Article Sections
+        const bodyContainer = document.getElementById('post-body');
+        let contentObj = post.content;
+        if (typeof contentObj === 'string') {
+          try { contentObj = JSON.parse(contentObj); } catch (e) {}
+        }
+
+        if (contentObj && contentObj.subtitle) {
+          document.getElementById('post-subtitle').innerText = contentObj.subtitle;
+        } else {
+          document.getElementById('post-subtitle').innerText = post.excerpt || '';
+        }
+
+        if (contentObj && contentObj.sections && Array.isArray(contentObj.sections)) {
+          bodyContainer.innerHTML = contentObj.sections.map(section => {
+            if (section.type === 'text') {
+              return `
+                <div class="space-y-3">
+                  ${section.title ? `<h2 class="font-serif text-2xl font-semibold text-slate-900 mt-6">${section.title}</h2>` : ''}
+                  <p class="leading-relaxed font-light">${section.body}</p>
+                </div>
+              `;
+            } else if (section.type === 'list') {
+              return `
+                <div class="space-y-3">
+                  ${section.title ? `<h2 class="font-serif text-2xl font-semibold text-slate-900 mt-6">${section.title}</h2>` : ''}
+                  <ul class="list-disc pl-6 space-y-2 font-light">
+                    ${section.items.map(item => `<li>${item}</li>`).join('')}
+                  </ul>
+                </div>
+              `;
+            } else if (section.type === 'table') {
+              return `
+                <div class="space-y-3 overflow-x-auto my-6">
+                  ${section.title ? `<h2 class="font-serif text-2xl font-semibold text-slate-900">${section.title}</h2>` : ''}
+                  <table class="w-full text-left text-sm border-collapse border border-slate-200">
+                    <thead>
+                      <tr class="bg-slate-100 font-mono text-xs uppercase text-slate-700">
+                        ${section.headers.map(h => `<th class="p-3 border border-slate-200">${h}</th>`).join('')}
+                      </tr>
+                    </thead>
+                    <tbody class="font-light text-xs">
+                      ${section.rows.map(row => `
+                        <tr class="hover:bg-amber-50/30">
+                          ${row.map(cell => `<td class="p-3 border border-slate-200">${cell}</td>`).join('')}
+                        </tr>
+                      `).join('')}
+                    </tbody>
+                  </table>
+                </div>
+              `;
+            }
+            return '';
+          }).join('');
+        } else {
+          bodyContainer.innerHTML = `<p class="leading-relaxed font-light">${typeof post.content === 'string' ? post.content : post.excerpt}</p>`;
+        }
+
+        // Show Content
+        document.getElementById('post-loading').classList.add('hidden');
+        document.getElementById('post-content-area').classList.remove('hidden');
 
       } catch (err) {
-        console.error('Error fetching post:', err);
-        document.getElementById('loader').innerHTML = `
-          <div class="text-center py-16 text-rose-400 bg-slate-900 rounded-3xl border border-slate-800 text-sm">
-            Publication not found or failed to load. <a href="/" class="underline font-bold text-amber-400">Return to home</a>
-          </div>`;
+        console.error('Error fetching article:', err);
+        document.getElementById('post-loading').innerHTML = `
+          <div class="text-red-600 bg-red-50 p-6 rounded-2xl border border-red-200 text-sm">
+            Unable to load publication. Please verify the URL or check back later.
+          </div>
+        `;
       }
     }
 
-    document.addEventListener('DOMContentLoaded', loadPost);
+    document.addEventListener('DOMContentLoaded', fetchSinglePost);
   </script>
 </body>
 </html>
