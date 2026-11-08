@@ -7,6 +7,9 @@
   <meta name="description" content="Independent, institutional-grade personal finance tools, tax calculators, and publication feeds for self-directed Indian investors." />
   <link rel="canonical" href="https://finoline.in/" />
 
+  <!-- Inline Favicon -->
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>📈</text></svg>">
+
   <!-- Google Fonts: Playfair Display, Inter & JetBrains Mono -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -241,64 +244,66 @@
     </div>
   </footer>
 
-  <!-- Supabase JS Client CDN -->
-<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <!-- Supabase JS Client & Fetch Script -->
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script>
+    (function initFinolineApp() {
+      // Clean base Supabase URL (removed trailing /rest/v1/)
+      const SUPABASE_URL = 'https://crogiylnzpufptqflotd.supabase.co';
+      const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImNyb2dpeWxuenB1ZnB0cWZsb3RkIiwicm9sZSI6ImFub24iLCJpYXQiOjE3OTQxMDMwMDUsImV4cCI6MjEwOTY3OTAwNX0.hFVRYYoaIDk49oonVQra_7GIPMEK0uqQqsAPJT45Az4';
 
-<script>
-  // Replace these strings with your actual Supabase credentials
-  const SUPABASE_URL = 'https://crogiylnzpufptqflotd.supabase.co/rest/v1/';
-  const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImNyb2dpeWxuenB1ZnB0cWZsb3RkIiwicm9sZSI6ImFub24iLCJpYXQiOjE3OTQxMDMwMDUsImV4cCI6MjEwOTY3OTAwNX0.hFVRYYoaIDk49oonVQra_7GIPMEK0uqQqsAPJT45Az4';
+      // Unique client instance variable name to avoid syntax collisions
+      const sbClient = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
 
-  const supabase = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+      async function fetchPosts() {
+        const container = document.getElementById('posts-container');
+        
+        try {
+          const { data: posts, error } = await sbClient
+            .from('posts')
+            .select('id, title, slug, excerpt, created_at, category, image_url')
+            .eq('published', true)
+            .order('created_at', { ascending: false });
 
-  async function fetchPosts() {
-    const container = document.getElementById('posts-container');
-    
-    try {
-      const { data: posts, error } = await supabase
-        .from('posts')
-        .select('id, title, slug, excerpt, created_at, category')
-        .eq('published', true)
-        .order('created_at', { ascending: false });
+          if (error) throw error;
 
-      if (error) throw error;
+          if (!posts || posts.length === 0) {
+            container.innerHTML = `
+              <div class="col-span-full text-center py-16 bg-white rounded-2xl border border-slate-200/80">
+                <p class="text-slate-500 text-sm">No published articles available yet. Check back soon!</p>
+              </div>`;
+            return;
+          }
 
-      if (!posts || posts.length === 0) {
-        container.innerHTML = `
-          <div class="col-span-full text-center py-16 bg-white rounded-2xl border border-slate-200/80">
-            <p class="text-slate-500 text-sm">No published articles available yet. Check back soon!</p>
-          </div>`;
-        return;
+          container.innerHTML = posts.map(post => `
+            <article class="bg-white p-7 rounded-2xl border border-slate-200/80 shadow-sm hover:shadow-md transition flex flex-col justify-between group">
+              <div>
+                <div class="flex items-center justify-between text-xs text-slate-400 mb-4">
+                  <span class="font-mono font-bold text-amber-800 bg-amber-50 px-2.5 py-1 rounded border border-amber-200/60 uppercase tracking-wider">${post.category || 'Insights'}</span>
+                  <time class="font-mono">${new Date(post.created_at).toLocaleDateString('en-IN', { month: 'short', day: 'numeric', year: 'numeric' })}</time>
+                </div>
+                <h3 class="font-serif text-xl font-semibold text-slate-900 mb-3 leading-snug group-hover:text-amber-800 transition">
+                  <a href="/post.html?slug=${post.slug}">${post.title}</a>
+                </h3>
+                <p class="text-slate-600 text-sm leading-relaxed mb-6 font-light line-clamp-3">${post.excerpt || ''}</p>
+              </div>
+              <a href="/post.html?slug=${post.slug}" class="inline-flex items-center text-xs font-bold uppercase tracking-wider text-slate-950 group-hover:text-amber-800 transition">
+                Read publication <span class="ml-1">→</span>
+              </a>
+            </article>
+          `).join('');
+
+        } catch (err) {
+          console.error('Error fetching posts:', err);
+          container.innerHTML = `
+            <div class="col-span-full text-center py-12 text-red-600 bg-red-50 rounded-2xl border border-red-100 text-sm">
+              Unable to fetch publications. Verify your Supabase connection and RLS policies.
+            </div>`;
+        }
       }
 
-      container.innerHTML = posts.map(post => `
-        <article class="bg-white p-7 rounded-2xl border border-slate-200/80 shadow-sm hover:shadow-md transition flex flex-col justify-between group">
-          <div>
-            <div class="flex items-center justify-between text-xs text-slate-400 mb-4">
-              <span class="font-mono font-bold text-amber-800 bg-amber-50 px-2.5 py-1 rounded border border-amber-200/60 uppercase tracking-wider">${post.category || 'Insights'}</span>
-              <time class="font-mono">${new Date(post.created_at).toLocaleDateString('en-IN', { month: 'short', day: 'numeric', year: 'numeric' })}</time>
-            </div>
-            <h3 class="font-serif text-xl font-semibold text-slate-900 mb-3 leading-snug group-hover:text-amber-800 transition">
-              <a href="/post.html?slug=${post.slug}">${post.title}</a>
-            </h3>
-            <p class="text-slate-600 text-sm leading-relaxed mb-6 font-light line-clamp-3">${post.excerpt}</p>
-          </div>
-          <a href="/post.html?slug=${post.slug}" class="inline-flex items-center text-xs font-bold uppercase tracking-wider text-slate-950 group-hover:text-amber-800 transition">
-            Read publication <span class="ml-1">→</span>
-          </a>
-        </article>
-      `).join('');
-
-    } catch (err) {
-      console.error('Error fetching posts:', err);
-      container.innerHTML = `
-        <div class="col-span-full text-center py-12 text-red-600 bg-red-50 rounded-2xl border border-red-100 text-sm">
-          Unable to fetch publications. Verify your Supabase credentials in the script configuration.
-        </div>`;
-    }
-  }
-
-  document.addEventListener('DOMContentLoaded', fetchPosts);
-</script>
+      document.addEventListener('DOMContentLoaded', fetchPosts);
+    })();
+  </script>
 </body>
 </html>
