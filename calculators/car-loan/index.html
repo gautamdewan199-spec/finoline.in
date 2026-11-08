@@ -3,9 +3,9 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0" />
-  <title>Car Loan EMI & Down Payment Calculator | finoline.in</title>
-  <meta name="description" content="Calculate auto loan EMIs, interest costs, down payment requirements, and total financing outgo with dual slider and numerical inputs." />
-  <meta name="keywords" content="car loan emi calculator India, auto loan calculator, vehicle financing cost, down payment car loan calculator, car loan interest calculator" />
+  <title>Car Loan EMI Calculator | Auto Financing Engine | finoline.in</title>
+  <meta name="description" content="Calculate auto loan EMIs, total interest costs, and repayment schedules with dual slider and numerical inputs." />
+  <meta name="keywords" content="car loan emi calculator India, auto loan calculator, vehicle financing cost, car loan interest calculator, auto loan tenure reducer" />
   <link rel="canonical" href="https://finoline.in/calculators/car-loan/" />
 
   <!-- Google Fonts: Playfair Display, Inter & JetBrains Mono -->
@@ -50,9 +50,9 @@
     
     <!-- Header -->
     <div class="space-y-3">
-      <span class="font-mono text-xs font-bold text-amber-400 bg-amber-400/10 border border-amber-400/30 px-3 py-1 rounded uppercase tracking-widest">Auto Financing Engine</span>
-      <h1 class="font-serif text-3xl md:text-5xl font-normal text-slate-50">Car Loan EMI & Down Payment Engine</h1>
-      <p class="text-slate-400 text-sm md:text-base font-light">Type vehicle costs and down payment amounts or drag sliders to evaluate monthly EMIs and total financing costs.</p>
+      <span class="font-mono text-xs font-bold text-amber-400 bg-amber-400/10 border border-amber-400/30 px-3 py-1 rounded uppercase tracking-widest">Auto Financing Suite</span>
+      <h1 class="font-serif text-3xl md:text-5xl font-normal text-slate-50">Car Loan EMI Engine</h1>
+      <p class="text-slate-400 text-sm md:text-base font-light">Type your exact loan principal or drag sliders to evaluate monthly EMIs and total interest outgo.</p>
     </div>
 
     <!-- Inputs & Outputs Grid -->
@@ -61,22 +61,13 @@
       <!-- Controls Panel -->
       <div class="lg:col-span-6 bg-slate-900 border border-slate-800 p-6 md:p-8 rounded-3xl space-y-6">
         
-        <!-- Vehicle On-Road Price -->
+        <!-- Car Loan Principal -->
         <div class="space-y-2">
           <div class="flex justify-between items-center font-mono text-xs">
-            <label class="text-slate-300 font-bold">On-Road Vehicle Price (₹)</label>
-            <input type="number" id="price-num" min="100000" max="15000000" step="25000" value="1200000" oninput="syncFromNum('price')" class="bg-slate-950 border border-slate-700 focus:border-amber-400 text-amber-400 font-bold text-right px-3 py-1 rounded-lg w-36 outline-none transition">
+            <label class="text-slate-300 font-bold">Car Loan Amount (₹)</label>
+            <input type="number" id="loan-num" min="50000" max="15000000" step="25000" value="800000" oninput="syncFromNum('loan')" class="bg-slate-950 border border-slate-700 focus:border-amber-400 text-amber-400 font-bold text-right px-3 py-1 rounded-lg w-36 outline-none transition">
           </div>
-          <input type="range" id="price-range" min="200000" max="10000000" step="25000" value="1200000" oninput="syncFromRange('price')" class="w-full accent-amber-400 bg-slate-950 h-2 rounded-lg cursor-pointer">
-        </div>
-
-        <!-- Down Payment Amount -->
-        <div class="space-y-2">
-          <div class="flex justify-between items-center font-mono text-xs">
-            <label class="text-slate-300 font-bold">Down Payment Amount (₹)</label>
-            <input type="number" id="down-num" min="0" max="10000000" step="10000" value="200000" oninput="syncFromNum('down')" class="bg-slate-950 border border-slate-700 focus:border-amber-400 text-amber-400 font-bold text-right px-3 py-1 rounded-lg w-36 outline-none transition">
-          </div>
-          <input type="range" id="down-range" min="0" max="5000000" step="10000" value="200000" oninput="syncFromRange('down')" class="w-full accent-amber-400 bg-slate-950 h-2 rounded-lg cursor-pointer">
+          <input type="range" id="loan-range" min="100000" max="5000000" step="25000" value="800000" oninput="syncFromRange('loan')" class="w-full accent-amber-400 bg-slate-950 h-2 rounded-lg cursor-pointer">
         </div>
 
         <!-- Interest Rate -->
@@ -108,25 +99,19 @@
             <p id="monthly-emi" class="font-serif text-xl font-bold text-amber-400 mt-1">₹0</p>
           </div>
           <div>
-            <span class="font-mono text-[11px] text-slate-500 uppercase">Financed Principal</span>
-            <p id="financed-loan" class="font-serif text-xl font-bold text-slate-200 mt-1">₹0</p>
+            <span class="font-mono text-[11px] text-slate-500 uppercase">Principal Loan</span>
+            <p id="display-principal" class="font-serif text-xl font-bold text-slate-200 mt-1">₹0</p>
           </div>
         </div>
 
         <div class="space-y-3">
-          <div class="flex justify-between items-baseline">
-            <div>
-              <span class="font-mono text-[11px] text-slate-500 uppercase">Total Interest Payable</span>
-              <p id="total-interest" class="font-serif text-lg font-bold text-rose-400/90 mt-0.5">₹0</p>
-            </div>
-            <div class="text-right">
-              <span class="font-mono text-[11px] text-slate-500 uppercase">LTV (Loan-to-Value)</span>
-              <p id="ltv-ratio" class="font-serif text-lg font-bold text-emerald-400 mt-0.5">0.0%</p>
-            </div>
+          <div>
+            <span class="font-mono text-[11px] text-slate-500 uppercase">Total Interest Payable</span>
+            <p id="total-interest" class="font-serif text-2xl font-bold text-rose-400/90 mt-0.5">₹0</p>
           </div>
 
           <div class="bg-slate-950 border border-slate-800 p-4 rounded-2xl">
-            <span class="font-mono text-[10px] text-slate-400 uppercase">Total Vehicle Outgo (Down Payment + Loan Payments)</span>
+            <span class="font-mono text-[10px] text-slate-400 uppercase">Total Repayment Amount (Principal + Interest)</span>
             <p id="total-outgo" class="font-mono text-xl font-bold text-slate-50 mt-1">₹0</p>
           </div>
         </div>
@@ -145,30 +130,29 @@
       
       <div class="space-y-2">
         <span class="font-mono text-xs font-bold text-amber-400 uppercase tracking-widest">Guide & Strategy</span>
-        <h2 class="font-serif text-2xl md:text-3xl font-normal text-slate-50">Smart Vehicle Financing: Balancing Down Payments vs. EMI Tenure</h2>
+        <h2 class="font-serif text-2xl md:text-3xl font-normal text-slate-50">Understanding Auto Loan EMI Structures and Depreciating Debt</h2>
       </div>
 
       <p>
-        Purchasing a vehicle is a major financial commitment. Because automobiles are depreciating assets—losing 15% to 20% of their value in the first year alone—structuring an auto loan correctly is critical to avoiding negative equity (owing more on the loan than the vehicle is worth). Using a dedicated <strong>car loan EMI calculator</strong> allows buyers to optimize their upfront down payment, compute exact monthly cash outflows, and control overall interest expenses.
+        Taking a car loan is a common route to vehicle ownership in India. However, because automobiles are depreciating assets that drop in value over time, managing your loan structure is essential to avoiding unnecessary interest expense. Using a direct <strong>car loan emi calculator</strong> gives you immediate clarity on monthly installments, interest burden, and total repayment outgo based on your net borrowed principal.
       </p>
 
-      <h3 class="font-serif text-xl font-normal text-slate-100 mt-6">The 20/4/10 Rule of Auto Purchasing</h3>
+      <h3 class="font-serif text-xl font-normal text-slate-100 mt-6">How Monthly EMIs Are Calculated</h3>
       <p>
-        To keep auto debt from straining your monthly budget, financial planners recommend adhering to the <strong>20/4/10 guideline</strong>:
+        Car loans use a standard reducing-balance interest calculation model:
       </p>
 
       <div class="bg-slate-900/60 border-l-2 border-amber-400 p-4 font-mono text-xs text-slate-300 space-y-1">
-        <p class="font-bold text-amber-400">The 20/4/10 Auto Rule Framework:</p>
-        <p>• <strong>20% Minimum Down Payment:</strong> Pay at least 20% of the on-road price in cash to keep your Loan-to-Value (LTV) ratio manageable.</p>
-        <p>• <strong>4-Year Maximum Tenure:</strong> Limit loan terms to 4 years (48 months) to avoid paying excessive interest on a depreciating asset.</p>
-        <p>• <strong>10% Income Cap:</strong> Ensure total vehicle expenses (EMI + Insurance + Fuel) do not exceed 10% of your gross monthly income.</p>
+        <p class="font-bold text-amber-400">Monthly EMI Formula:</p>
+        <p>• <strong>EMI = [P x R x (1+R)^N] / [(1+R)^N - 1]</strong></p>
+        <p>Where <em>P</em> is the Loan Principal, <em>R</em> is the Monthly Interest Rate (Annual Rate / 12 / 100), and <em>N</em> is the total number of monthly installments.</p>
       </div>
 
-      <h3 class="font-serif text-xl font-normal text-slate-100 mt-6">Key Factors Influencing Auto Financing Costs</h3>
+      <h3 class="font-serif text-xl font-normal text-slate-100 mt-6">Key Rules for Managing Vehicle Debt</h3>
       <ul class="list-disc list-inside space-y-2 font-light">
-        <li><strong>On-Road Price vs. Ex-Showroom Price:</strong> Always calculate financing on the full <em>on-road price</em>, which includes ex-showroom price, RTO registration taxes, road tax, and mandatory insurance premiums.</li>
-        <li><strong>Fixed vs. Floating Interest Rates:</strong> Most Indian car loans feature fixed interest rates. Check whether the lender uses a reducing balance method or a flat interest rate structure (flat rates appear lower initially but carry significantly higher effective annual interest).</li>
-        <li><strong>Foreclosure and Prepayment Clauses:</strong> Review bank foreclosure penalty rules. Some lenders allow penalty-free part-prepayments after 12 EMIs, enabling you to clear vehicle debt ahead of schedule.</li>
+        <li><strong>Keep Tenures Under 4 Years:</strong> Extending an auto loan from 3 or 4 years to 7 years reduces your monthly EMI slightly but inflates total interest outgo significantly.</li>
+        <li><strong>Check for Fixed vs. Flat Interest Rates:</strong> Ensure your lender uses a reducing balance method. Flat rate structures charge interest on the original loan principal for the entire duration, making effective interest costs much higher.</li>
+        <li><strong>Review Prepayment & Foreclosure Rules:</strong> RBI guidelines allow floating-rate retail loans to be foreclosed without penalties, but fixed-rate auto loans may carry a 2%–5% preclosure charge during the initial years.</li>
       </ul>
 
     </article>
@@ -246,13 +230,9 @@
     }
 
     function calculateCarLoan() {
-      const vehiclePrice = parseFloat(document.getElementById('price-num').value) || 0;
-      const downPayment = parseFloat(document.getElementById('down-num').value) || 0;
+      const loanAmount = parseFloat(document.getElementById('loan-num').value) || 0;
       const annualRate = (parseFloat(document.getElementById('rate-num').value) || 0) / 100;
       const years = parseInt(document.getElementById('tenure-num').value) || 0;
-
-      const financedPrincipal = Math.max(0, vehiclePrice - downPayment);
-      const ltv = vehiclePrice > 0 ? (financedPrincipal / vehiclePrice) * 100 : 0;
 
       const r = annualRate / 12;
       const n = years * 12;
@@ -260,17 +240,16 @@
       let emi = 0;
       let totalInterest = 0;
 
-      if (financedPrincipal > 0 && r > 0 && n > 0) {
-        emi = (financedPrincipal * r * Math.pow(1 + r, n)) / (Math.pow(1 + r, n) - 1);
-        totalInterest = (emi * n) - financedPrincipal;
+      if (loanAmount > 0 && r > 0 && n > 0) {
+        emi = (loanAmount * r * Math.pow(1 + r, n)) / (Math.pow(1 + r, n) - 1);
+        totalInterest = (emi * n) - loanAmount;
       }
 
-      const totalOutgo = downPayment + (emi * n);
+      const totalOutgo = emi * n;
 
       document.getElementById('monthly-emi').innerText = formatINR(emi);
-      document.getElementById('financed-loan').innerText = formatINR(financedPrincipal);
+      document.getElementById('display-principal').innerText = formatINR(loanAmount);
       document.getElementById('total-interest').innerText = formatINR(totalInterest);
-      document.getElementById('ltv-ratio').innerText = ltv.toFixed(1) + '%';
       document.getElementById('total-outgo').innerText = formatINR(totalOutgo);
 
       // Render Chart
@@ -280,10 +259,10 @@
       chartInstance = new Chart(ctx, {
         type: 'doughnut',
         data: {
-          labels: ['Down Payment', 'Financed Principal', 'Total Interest'],
+          labels: ['Principal Loan', 'Total Interest'],
           datasets: [{
-            data: [downPayment, financedPrincipal, totalInterest],
-            backgroundColor: ['#10b981', '#334155', '#fbbf24'],
+            data: [loanAmount, totalInterest],
+            backgroundColor: ['#334155', '#fbbf24'],
             borderWidth: 0
           }]
         },
