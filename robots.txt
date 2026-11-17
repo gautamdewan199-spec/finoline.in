@@ -1,0 +1,17 @@
+# robots.txt for https://finans.in/
+User-agent: *
+Allow: /
+
+# Prevent crawling of non-canonical URL parameters or internal query strings
+Disallow: /*?utm_
+Disallow: /*?ref=
+
+# Allow full access to AdSense & Search Console crawlers
+User-agent: Mediapartners-Google
+Allow: /
+
+User-agent: Googlebot
+Allow: /
+
+# Sitemap Declaration
+Sitemap: https://finans.in/sitemap.xml
