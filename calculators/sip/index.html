@@ -3,9 +3,92 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0" />
-  <title>SIP & Step-Up SIP Wealth Calculator | finoline.in</title>
-  <meta name="description" content="Calculate mutual fund SIP growth with annual step-up percentage, inflation adjustment, and wealth compounding schedules using dual slider and numerical inputs." />
   
+  <!-- Primary High-Volume SEO Meta Tags -->
+  <title>SIP Calculator 2026: Mutual Fund SIP & Step-Up Wealth Compounder | finans.in</title>
+  <meta name="description" content="Free Mutual Fund SIP Calculator for India (2026). Calculate monthly SIP returns, annual step-up compounding, total wealth gained, and target crorepati timelines with interactive charts." />
+  <meta name="keywords" content="sip calculator, mutual fund sip calculator 2026, step up sip calculator India, monthly sip return calculator, sip compounding calculator, crorepati sip calculator" />
+  <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large" />
+  <link rel="canonical" href="https://finans.in/calculators/sip/" />
+
+  <!-- Open Graph / Social Sharing Meta Tags -->
+  <meta property="og:site_name" content="finans.in" />
+  <meta property="og:title" content="SIP Calculator 2026: Mutual Fund & Step-Up Compounder | finans.in" />
+  <meta property="og:description" content="Model your monthly mutual fund SIP returns, add annual step-up increments, and visualize long-term rupee-cost averaging growth." />
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://finans.in/calculators/sip/" />
+
+  <!-- Twitter Card Meta Tags -->
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="Mutual Fund SIP & Step-Up Calculator 2026 | finans.in" />
+  <meta name="twitter:description" content="Calculate your exact SIP maturity corpus, compounding gains, and annual step-up boost in seconds." />
+
+  <!-- Structured Data 1: WebApplication Schema -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "WebApplication",
+    "name": "Mutual Fund SIP & Step-Up Wealth Compounder",
+    "url": "https://finans.in/calculators/sip/",
+    "applicationCategory": "FinanceApplication",
+    "operatingSystem": "All",
+    "browserRequirements": "Requires JavaScript",
+    "offers": {
+      "@type": "Offer",
+      "price": "0",
+      "priceCurrency": "INR"
+    },
+    "description": "Interactive Indian Mutual Fund SIP calculator supporting fixed monthly SIPs and annual percentage step-up compounding projections.",
+    "provider": {
+      "@type": "Organization",
+      "name": "finans.in",
+      "url": "https://finans.in/"
+    }
+  }
+  </script>
+
+  <!-- Structured Data 2: FAQPage Schema for Rich Snippets -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+      {
+        "@type": "Question",
+        "name": "How is Mutual Fund SIP return calculated in India?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Mutual fund SIP returns are calculated using the future value of an annuity due formula: FV = P × [((1 + r)^n - 1) / r] × (1 + r), where P is the monthly SIP investment, r is the periodic monthly rate of return (annual CAGR divided by 12), and n is the total number of monthly installments."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "What is a Step-Up SIP and how much extra wealth does it generate?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "A Step-Up SIP (or Top-Up SIP) automatically increases your monthly investment by a fixed percentage (such as 10%) every year in line with salary appraisals. Over a 20-year horizon at 12% CAGR, a 10% annual step-up can nearly double your final retirement corpus compared to a static SIP."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "What is a realistic expected return (CAGR) for equity SIPs in India?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Over long horizons of 10 to 20 years, diversified Indian equity mutual funds such as Nifty 50 Index Funds and Flexi-Cap Funds have historically delivered between 11% and 14% annualized returns (CAGR), though short-term returns fluctuate with market cycles."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "How much monthly SIP is needed to reach ₹1 Crore in 15 years?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "At an expected annual return of 12% CAGR, investing approximately ₹20,000 per month via a regular SIP will accumulate a corpus of roughly ₹1.01 Crore in 15 years on a total principal investment of ₹36 Lakh."
+        }
+      }
+    ]
+  }
+  </script>
+
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:wght@500;600;700&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
@@ -31,66 +114,76 @@
   <!-- Navigation Bar -->
   <header class="bg-slate-900/90 backdrop-blur-md border-b border-slate-800 sticky top-0 z-50">
     <div class="max-w-6xl mx-auto px-6 py-4 flex items-center justify-between">
-      <a href="/" class="flex items-center space-x-2 tracking-tight group">
-        <span class="font-serif text-3xl font-semibold text-slate-50 group-hover:text-amber-400 transition">finoline</span>
+      <a href="/" class="flex items-center space-x-2 tracking-tight group" aria-label="finans.in Home">
+        <span class="font-serif text-3xl font-semibold text-slate-50 group-hover:text-amber-400 transition">finans</span>
         <span class="font-mono text-[11px] font-bold text-amber-400 uppercase tracking-widest bg-amber-400/10 px-2 py-0.5 rounded border border-amber-400/30">.in</span>
       </a>
-      <div class="flex items-center space-x-6 text-xs font-mono font-bold uppercase tracking-wider">
+      <nav aria-label="Primary Navigation" class="flex items-center space-x-6 text-xs font-mono font-bold uppercase tracking-wider">
+        <a href="/" class="text-slate-400 hover:text-amber-400 transition hidden sm:inline">Research & Articles</a>
         <a href="/calculators/" class="text-slate-400 hover:text-amber-400 transition">← Calculators Hub</a>
-      </div>
+      </nav>
     </div>
   </header>
 
   <!-- Calculator Main Interface -->
-  <main class="max-w-4xl mx-auto px-6 py-12 flex-grow w-full space-y-10">
+  <main class="max-w-4xl mx-auto px-6 py-12 flex-grow w-full space-y-12">
     
+    <!-- Breadcrumb Navigation -->
+    <nav aria-label="Breadcrumb" class="font-mono text-xs text-slate-500 flex items-center space-x-2">
+      <a href="/" class="hover:text-amber-400 transition">Home</a>
+      <span>/</span>
+      <a href="/calculators/" class="hover:text-amber-400 transition">Calculators</a>
+      <span>/</span>
+      <span class="text-slate-300">SIP Compounder</span>
+    </nav>
+
     <!-- Header -->
-    <div class="space-y-3">
-      <span class="font-mono text-xs font-bold text-amber-400 bg-amber-400/10 border border-amber-400/30 px-3 py-1 rounded uppercase tracking-widest">Equity Compounding</span>
-      <h1 class="font-serif text-3xl md:text-5xl font-normal text-slate-50">SIP & Step-Up Calculator</h1>
-      <p class="text-slate-400 text-sm md:text-base font-light">Type your exact monthly contributions or drag sliders to model long-term compounding.</p>
-    </div>
+    <header class="space-y-3">
+      <span class="font-mono text-xs font-bold text-amber-400 bg-amber-400/10 border border-amber-400/30 px-3 py-1 rounded uppercase tracking-widest">Wealth Compounding</span>
+      <h1 class="font-serif text-3xl md:text-5xl font-normal text-slate-50 leading-tight">Mutual Fund SIP & Step-Up Compounder</h1>
+      <p class="text-slate-400 text-sm md:text-base font-light leading-relaxed">Calculate long-term wealth creation from disciplined monthly SIPs and simulate how annual income step-ups accelerate your path to financial independence.</p>
+    </header>
 
     <!-- Inputs & Outputs Grid -->
-    <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
+    <section aria-label="Interactive SIP Calculator" class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
       
       <!-- Controls Panel -->
       <div class="lg:col-span-6 bg-slate-900 border border-slate-800 p-6 md:p-8 rounded-3xl space-y-6">
         
-        <!-- Monthly Investment -->
+        <!-- Monthly SIP Amount -->
         <div class="space-y-2">
-          <div class="flex justify-between items-center font-mono text-xs">
-            <label class="text-slate-300 font-bold">Monthly SIP Amount (₹)</label>
-            <input type="number" id="sip-num" min="500" max="1000000" step="500" value="25000" oninput="syncFromNum('sip')" class="bg-slate-950 border border-slate-700 focus:border-amber-400 text-amber-400 font-bold text-right px-3 py-1 rounded-lg w-36 outline-none transition">
+          <div class="flex justify-between font-mono text-xs">
+            <label for="sip-amount" class="text-slate-300 font-bold">Monthly SIP Investment</label>
+            <span id="sip-val" class="text-amber-400 font-bold">₹25,000</span>
           </div>
-          <input type="range" id="sip-range" min="500" max="500000" step="500" value="25000" oninput="syncFromRange('sip')" class="w-full accent-amber-400 bg-slate-950 h-2 rounded-lg cursor-pointer">
+          <input type="range" id="sip-amount" min="1000" max="250000" step="1000" value="25000" oninput="calculateSIP()" class="w-full accent-amber-400 bg-slate-950 h-2 rounded-lg cursor-pointer">
         </div>
 
-        <!-- Annual Return Rate -->
+        <!-- Expected Annual Return -->
         <div class="space-y-2">
-          <div class="flex justify-between items-center font-mono text-xs">
-            <label class="text-slate-300 font-bold">Expected Return (% CAGR)</label>
-            <input type="number" id="rate-num" min="1" max="30" step="0.5" value="12.0" oninput="syncFromNum('rate')" class="bg-slate-950 border border-slate-700 focus:border-amber-400 text-amber-400 font-bold text-right px-3 py-1 rounded-lg w-28 outline-none transition">
+          <div class="flex justify-between font-mono text-xs">
+            <label for="sip-rate" class="text-slate-300 font-bold">Expected Annual Return (CAGR)</label>
+            <span id="rate-val" class="text-amber-400 font-bold">12.0%</span>
           </div>
-          <input type="range" id="rate-range" min="1" max="30" step="0.5" value="12" oninput="syncFromRange('rate')" class="w-full accent-amber-400 bg-slate-950 h-2 rounded-lg cursor-pointer">
+          <input type="range" id="sip-rate" min="6" max="22" step="0.5" value="12" oninput="calculateSIP()" class="w-full accent-amber-400 bg-slate-950 h-2 rounded-lg cursor-pointer">
         </div>
 
-        <!-- Duration Years -->
+        <!-- Time Horizon -->
         <div class="space-y-2">
-          <div class="flex justify-between items-center font-mono text-xs">
-            <label class="text-slate-300 font-bold">Time Horizon (Years)</label>
-            <input type="number" id="years-num" min="1" max="50" step="1" value="15" oninput="syncFromNum('years')" class="bg-slate-950 border border-slate-700 focus:border-amber-400 text-amber-400 font-bold text-right px-3 py-1 rounded-lg w-24 outline-none transition">
+          <div class="flex justify-between font-mono text-xs">
+            <label for="sip-years" class="text-slate-300 font-bold">Investment Duration (Years)</label>
+            <span id="years-val" class="text-amber-400 font-bold">20 Years</span>
           </div>
-          <input type="range" id="years-range" min="1" max="40" step="1" value="15" oninput="syncFromRange('years')" class="w-full accent-amber-400 bg-slate-950 h-2 rounded-lg cursor-pointer">
+          <input type="range" id="sip-years" min="1" max="35" step="1" value="20" oninput="calculateSIP()" class="w-full accent-amber-400 bg-slate-950 h-2 rounded-lg cursor-pointer">
         </div>
 
-        <!-- Annual Step-Up -->
+        <!-- Annual Step-Up Percentage -->
         <div class="space-y-2">
-          <div class="flex justify-between items-center font-mono text-xs">
-            <label class="text-slate-300 font-bold">Annual Step-Up (%)</label>
-            <input type="number" id="step-num" min="0" max="50" step="1" value="10" oninput="syncFromNum('step')" class="bg-slate-950 border border-slate-700 focus:border-amber-400 text-amber-400 font-bold text-right px-3 py-1 rounded-lg w-24 outline-none transition">
+          <div class="flex justify-between font-mono text-xs">
+            <label for="sip-stepup" class="text-slate-300 font-bold">Annual SIP Step-Up (%)</label>
+            <span id="stepup-val" class="text-emerald-400 font-bold">10% / yr</span>
           </div>
-          <input type="range" id="step-range" min="0" max="30" step="1" value="10" oninput="syncFromRange('step')" class="w-full accent-amber-400 bg-slate-950 h-2 rounded-lg cursor-pointer">
+          <input type="range" id="sip-stepup" min="0" max="25" step="1" value="10" oninput="calculateSIP()" class="w-full accent-amber-400 bg-slate-950 h-2 rounded-lg cursor-pointer">
         </div>
 
       </div>
@@ -101,30 +194,115 @@
         <div class="grid grid-cols-2 gap-4 border-b border-slate-800 pb-6">
           <div>
             <span class="font-mono text-[11px] text-slate-500 uppercase">Total Invested</span>
-            <p id="total-invested" class="font-serif text-xl font-bold text-slate-200 mt-1">₹0</p>
+            <p id="sip-invested" class="font-serif text-xl font-bold text-slate-200 mt-1">₹0</p>
           </div>
           <div>
-            <span class="font-mono text-[11px] text-amber-400 uppercase">Estimated Gains</span>
-            <p id="total-gains" class="font-serif text-xl font-bold text-amber-400 mt-1">₹0</p>
+            <span class="font-mono text-[11px] text-slate-500 uppercase">Wealth Gained</span>
+            <p id="sip-gains" class="font-serif text-xl font-bold text-emerald-400 mt-1">₹0</p>
           </div>
         </div>
 
-        <div>
-          <span class="font-mono text-[11px] text-slate-500 uppercase">Final Projected Corpus</span>
-          <p id="final-corpus" class="font-serif text-3xl md:text-4xl font-bold text-slate-50 mt-1">₹0</p>
+        <div class="space-y-3">
+          <div>
+            <span class="font-mono text-[11px] text-amber-400 uppercase">Total Maturity Corpus</span>
+            <p id="sip-total" class="font-serif text-2xl md:text-4xl font-bold text-amber-400 mt-1">₹0</p>
+          </div>
+
+          <div class="bg-slate-950 border border-slate-800 p-4 rounded-2xl flex justify-between items-center">
+            <span class="font-mono text-[10px] text-slate-500 uppercase">Wealth Multiplier</span>
+            <p id="sip-multiplier" class="font-mono text-sm font-bold text-emerald-400">0.0x Capital</p>
+          </div>
         </div>
 
-        <!-- Chart Container -->
-        <div class="relative aspect-square max-h-48 mx-auto">
-          <canvas id="sipChart"></canvas>
+        <!-- Doughnut Chart -->
+        <div class="relative aspect-square max-h-48 mx-auto pt-2">
+          <canvas id="sipChart" aria-label="Doughnut chart showing invested principal vs compounding gains"></canvas>
         </div>
 
       </div>
 
-    </div>
+    </section>
 
-    <!-- Bottom Ecosystem Navigation -->
-    <section class="mt-16 pt-12 border-t border-slate-800 bg-slate-900/60 -mx-6 px-6 py-10 rounded-3xl">
+    <!-- SEO Authority Content & Featured Snippet Table -->
+    <article class="pt-8 border-t border-slate-800/80 space-y-10 text-slate-300 font-light leading-relaxed">
+      
+      <section class="space-y-4">
+        <h2 class="font-serif text-2xl md:text-3xl text-slate-50">How Systematic Investment Plan (SIP) Compounding Works</h2>
+        <p class="text-justify">
+          A <strong>Systematic Investment Plan (SIP)</strong> automates wealth creation by investing a fixed sum into equity or hybrid mutual funds every month, regardless of market volatility. When stock prices dip, your fixed rupee installment acquires more mutual fund units; when markets rally, your existing units appreciate—a mechanism known as <strong>rupee-cost averaging</strong>.
+        </p>
+        <p class="text-justify">
+          Pairing a disciplined monthly SIP with an <strong>annual Step-Up (Top-Up)</strong> is the single most reliable method for salaried Indian professionals to outpace lifestyle inflation. Increasing your SIP by just 10% every year after annual appraisals dramatically compresses the time required to reach multi-crore financial independence milestones.
+        </p>
+      </section>
+
+      <!-- Featured Snippet Matrix -->
+      <section class="space-y-4">
+        <h2 class="font-serif text-2xl md:text-3xl text-slate-50">SIP Wealth Accumulation Matrix (At 12% Expected CAGR)</h2>
+        <div class="overflow-x-auto bg-slate-900 border border-slate-800 rounded-2xl">
+          <table class="w-full text-left border-collapse text-sm">
+            <thead>
+              <tr class="border-b border-slate-800 bg-slate-950/70 font-mono text-xs uppercase text-amber-400">
+                <th class="p-4">Monthly SIP</th>
+                <th class="p-4">10 Years Corpus</th>
+                <th class="p-4">15 Years Corpus</th>
+                <th class="p-4">20 Years Corpus (Flat)</th>
+                <th class="p-4">20 Years (10% Step-Up)</th>
+              </tr>
+            </thead>
+            <tbody class="divide-y divide-slate-800/80 text-slate-300 font-mono text-xs">
+              <tr>
+                <td class="p-4 font-bold text-slate-100">₹10,000</td>
+                <td class="p-4">₹23.2 Lakh</td>
+                <td class="p-4">₹50.5 Lakh</td>
+                <td class="p-4">₹99.9 Lakh</td>
+                <td class="p-4 text-emerald-400 font-bold">₹1.99 Crore</td>
+              </tr>
+              <tr>
+                <td class="p-4 font-bold text-slate-100">₹25,000</td>
+                <td class="p-4">₹58.1 Lakh</td>
+                <td class="p-4">₹1.26 Crore</td>
+                <td class="p-4">₹2.50 Crore</td>
+                <td class="p-4 text-emerald-400 font-bold">₹4.97 Crore</td>
+              </tr>
+              <tr>
+                <td class="p-4 font-bold text-slate-100">₹50,000</td>
+                <td class="p-4">₹1.16 Crore</td>
+                <td class="p-4">₹2.52 Crore</td>
+                <td class="p-4">₹5.00 Crore</td>
+                <td class="p-4 text-emerald-400 font-bold">₹9.94 Crore</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+      <!-- FAQ Section -->
+      <section class="space-y-6">
+        <h2 class="font-serif text-2xl md:text-3xl text-slate-50">Frequently Asked Questions (Mutual Fund SIP India)</h2>
+        
+        <div class="space-y-4">
+          <div class="bg-slate-900 border border-slate-800 p-6 rounded-2xl space-y-2">
+            <h3 class="font-serif text-lg font-medium text-amber-400">1. How is Mutual Fund SIP return calculated in India?</h3>
+            <p class="text-sm text-slate-300 text-justify">SIP returns are calculated using the compound future value of an annuity due: <code>FV = P × [((1 + r)^n - 1) / r] × (1 + r)</code>, accounting for monthly compounding on every installment from the date of debit.</p>
+          </div>
+
+          <div class="bg-slate-900 border border-slate-800 p-6 rounded-2xl space-y-2">
+            <h3 class="font-serif text-lg font-medium text-amber-400">2. What is a Step-Up SIP and how much extra wealth does it generate?</h3>
+            <p class="text-sm text-slate-300 text-justify">A Step-Up SIP automatically increases your monthly contribution by a fixed percentage (e.g., 10%) every 12 months. Over 20 years at 12% CAGR, a 10% annual step-up nearly doubles your final maturity corpus compared to keeping your SIP constant.</p>
+          </div>
+
+          <div class="bg-slate-900 border border-slate-800 p-6 rounded-2xl space-y-2">
+            <h3 class="font-serif text-lg font-medium text-amber-400">3. How much monthly SIP is needed to reach ₹1 Crore in 15 years?</h3>
+            <p class="text-sm text-slate-300 text-justify">Assuming a 12% annualized return, a monthly SIP of <strong>₹20,000</strong> builds approximately <strong>₹1.01 Crore</strong> over 15 years on a total principal outgo of ₹36 Lakh.</p>
+          </div>
+        </div>
+      </section>
+
+    </article>
+
+    <!-- Bottom Ecosystem Navigation Grid -->
+    <section aria-label="Related Financial Calculators" class="mt-16 pt-12 border-t border-slate-800 bg-slate-900/60 -mx-6 px-6 py-10 rounded-3xl">
       <div class="max-w-4xl mx-auto space-y-6">
         <div class="flex items-center justify-between">
           <div>
@@ -137,10 +315,12 @@
           </a>
         </div>
 
-        <!-- Quick Switcher Grid -->
         <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-3 font-mono text-xs">
           <a href="/calculators/lumpsum/" class="bg-slate-950 border border-slate-800 hover:border-amber-400 p-3 rounded-xl text-slate-300 hover:text-amber-300 transition text-center font-semibold">
             💰 Lumpsum Calculator
+          </a>
+          <a href="/calculators/tax-regime/" class="bg-slate-950 border border-slate-800 hover:border-amber-400 p-3 rounded-xl text-slate-300 hover:text-amber-300 transition text-center font-semibold">
+            🧾 Old vs New Tax
           </a>
           <a href="/calculators/swp/" class="bg-slate-950 border border-slate-800 hover:border-amber-400 p-3 rounded-xl text-slate-300 hover:text-amber-300 transition text-center font-semibold">
             🏖️ Retirement SWP
@@ -151,17 +331,14 @@
           <a href="/calculators/home-loan/" class="bg-slate-950 border border-slate-800 hover:border-amber-400 p-3 rounded-xl text-slate-300 hover:text-amber-300 transition text-center font-semibold">
             🏡 Home Loan Prepay
           </a>
-          <a href="/calculators/tax-regime/" class="bg-slate-950 border border-slate-800 hover:border-amber-400 p-3 rounded-xl text-slate-300 hover:text-amber-300 transition text-center font-semibold">
-            ⚖️ Tax Regime 2026
-          </a>
           <a href="/calculators/nps/" class="bg-slate-950 border border-slate-800 hover:border-amber-400 p-3 rounded-xl text-slate-300 hover:text-amber-300 transition text-center font-semibold">
             🏛️ NPS Pension Engine
           </a>
           <a href="/calculators/car-loan/" class="bg-slate-950 border border-slate-800 hover:border-amber-400 p-3 rounded-xl text-slate-300 hover:text-amber-300 transition text-center font-semibold">
             🚘 Car Loan EMI
           </a>
-          <a href="/calculators/business-loan/" class="bg-slate-950 border border-slate-800 hover:border-amber-400 p-3 rounded-xl text-slate-300 hover:text-amber-300 transition text-center font-semibold">
-            🏢 Business Loan CC/OD
+          <a href="/calculators/robo-planner/" class="bg-slate-950 border border-slate-800 hover:border-amber-400 p-3 rounded-xl text-slate-300 hover:text-amber-300 transition text-center font-semibold">
+            🤖 AI Robo Planner
           </a>
         </div>
       </div>
@@ -169,75 +346,78 @@
 
   </main>
 
-  <footer class="bg-slate-950 border-t border-slate-800 py-10 px-6 text-center text-xs text-slate-500">
-    <p class="font-serif text-xl font-medium text-slate-200">finoline<span class="font-mono text-xs text-amber-400">.in</span></p>
-    <p class="mt-1">© 2026 finoline.in. Independent financial literacy for self-directed investors.</p>
+  <footer class="bg-slate-950 border-t border-slate-800 py-10 px-6 text-center text-xs text-slate-500 space-y-3">
+    <p class="font-serif text-xl font-medium text-slate-200">finans<span class="font-mono text-xs text-amber-400">.in</span></p>
+    <p>© 2026 finans.in. Independent financial literacy &amp; wealth research for self-directed Indian investors.</p>
+    <div class="flex justify-center space-x-6 font-mono text-[11px] pt-1">
+      <a href="/privacy-policy.html" class="hover:text-amber-400 transition">Privacy Policy</a>
+      <a href="/disclaimer.html" class="hover:text-amber-400 transition">Disclaimer</a>
+    </div>
   </footer>
 
   <script>
-    let chartInstance = null;
+    let sipChartInstance = null;
 
     function formatINR(val) {
       return new Intl.NumberFormat('en-IN', { style: 'currency', currency: 'INR', maximumFractionDigits: 0 }).format(Math.max(0, val));
     }
 
-    function syncFromRange(key) {
-      const val = document.getElementById(`${key}-range`).value;
-      document.getElementById(`${key}-num`).value = val;
-      calculateSIP();
-    }
-
-    function syncFromNum(key) {
-      const val = document.getElementById(`${key}-num`).value;
-      if (val !== '' && !isNaN(val)) {
-        document.getElementById(`${key}-range`).value = val;
-        calculateSIP();
-      }
-    }
-
     function calculateSIP() {
-      const monthlySIP = parseFloat(document.getElementById('sip-num').value) || 0;
-      const cagr = (parseFloat(document.getElementById('rate-num').value) || 0) / 100;
-      const years = parseInt(document.getElementById('years-num').value) || 0;
-      const stepUp = (parseFloat(document.getElementById('step-num').value) || 0) / 100;
+      const initialSip = parseFloat(document.getElementById('sip-amount').value);
+      const annualRate = parseFloat(document.getElementById('sip-rate').value);
+      const years = parseInt(document.getElementById('sip-years').value);
+      const stepUp = parseFloat(document.getElementById('sip-stepup').value) / 100;
 
-      const monthlyRate = cagr / 12;
+      document.getElementById('sip-val').innerText = formatINR(initialSip);
+      document.getElementById('rate-val').innerText = annualRate.toFixed(1) + '%';
+      document.getElementById('years-val').innerText = years + (years === 1 ? ' Year' : ' Years');
+      document.getElementById('stepup-val').innerText = Math.round(stepUp * 100) + '% / yr';
+
+      const monthlyRate = (annualRate / 100) / 12;
       let totalInvested = 0;
-      let corpus = 0;
-      let currentMonthlySIP = monthlySIP;
+      let totalCorpus = 0;
+      let currentMonthlySip = initialSip;
 
-      for (let y = 1; y <= years; y++) {
+      for (let yr = 1; yr <= years; yr++) {
         for (let m = 1; m <= 12; m++) {
-          corpus = (corpus + currentMonthlySIP) * (1 + monthlyRate);
-          totalInvested += currentMonthlySIP;
+          totalInvested += currentMonthlySip;
+          totalCorpus = (totalCorpus + currentMonthlySip) * (1 + monthlyRate);
         }
-        currentMonthlySIP *= (1 + stepUp);
+        currentMonthlySip = currentMonthlySip * (1 + stepUp);
       }
 
-      const totalGains = Math.max(0, corpus - totalInvested);
+      const totalGains = Math.max(0, totalCorpus - totalInvested);
+      const multiplier = totalInvested > 0 ? (totalCorpus / totalInvested).toFixed(2) : '0.00';
 
-      document.getElementById('total-invested').innerText = formatINR(totalInvested);
-      document.getElementById('total-gains').innerText = formatINR(totalGains);
-      document.getElementById('final-corpus').innerText = formatINR(corpus);
+      document.getElementById('sip-invested').innerText = formatINR(totalInvested);
+      document.getElementById('sip-gains').innerText = formatINR(totalGains);
+      document.getElementById('sip-total').innerText = formatINR(totalCorpus);
+      document.getElementById('sip-multiplier').innerText = multiplier + 'x Principal';
 
-      // Render Chart
       const ctx = document.getElementById('sipChart').getContext('2d');
-      if (chartInstance) chartInstance.destroy();
+      if (sipChartInstance) sipChartInstance.destroy();
 
-      chartInstance = new Chart(ctx, {
+      sipChartInstance = new Chart(ctx, {
         type: 'doughnut',
         data: {
-          labels: ['Total Invested', 'Estimated Gains'],
+          labels: ['Invested Principal', 'Wealth Gained'],
           datasets: [{
             data: [totalInvested, totalGains],
             backgroundColor: ['#334155', '#fbbf24'],
-            borderWidth: 0
+            borderWidth: 0,
+            hoverOffset: 4
           }]
         },
         options: {
           responsive: true,
           maintainAspectRatio: false,
-          plugins: { legend: { display: false } }
+          cutout: '70%',
+          plugins: {
+            legend: {
+              position: 'bottom',
+              labels: { color: '#94a3b8', font: { size: 11, family: 'JetBrains Mono' } }
+            }
+          }
         }
       });
     }
