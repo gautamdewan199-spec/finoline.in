@@ -177,13 +177,6 @@
       </div>
 
     </div>
-
-    <!-- Read More Publications Action Container -->
-    <div id="load-more-container" class="mt-12 text-center hidden">
-      <button id="load-more-btn" onclick="revealAllPosts()" class="px-8 py-3.5 bg-slate-900 hover:bg-slate-850 border border-slate-700 hover:border-amber-400 text-amber-400 font-mono text-xs uppercase tracking-widest rounded-xl transition shadow-md">
-        Read More Publications ↓
-      </button>
-    </div>
   </main>
 
   <!-- Featured E-Book Section -->
@@ -252,19 +245,19 @@
     </div>
   </footer>
 
-  <!-- Supabase JS Client & Fetch Script with 9-Post Limit & Read More Logic -->
+  <!-- Supabase JS Client & Fetch Script -->
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
   <script>
-    let allFetchedPosts = [];
-
     (function initFinolineApp() {
+      // Clean base Supabase URL (removed trailing /rest/v1/)
       const SUPABASE_URL = 'https://crogiylnzpufptqflotd.supabase.co';
-      const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImNyb2dpeWxnzB1ZnB0cWZsb3RkIiwicm9sZSI6ImFub24iLCJpYXQiOjE3OTQxMDMwMDUsImV4cCI6MjEwOTY3OTAwNX0.hFVRYYoaIDk49oonVQra_7GIPMEK0uqQqsAPJT45Az4';
+      const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImNyb2dpeWxuenB1ZnB0cWZsb3RkIiwicm9sZSI6ImFub24iLCJpYXQiOjE3OTQxMDMwMDUsImV4cCI6MjEwOTY3OTAwNX0.hFVRYYoaIDk49oonVQra_7GIPMEK0uqQqsAPJT45Az4';
 
+      // Unique client instance variable name to avoid syntax collisions
       const sbClient = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
 
       async function fetchPosts() {
         const container = document.getElementById('posts-container');
-        const loadMoreContainer = document.getElementById('load-more-container');
         
         try {
           const { data: posts, error } = await sbClient
@@ -283,8 +276,23 @@
             return;
           }
 
-          allFetchedPosts = posts;
-          renderPostsGrid(9); // Show initial 9 posts
+          container.innerHTML = posts.map(post => `
+            <article class="bg-slate-900 p-7 rounded-2xl border border-slate-800 shadow-sm hover:border-amber-500/40 transition flex flex-col justify-between group">
+              <div>
+                <div class="flex items-center justify-between text-xs text-slate-500 mb-4">
+                  <span class="font-mono font-bold text-amber-400 bg-amber-400/10 px-2.5 py-1 rounded border border-amber-400/25 uppercase tracking-wider">${post.category || 'Insights'}</span>
+                  <time class="font-mono">${new Date(post.created_at).toLocaleDateString('en-IN', { month: 'short', day: 'numeric', year: 'numeric' })}</time>
+                </div>
+                <h3 class="font-serif text-xl font-semibold text-slate-100 mb-3 leading-snug group-hover:text-amber-300 transition">
+                  <a href="/finoline.in/post.html?slug=${post.slug}">${post.title}</a>
+                </h3>
+                <p class="text-slate-400 text-sm leading-relaxed mb-6 font-light line-clamp-3">${post.excerpt || ''}</p>
+              </div>
+              <a href="/finoline.in/post.html?slug=${post.slug}" class="inline-flex items-center text-xs font-bold uppercase tracking-wider text-amber-400 group-hover:text-amber-300 transition">
+                Read publication <span class="ml-1">→</span>
+              </a>
+            </article>
+          `).join('');
 
         } catch (err) {
           console.error('Error fetching posts:', err);
@@ -297,43 +305,6 @@
 
       document.addEventListener('DOMContentLoaded', fetchPosts);
     })();
-
-    function renderPostsGrid(limit) {
-      const container = document.getElementById('posts-container');
-      const loadMoreContainer = document.getElementById('load-more-container');
-      
-      const postsToShow = allFetchedPosts.slice(0, limit);
-
-      container.innerHTML = postsToShow.map(post => `
-        <article class="bg-slate-900 p-7 rounded-2xl border border-slate-800 shadow-sm hover:border-amber-500/40 transition flex flex-col justify-between group">
-          <div>
-            <div class="flex items-center justify-between text-xs text-slate-500 mb-4">
-              <span class="font-mono font-bold text-amber-400 bg-amber-400/10 px-2.5 py-1 rounded border border-amber-400/25 uppercase tracking-wider">${post.category || 'Insights'}</span>
-              <time class="font-mono">${new Date(post.created_at).toLocaleDateString('en-IN', { month: 'short', day: 'numeric', year: 'numeric' })}</time>
-            </div>
-            <h3 class="font-serif text-xl font-semibold text-slate-100 mb-3 leading-snug group-hover:text-amber-300 transition">
-              <a href="/finoline.in/post.html?slug=${post.slug}">${post.title}</a>
-            </h3>
-            <p class="text-slate-400 text-sm leading-relaxed mb-6 font-light line-clamp-3">${post.excerpt || ''}</p>
-          </div>
-          <a href="/finoline.in/post.html?slug=${post.slug}" class="inline-flex items-center text-xs font-bold uppercase tracking-wider text-amber-400 group-hover:text-amber-300 transition">
-            Read publication <span class="ml-1">→</span>
-          </a>
-        </article>
-      `).join('');
-
-      // Show "Read More Publications" button only if there are more than 9 posts
-      if (allFetchedPosts.length > limit) {
-        loadMoreContainer.classList.remove('hidden');
-      } else {
-        loadMoreContainer.classList.add('hidden');
-      }
-    }
-
-    function revealAllPosts() {
-      renderPostsGrid(allFetchedPosts.length);
-      document.getElementById('load-more-container').classList.add('hidden');
-    }
   </script>
 </body>
 </html>
